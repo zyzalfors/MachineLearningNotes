@@ -93,11 +93,11 @@ Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random v
 The ERM method is the first optimization problem introduced in these notes, highlighting a fundamental connection between statistical machine learning and optimization theory. If one uses the empirical risk minimization method together with the empirical KL divergence, one obtains the so-called \textbf{maximum likelihood} method:
 
 \begin{definition}
-Let $X_1,\dots,X_N \sim f$ be an i.i.d sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D=(x_1\dots,x_N)$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The ERM method (1.6), along with the empirical KL divergence
+Let $X_1,\dots,X_N \sim f$ be an i.i.d sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D=(x_1\dots,x_N)$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The ERM method (1.6), along with the \textbf{empirical KL divergence}
 \begin{equation}
 \hat{R}_L(f,f_\theta)_N(D) := \frac{1}{N}\sum_{k=1}^{N}\ln\frac{f(x_k)}{f_\theta(x_k)} = -\frac{1}{N}\sum_{k=1}^{N}\ln f_\theta(x_k) + \textup{const},
 \end{equation}
-is named the maximum likelihood (ML) method.
+is named the \textbf{maximum likelihood (ML)} method.
 \end{definition}
 
 Combining equations (1.7) and (1.6) yields the following optimization problem, which determines the so-called \textbf{maximum likelihood (ML)} estimator:
@@ -192,15 +192,15 @@ Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random v
 
 It is evident that the empirical risk in (1.5) is a realization of the empirical risk estimator in (1.16), and the latter quantity is a random variable depending on the data set $D$.
 
-The empirical risk is useful for efficiently approximating the true risk because it is an unbiased and consistent estimator of the true risk. These properties rely heavily on the assumption that the data set is i.i.d.. Let us now formalize these concepts:
+The empirical risk is useful for efficiently approximating the true risk because it is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk. These properties rely heavily on the assumption that the data set is i.i.d.. Let us now formalize these concepts:
 
 \begin{proposition}
 Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space. The empirical risk (1.16) is an \textbf{unbiased} and \textbf{consistent} estimator of true risk (1.2):
 \begin{equation}
- E_{X_1,...,X_N}[\hat{R}_L(f,f_\theta)_N] = R_L(f,f_\theta).
+ E_{X_1,...,X_N}[\hat{R}_L(f,f_\theta)_N] = R_L(f,f_\theta),
 \end{equation}
 \begin{equation}
- \lim_{N\to \infty}(|\hat{R}_L(f,f_\theta)_N-R_L(f,f_\theta)| > \epsilon) = 0.
+ \lim_{N\to \infty}P(|\hat{R}_L(f,f_\theta)_N-R_L(f,f_\theta)| > \epsilon) = 0.
  \end{equation}
 \end{proposition}
 
@@ -214,7 +214,7 @@ This section is dedicated to the \textbf{statistical learning theory} perspectiv
 
 Learning theory is a complementary paradigm that aims to resolve \textbf{predictive} tasks rather than inferential ones. Roughly speaking, its main goal is not to infer (learn) the distribution that generated the data in $D$ but to use them to learn relations between random variables $X$ and $Y$ (defined on $\Omega$). These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$.
 
-The learning theory paradigm answers questions beyond those addressed by statistical inference, doing so in a manner that is \textbf{independent of specific statistical models and data distributions}. For example, it investigates how many samples in the data set $D$ are necessary to achieve effective learning, independently of the distribution that generates the data set $D$. The theory states that this sample complexity is closely related to the \textbf{complexity} of the hypothesis—often measured by the number of parameters characterizing the hypothesis—and how it influences both the efficiency of learning and the model’s ability to \textbf{generalize} to unseen data during the learning phase.
+The learning theory paradigm answers questions beyond those addressed by statistical inference, doing so in a manner that is \textbf{independent of specific statistical models and data distributions}. For example, it investigates how many samples in the data set $D$ are necessary to achieve effective learning, independently of the distribution that generates the data set $D$. The theory states that this sample complexity is closely related to the \textbf{complexity} of the hypothesis—often measured by the number of \textbf{parameters} characterizing the hypothesis—and how it influences both the efficiency of learning and the model’s ability to \textbf{generalize} to unseen data during the learning phase.
 
 These questions are addressed within a probabilistic framework that differs from the inferential one we used, as it essentially leaves \textbf{unspecified} the statistical inference applied to the data set.
 
@@ -237,7 +237,7 @@ where $L :\mathcal{Y} \times \mathcal{Y} \to \mathbb{R}$ is the \textbf{loss} fu
 
 To obtain the best hypothesis, we need to minimize the risk, to obtain the \textbf{Bayes optimal hypothesis}: 
 \begin{equation}
-h^* := h_{\theta^*} := \arg \min_{h_\theta \in H : \theta \in \Theta} R_L(h_\theta). 
+h^* := \arg \min_{h_\theta \in H} R_L(h_\theta). 
 \end{equation}
 
 Since the real distribution $f(x,y)$ is generally unknown, one introduces the \textbf{empirical risk} as a proxy for the real risk (recall Definition 1.13):
@@ -248,7 +248,7 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \t
 \end{equation}
 \end{definition}
 
-It is easy to understand that the empirical risk in learning theory is an unbiased and consistent estimator for the real risk, similar to what we have established in the inference framework.
+It is easy to understand that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator for the real risk, similar to what we have established in the inference framework.
 
 The empirical risk minimization provides the ERM estimator of learning theory:
 \begin{definition}
@@ -261,7 +261,7 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \t
 The previous definition illustrates how the value of the parameters corresponding to the minimizer hypothesis can be considered an \textbf{estimator}, because its value varies randomly with the data set $D$. However, in this case, the estimated value does not correspond to any obvious parameter of a probability density function (PDF). In some cases, it is possible to introduce an inferential interpretation for the estimator (1.22) by selecting a suitable loss function $L$, such that the learning theory empirical risk (1.21) coincides with the inferential empirical risk (1.16).
 
 \begin{definition}
-The hypothesis space $H = \left\{h : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic PAC learnable} with respect to the loss $L$ if there exists a learning algorithm $A$ and a sample complexity function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon,\delta \in (0,1)$, for all distributions $f_{X,Y}$ over $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. data set $D$ that realizes the sequence of random variables $((X_1, Y_1),\dots,(X_N, Y_N))$ drawn from $f_{X,Y}$ with size $N\geq N_H(\epsilon,\delta)$, the following holds:
+The hypothesis space $H = \left\{h : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic PAC learnable} with respect to the loss $L$ if there exists a learning algorithm $A$ and a sample complexity function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon,\delta \in (0,1)$, for all distributions $f_{X,Y}$ over $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. data set $D$ that realizes the sequence of random variables $(X_1, Y_1),\dots,(X_N, Y_N)$ drawn from $f_{X,Y}$ with size $N\geq N_H(\epsilon,\delta)$, the following holds:
 \begin{equation}
 P\left(R_L(A(X_1, Y_1,\dots\,X_N, Y_N)) - \min_{h\in H}R_L(h) > \epsilon\right) < \delta,
 \end{equation}
