@@ -1,1 +1,6 @@
-# MachineLearningNotes
+# Machine Learning Notes
+These brief informal notes aim to concisely—but not exhaustively—illustrate some mathematical aspects of machine learning. The emphasis is on general conceptualization and the connections between this discipline and other mathematical fields, such as statistical inference, computational statistics, statistical learning, statistical decision theory, optimization theory, information theory, and others.
+
+In broad terms, machine learning is a specialized subfield of artificial intelligence that draws on various techniques and knowledge from multiple mathematical domains to enable computers to solve problems that are intractable using traditional algorithmic methods. Unfortunately, these disciplines often use different terminologies, notations, and modes of reasoning, which can make it challenging for scientists who are not specialists in these areas to develop a unified understanding of the underlying principles.
+
+These notes seek to bridge this gap by providing readers with a unified and synthetic overview of the general prerequisites and foundational concepts. However, they are not intended to replace authoritative papers and textbooks, where more thorough explanations and detailed examples can be found. Additionally, these notes do not cover the practical implementation of mathematical techniques using specific programming languages, frameworks, or libraries.
