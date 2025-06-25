@@ -28,9 +28,9 @@ X_1,\dots,X_N \sim f.
 \end{equation}
 \end{definition}
 
-The last definition is completely general, and the distribution $f$ can be any distribution relevant to the problem under investigation; it may be the distribution of a single variable $X$ (denoted $f_X$), or a joint, marginal, or conditional distribution. In these notes, we will explore which distribution is most appropriate depending on the problem at hand. It is important to emphasize that Definition 1.1 only describes the general nature of the mathematical problem in machine learning, but does not specify how it is mathematically formulated or approximately solved.
+The last definition is completely general, and the distribution $f$ can be any distribution relevant to the problem under investigation; it may be the distribution of a single variable $X$ (denoted $f_X$), or a joint, marginal, or conditional distribution. In these notes, we will explore which distribution is most appropriate depending on the problem at hand. It is important to emphasize that Definition 1.1 only describes the general nature of the mathematical problem in machine learning, but does not specify how it is mathematically formulated or solved.
 
-Usually, the distribution $f$ is inferred (learned) by searching within a fixed set of probability density functions, which is called a \textbf{statistical model}. The inference problem is called \textbf{parametric} if any distribution in the statistical model ($f_\theta$) can be parameterized by quantities $\theta \in \Theta \subseteq \mathbb{R}^d$, which are referred to as \textbf{parameters} or \textbf{weights}; otherwise, it is called \textbf{non-parametric}. The process of performing inference from data, implemented in an algorithmic manner in computational contexts, is also known as learning (or fitting or training) in the machine learning literature.
+Usually, the distribution $f$ is inferred (learned) by searching within a fixed set of probability density functions, which is called a \textbf{statistical model}. The inference problem is called \textbf{parametric} if any distribution in the statistical model ($f_\theta$) can be parameterized by quantities $\theta \in \Theta \subseteq \mathbb{R}^d$, which are referred to as \textbf{parameters} or \textbf{weights}; otherwise, it is called \textbf{non-parametric}. The process of performing inference from data, implemented in an algorithmic manner in computational contexts, is also known as \textbf{learning} (or \textbf{fitting} or \textbf{training}) in the machine learning literature.
 
 \section{Statistical foundations}
 In what follows, we focus primarily on \textbf{parametric} problems and assume that the random variables are \textbf{independent and identically distributed} (i.i.d.). We will adopt a \textbf{frequentist} approach, in which the parameters $\theta$ are fixed but unknown quantities.
@@ -206,7 +206,7 @@ Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random v
 
 It is interesting to note that the consistency of the empirical risk is related to the \textbf{law of large numbers}, as stated in the following proposition:
 \begin{proposition}
-Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space. Consider the loss function $L(f(X), f_\theta(X))$ as a random variable. Therefore, the sequence $L(f(X_1),f_\theta(X_1)),\dots,L(f(X_N),f_\theta(X_N))$ is also i.i.d. and satisfies the \textbf{law of large numbers}. Consequently, the empirical risk estimator defined in (1.16) is consistent.
+Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the loss function $L(f(X), f_\theta(X))$ as a random variable. Therefore, the sequence $L(f(X_1),f_\theta(X_1)),\dots,L(f(X_N),f_\theta(X_N))$ is also i.i.d. and satisfies the \textbf{law of large numbers}. Consequently, the empirical risk estimator defined in (1.16) is consistent.
 \end{proposition}
 
 \section{Statistical learning theory foundations} 
@@ -232,7 +232,7 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \t
 \begin{equation}
 R_L(h_\theta) := E_{X,Y}[L(h_\theta(X),Y)] = \int_{\mathcal{X} \times \mathcal{Y}} L(h_\theta(x),y)f(x,y)dxdy,
 \end{equation}
-where $L :\mathcal{Y} \times \mathcal{Y} \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(h_\theta(X), Y)$ is a random variable.  
+where $L :\mathcal{Y}^2 \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(h_\theta(X), Y)$ is a random variable.  
 \end{definition}
 
 To obtain the best hypothesis, we need to minimize the risk, to obtain the \textbf{Bayes optimal hypothesis}: 
@@ -240,7 +240,7 @@ To obtain the best hypothesis, we need to minimize the risk, to obtain the \text
 h^* := \arg \min_{h_\theta \in H} R_L(h_\theta). 
 \end{equation}
 
-Since the real distribution $f(x,y)$ is generally unknown, one introduces the \textbf{empirical risk} as a proxy for the real risk (recall Definition 1.13):
+Since the real distribution $f(x,y)$ is generally unknown, one introduces the \textbf{empirical risk} as a proxy for the real risk:
 \begin{definition}
 Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $\left\{h_\theta : \mathcal{X} \to \mathcal{Y} :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{empirical risk} is an estimator of true risk (1.19) and is defined as the \textbf{empirical mean} of the loss function $L(h_\theta(X), Y)$, considered as a random variable:
 \begin{equation}
@@ -320,9 +320,9 @@ where the region
 \begin{equation}
 \mathcal{R}_y(\theta) := \left\{x \in \mathbb{R}^n : f_\theta(y|x) > f_\theta(y'|x), \forall y' \neq y\right\} \subset \mathbb{R}^n
 \end{equation}
-is named the \textbf{decision rule} for the class $y \in C$. The \textbf{decision boundary} between classes $y$ and $y'$ is defined as:
+is named the \textbf{decision rule} for the class $y \in C$. The \textbf{decision boundary} between classes $y$ and $y'\neq y$ is defined as:
 \begin{equation}
-\mathcal{D}_{yy'}(\theta) :=\left\{x \in \mathbb{R}^n : f_\theta(y|x) = f_\theta(y'|x), \forall y' \neq y \right\}.
+\mathcal{D}_{yy'}(\theta) :=\left\{x \in \mathbb{R}^n : f_\theta(y|x) = f_\theta(y'|x) \right\}.
 \end{equation}
 Decision rules and decision boundaries satisfy the following relations:
 \begin{equation}
@@ -339,7 +339,7 @@ It is important to emphasize that the decision rules in (2.7) depend on paramete
 The definitions (2.2) and (2.3) are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts:
 
 \begin{definition}
-A classification problem and its statistical model (2.4), as defined in Definition 2.2, are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function. Otherwise, they are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' theorem to the joint distribution $f(x,y)$ as follows:
+A classification problem and its statistical model (2.4), as defined in Definition 2.2, are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function. Otherwise, they are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f(x,y)$ as follows:
 \begin{equation}
 f_\theta(y|x) \propto f_\theta(x,y) = f_\theta(y)f_\theta(x|y),
 \end{equation}
@@ -421,9 +421,9 @@ If $y_1 = -y_2 = 1$, the classification function can be compactly represented as
 c_\theta(x) = \frac{|b_\theta(x)|}{b_\theta(x)}.
 \end{equation}
 
-The geometric interpretation of (2.22) and (2.23) is straightforward: a pattern $x$ belongs to class $y_1 (=1)$ if it lies in the "upper" half-space, or to class $y_2(=-1)$ if it lies in the "lower" half-space, relative to the direction of the vector $(\theta_1,\dots,\theta_n) \in \mathbb{R}^n$, which is orthogonal to the separating hyperplane.
+The geometric interpretation of (2.23) and (2.24) is straightforward: a pattern $x$ belongs to class $y_1 (=1)$ if it lies in the "upper" half-space, or to class $y_2(=-1)$ if it lies in the "lower" half-space, relative to the direction of the vector $(\theta_1,\dots,\theta_n) \in \mathbb{R}^n$, which is orthogonal to the separating hyperplane.
 
-The linear binary logistic classification described earlier can be generalized to handle \textbf{nonlinear} decision boundaries by incorporating nonlinear functions $b_\theta(x)$. For example, using quadratic functions in $x$, one can describe decision boundaries represented by \textbf{hyperconics} such as hyperspheres, hyperellipsoids, hyperparaboloids, and so on:
+The linear binary logistic classification described earlier can be generalized to handle \textbf{nonlinear} decision boundaries by incorporating nonlinear functions $b_\theta(x)$. For example, using \textbf{quadratic} functions in $x$, one can describe decision boundaries represented by \textbf{hyperconics} such as hyperspheres, hyperellipsoids, hyperparaboloids, and so on:
 \begin{equation}
  b_\theta(x) := \sum_{k=1}^{n}\sum_{j=1}^{n}q_{kj}(\theta)(x_k-a_k)(x_j - a_j),
 \end{equation}
@@ -432,34 +432,34 @@ where the coefficients $q_{kj}$ depend on the parameters $\theta$, and $(a_1,\do
 Let us now consider an important example of the generative classification problem that uses the Gaussian distribution, which is called \textbf{Gaussian discriminant analysis}, and explore its properties.
 
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{Gaussian discriminat analysis} (GDA) is the generative classification problem defined by the following statistical model:
+Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{Gaussian discriminat analysis (GDA)} is the \textbf{generative} classification problem defined by the following statistical model:
 \begin{equation}
-f_\theta(y|x) := A \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{A\Pi(y)}{\sqrt{2\pi\det \Sigma(y)}}\exp\left [-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
+f_\theta(y|x) := A \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{A\Pi(y)}{\sqrt{(2\pi)^N\det \Sigma(y)}}\exp\left [-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
 \end{equation}
-where $A$ is the normalization factor, $\Pi(y)$ is the prior distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the mean vector and 
-the covariance matrix of the Gaussian associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
+where $A$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and 
+the \textbf{covariance} matrix of the Gaussian associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
 \end{definition}
 
 The following proposition illustrates the properties of the decision boundaries in GDA.
 
 \begin{proposition}
-For any pair of labels $y$ and $y'\neq y$, the decision boundary of a GDA problem is given by the following Cartesian equation:
+For any pair of labels $y$ and $y'\neq y$, the decision boundary of a GDA is given by the following Cartesian equation:
 \begin{equation}
 \frac{1}{2}x^T[\Sigma^{-1}(y)-\Sigma^{-1}(y')]x+[\mu(y')\Sigma^{-1}(y') - \mu(y)\Sigma^{-1}(y)]x + const = 0,
 \end{equation}
 where $const$ denotes the remaining terms that do not depend on the pattern $x$.
 \end{proposition}
 
-The relation (2.27) illustrates that all decision boundaries are \textbf{quadratic}, and for this reason, GDA is also called \textbf{quadratic discriminant analysis}. In the case where all covariance matrices do not depend on class $y$, the decision boundary is \textbf{linear} and GDA is also called \textbf{linear discriminant analysis}.
+The relation (2.27) illustrates that all decision boundaries are \textbf{quadratic}, and for this reason, GDA is also called \textbf{quadratic discriminant analysis}. In the case where all covariance matrices do not depend on class $y$, the decision boundary is \textbf{linear} and GDA is also called \textbf{linear discriminant analysis}. It is important to emphasize that the term "discriminant" appears to be inconsistent because the model is generative, not discriminative.
 
 Another example of a generative classification problem is the so-called \textbf{naive Bayes} problem defined as follows:
 
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{naive Bayes} problem is the generative classification problem defined by the following statistical model:
+Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{naive Bayes} problem is the \textbf{generative} classification problem defined by the following statistical model:
 \begin{equation}
-f_\theta(y|x) := A\Pi_\theta(y)f_\theta(x|y) = A \Pi_\theta(y)\prod_{k=1}^nf_\theta(x_k|y),
+f_\theta(y|x) := A\Pi_\theta(y)f_\theta(x|y) = A \Pi_\theta(y)\prod_{k=1}^nf_\theta(x^{(k)}|y),
 \end{equation}
-where A is the normalization factor, $\Pi_\theta(y)$ is the prior distribution of $y$, and it is assumed that the components of the pattern vector $x = (x_1,\dots,x_n)$ are \textbf{conditionally independent} given the class $y$. This simplifying assumption is known as the \textbf{naive Bayes hypothesis}, and permits the product decomposition in the right-hand side in (2.28).
+where A is the normalization factor, $\Pi_\theta(y)$ is the \textbf{prior} distribution of $y$, and it is assumed that the components of the pattern vector $x = (x^{(1)},\dots,x^{(n)})$ are \textbf{conditionally independent} given the class $y$. This simplifying assumption is known as the \textbf{naive Bayes hypothesis}, and permits the product decomposition on the right-hand side in (2.28).
 \end{definition}
 
 \section{Learning theory}
