@@ -126,7 +126,7 @@ The \textbf{bias} of the point estimator $\hat{\theta}_N$ is defined as
 \begin{equation}
 BIAS(\hat{\theta}_N,\theta) := E_{X_1,\dots,X_N}[\hat{\theta}_N] - \theta.
 \end{equation}
-A point estimator is said to be \textbf{unbiased} if its bias is zero. 
+A point estimator is said to be \textbf{unbiased} if its bias is zero.
 \end{definition}
 
 The bias quantifies how far the estimate $\hat{\theta}_N$ is from $\theta$ on average. Heuristically, unbiased estimators are generally more desirable than biased ones because they are, on average, more accurate.
@@ -159,7 +159,7 @@ MSE(\hat{\theta}_N,\theta) = ||BIAS(\hat{\theta}_N,\theta)||^2 + VAR(\hat{\theta
 \end{equation}
 \end{proposition}
 
-This result makes unbiased estimators good candidates due to their zero bias. However, it is important to emphasize that having zero (or small) bias alone is not sufficient to assess an estimator’s quality; the variance in (1.13) also plays a crucial role in evaluating the MSE. A low-bias estimator (i.e., accurate on average) with high variance may produce imprecise predictions and fluctuate significantly depending on the data set $x_1,\dots,x_N$. A good estimator is therefore one that is unbiased and exhibits low variance. 
+This result makes unbiased estimators good candidates due to their zero bias. However, it is important to emphasize that having zero (or small) bias alone is not sufficient to assess an estimator’s quality; the variance in (1.13) also plays a crucial role in evaluating the MSE. A low-bias estimator (i.e., accurate on average) with high variance may produce imprecise predictions and fluctuate significantly depending on the data set $x_1,\dots,x_N$. A good estimator is therefore one that is unbiased and exhibits low variance.
 
 The MSE is a good criterion for evaluating estimator performance because it quantifies the deviation of the estimator $\hat{\theta}_N$ from the true value $\theta$, as expressed in the following proposition:
 
@@ -209,11 +209,10 @@ It is interesting to note that the consistency of the empirical risk is related 
 Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the loss function $L(f(X), f_\theta(X))$ as a random variable. Therefore, the sequence $L(f(X_1),f_\theta(X_1)),\dots,L(f(X_N),f_\theta(X_N))$ is also i.i.d. and satisfies the \textbf{law of large numbers}. Consequently, the empirical risk estimator defined in (1.16) is consistent.
 \end{proposition}
 
-\section{Statistical learning theory foundations} 
+\section{Statistical learning theory foundations}
 This section is dedicated to the \textbf{statistical learning} theory perspective of machine learning. It is explored through the framework of \textbf{probably approximately correct (PAC)} learning. Our goal is to illustrate the fundamental principles of this theory and to compare the inferential approach with the learning theory approach, highlighting how these two frameworks complement each other.
 
-Learning theory is a complementary paradigm that aims to solve \textbf{predictive} tasks rather than inferential ones. Roughly speaking, its main goal is not to infer (or learn) the distribution that generated the data in 
-$D$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$ (defined on $\Omega$). These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. The hypotheses are assumed to belong to the set $H$ that is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
+Learning theory is a complementary paradigm that aims to solve \textbf{predictive} tasks rather than inferential ones. Roughly speaking, its main goal is not to infer (or learn) the distribution that generated the data in $D$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$ (defined on $\Omega$). These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. The hypotheses are assumed to belong to the set $H$ that is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
 
 The learning theory paradigm addresses questions beyond those tackled by statistical inference, doing so in a way that does not depend on specific statistical models or data distributions. For instance, it studies the number of samples in a data set $D$—known as the \textbf{sample complexity}—that are necessary to achieve effective learning, irrespective of the underlying distribution generating $D$. According to the theory, this sample complexity is closely connected to the \textbf{complexity} of the hypothesis—often measured by the number of parameters describing it—and this relationship affects both the efficiency of the learning process and the model's ability to \textbf{generalize} to unseen data during training.
 
@@ -242,7 +241,7 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal
 \begin{equation}
 R(h_\theta) := E_{X,Y}[L(h_\theta(X),Y)] = \int_{\mathcal{X} \times \mathcal{Y}} L(h_\theta(x),y)f_{X,Y}(x,y)dxdy,
 \end{equation}
-where $L :\mathcal{Y}^2 \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(h_\theta(X), Y)$ is a random variable.  
+where $L :\mathcal{Y}^2 \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(h_\theta(X), Y)$ is a random variable.
 \end{definition}
 
 The optimal value of $h_\theta$ can then be determined by \textbf{minimizing} this risk:
@@ -309,7 +308,7 @@ The excess risk can be bounded as
 \begin{equation}
  R(\hat{h}_N)-R^* \leq R_{opt} + 2R_{gen} + R_{app},
 \end{equation}
-where 
+where
 \begin{itemize}
 \item $R_{opt} := \hat{R}_N(\hat{h}_N)-\hat{R}_N(\hat{h}^{ERM}_N)$ is named \textbf{optimization error}
 \item $R_{gen} := \sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|$ is named \textbf{generalization error}
@@ -346,7 +345,7 @@ f(x|y) \neq f_X(x).
 To perform classification, it is reasonable to assume that the variables $X$ and $Y$ are dependent; otherwise, there would be no correlation between them, rendering the classification problem meaningless. Therefore, we assume dependence between $X$ and $Y$, and consider the conditional probability density function $f(y|x)$, which captures the dependence of $Y$ on $X$, as a suitable model candidate. The following definition formalizes this reasoning:
 
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{classification problem} aims to infer (or learn) the parameters $\theta$ of the statistical model 
+Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{classification problem} aims to infer (or learn) the parameters $\theta$ of the statistical model
 \begin{equation}
 \left\{f_\theta(y|x) : \theta \in \Theta \subseteq \mathbb{R}^d\right\}
 \end{equation}
@@ -361,7 +360,7 @@ The classification function has an intuitive interpretation: the class of a patt
 We provide an equivalent geometric definition of classification:
 
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{classification problem} aims to infer (or learn) from the data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the family of regions of $\mathbb{R}^n$ defined as follows: 
+Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{classification problem} aims to infer (or learn) from the data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the family of regions of $\mathbb{R}^n$ defined as follows:
 \begin{equation}
 \mathcal{R}_C(\theta) := \left\{\mathcal{R}_y(\theta) \subset \mathbb{R}^n : y \in C\right\},
 \end{equation}
@@ -485,7 +484,7 @@ Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. 
 \begin{equation}
 f_\theta(y|x) := A \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{A\Pi(y)}{\sqrt{(2\pi)^N\det \Sigma(y)}}\exp\left [-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
 \end{equation}
-where $A$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and 
+where $A$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and
 the \textbf{covariance} matrix of the Gaussian associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
 \end{definition}
 
@@ -541,7 +540,7 @@ find a statistical model and a set of suitable random variables (assumed i.i.d.)
 
 
 \begin{definition}
-Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)})) \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} aims to infer (or learn) the parameters $\theta$ of the distribution 
+Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)})) \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} aims to infer (or learn) the parameters $\theta$ of the distribution
 \begin{equation}
 f_\theta(y|x),
 \end{equation}
@@ -554,7 +553,7 @@ from data in $D$. The \textbf{regression function} $r : \mathbb{R}^n \to \mathbb
 In the last definition, the data $x$ is regarded as \textbf{fixed} before inference, this fact is called \textbf{fixed design}. In applications, the final objective is to infer the regression function from data. To explain this related problem, we illustrate an equivalent definition of linear regression that has a more \textbf{machine learning flavor}.
 
 \begin{definition}
-Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)})) \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} aims to infer (or learn) the parameters $\theta$ from data in $D$, where one assumes the following relation between $X$ and $Y$: 
+Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)})) \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} aims to infer (or learn) the parameters $\theta$ from data in $D$, where one assumes the following relation between $X$ and $Y$:
 \begin{equation}
 Y = r_\theta(x) + \epsilon,
 \end{equation}
@@ -654,7 +653,7 @@ The following proposition illustrates some properties of estimators (2.13).
 \begin{proposition}
 The estimator in (2.13) has the following properties:
 \begin{itemize}
-\item The estimator is unbiased and distributed according to $\mathcal{N}(\theta, COV(\hat{\theta}_N))$, where 
+\item The estimator is unbiased and distributed according to $\mathcal{N}(\theta, COV(\hat{\theta}_N))$, where
 \begin{equation}
 COV(\hat{\theta}_N) = \hat{\sigma}_N^2(\bar{x}^T\bar{x})^{-1}.
 \end{equation}
@@ -662,7 +661,7 @@ COV(\hat{\theta}_N) = \hat{\sigma}_N^2(\bar{x}^T\bar{x})^{-1}.
 \begin{equation}
 VAR(\hat{\theta}_N) = \hat{\sigma}^2_N\textup{tr}((\bar{x}^T\bar{x})^{-1}) \sim d/N.
 \end{equation}
-\item The estimator is consistent: $MSE(\hat{\theta}_N) = VAR(\hat{\theta}_N) \to 0$ if $N \to \infty$. 
+\item The estimator is consistent: $MSE(\hat{\theta}_N) = VAR(\hat{\theta}_N) \to 0$ if $N \to \infty$.
 \end{itemize}
 \end{proposition}
 
@@ -674,7 +673,7 @@ We now focus on some properties of the regression function $r_\theta(x)$ and ill
 Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)}))$ be an i.i.d. data set and consider the regression problem of Definition 2.2. For any fixed value $x$ the quantity $r_{\hat{\theta}_N}(x)$ is an estimator of the true value of the regression function $r(x) = E(Y|X = x)$, corresponding to the estimator $\hat{\theta}_N$. The MSE of the estimator $r_{\hat{\theta}_N}(x)$ is given by:
 \begin{equation}
 \begin{split}
-MSE(r_{\hat{\theta}_N}(x),r(x)) &= E_D(||r_{\hat{\theta}_N}(x) - r(x)||^2) \\ 
+MSE(r_{\hat{\theta}_N}(x),r(x)) &= E_D(||r_{\hat{\theta}_N}(x) - r(x)||^2) \\
 &=||E_D(r_{\hat{\theta}_N}(x)) - r(x)||^2+E_D(||E_D(r_{\hat{\theta}_N}(x)) - r_{\hat{\theta}_N}(x)||^2)\\
 &=||BIAS(r_{\hat{\theta}_N}(x), r(x))||^2 + VAR(r_{\hat{\theta}_N}(x)),
 \end{split}
@@ -698,7 +697,7 @@ A general principle that characterizes the behavior of bias and variance of esti
 To reduce the phenomenon of overfitting in regression, in the literature were introduced modified versions of regression that are \textbf{regularized}. Let us define this more precisely.
 
 \begin{definition}
-Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)}))$ be an i.i.d. data set. The regression problem defined in Definition 2.3 is called \textbf{regularized (or $L^2-$regularized, or ridge)} if one assumes the following form for the probability distribution in (2.4): 
+Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)}))$ be an i.i.d. data set. The regression problem defined in Definition 2.3 is called \textbf{regularized (or $L^2-$regularized, or ridge)} if one assumes the following form for the probability distribution in (2.4):
 \begin{equation}
 f_\theta(y|x;\sigma^2) := \alpha\mathcal{N}(y;r_\theta(x),\sigma^2)f(\theta, \sigma^2),
 \end{equation}
@@ -754,7 +753,7 @@ The resulting estimator in (2.30) is called the \textbf{regularized least square
 \begin{proposition}
 The estimator in (2.30) has the following properties for all $\lambda \geq 0$:
 \begin{itemize}
-\item The estimator is distributed according to $\mathcal{N}(\hat{\theta}_N^{(\lambda)}, COV(\hat{\theta}_N^{(\lambda)}))$, where 
+\item The estimator is distributed according to $\mathcal{N}(\hat{\theta}_N^{(\lambda)}, COV(\hat{\theta}_N^{(\lambda)}))$, where
 \begin{equation}
 E(\hat{\theta}_N^{(\lambda)}) =  (\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-1}\bar{x}^T\bar{x}\theta = \theta -N\lambda (\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-1}\theta,
 \end{equation}
