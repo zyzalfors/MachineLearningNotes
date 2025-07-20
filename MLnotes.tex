@@ -321,7 +321,7 @@ The generalization error is very important because it is related to the \textbf{
 \begin{definition}
 Let $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y}\right\}$ be a hypothesis space and $L:\mathcal{Y}^2 \to \mathbb{R}$ a loss function. Let $b : (0,1) \times \mathbb{N} \to (0,\infty)$ be such that for all $\delta \in (0,1)$ holds $b(\delta, N) \to 0$ for $N \to \infty$. We call b \textbf{generalization bound} for $H$ if for all \textbf{distributions} $f_{X,Y}$ on $\mathcal{X} \times \mathcal{Y}$, all $N \in \mathbb{N}$, and all $\delta \in (0,1)$, the following holds:
 \begin{equation}
-  P\left(\sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|\right) \leq b(\delta, N).
+P\left(\sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|\leq b(\delta, N)\right) \geq 1-\delta.
 \end{equation}
 
 \end{definition}
