@@ -294,14 +294,14 @@ The previous definition illustrates how the parameter values corresponding to th
 The main concept of learning theory is the \textbf{agnostic PAC learnability} of a hypothesis set, which is defined as follows:
 
 \begin{definition}
-The hypothesis space $H = \left\{h : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic probably approximately correct (PAC) learnable} with respect to the \textbf{loss function} $L$ if there exists a \textbf{learning algorithm} $A_H$ and a \textbf{polynomial} function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon > 0,\delta \in (0,1)$, for all \textbf{distributions} $f_{X,Y}$ over $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. \textbf{data set} $D$ that realizes the sequence of i.i.d. random variables $(X_1, Y_1),\dots,(X_N, Y_N)$ drawn from $f_{X,Y}$ with \textbf{sample complexity} $N\geq N_H(1/\epsilon,1/\delta)$, the following holds:
+The hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic probably approximately correct (PAC) learnable} with respect to the \textbf{loss function} $L$ if there exists a \textbf{learning algorithm} $A_H$ and a \textbf{polynomial} function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon > 0,\delta \in (0,1)$, for all \textbf{distributions} $f_{X,Y}$ on $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. \textbf{data set} $D$ that realizes the sequence of i.i.d. random variables $(X_1, Y_1),\dots,(X_N, Y_N)$ drawn from $f_{X,Y}$ with \textbf{sample complexity} $N\geq N_H(1/\epsilon,1/\delta)$, the following holds:
 \begin{equation}
 P\left(R(\hat{h}_N) - R^* \leq \epsilon\right) \geq 1- \delta,
 \end{equation}
 where $\hat{h}_N := h_{\hat{\theta}_N} := A_H(X_1, Y_1,\dots\,X_N, Y_N)$ is the (random) hypothesis selected by $A_H$. The quantity $R(\hat{h}_N) - R^*$ is named \textbf{excess risk}.
 \end{definition}
 
-Definition 1.19 has the following intuitive meaning: the hypothesis space is \textbf{learnable} if, given a fixed loss function $L$, there exists an algorithm that produces random hypotheses $h_N$ and their corresponding risks $R(h_N)$ such that, with high probability, these risks are close to the minimal possible values. This learnability property does not depend on distribution $f_{X,Y}$, but depends on the number of samples $N$, which must be greater than a threshold $N_H(1/\epsilon,1/\delta)$ that depends on the accuracy parameters $\epsilon,\delta$. Since $N_H$ is polynomial, \textbf{smaller} values of $\epsilon$ and \textbf{smaller} values of $\delta$ imply a \textbf{greater} value of $N$ to guarantee learnability.
+The Definition 1.19 involves two approximation parameters. The accuracy parameter $\epsilon$, which specifies how close the output hypothesis must be to the optimal hypothesis (this corresponds to the “approximately correct” part), while the confidence parameter $\delta$ specifies the probability that the hypothesis meets this accuracy requirement (this corresponds to the “probably” part). This learnability property does not depend on distribution $f_{X,Y}$, but depends on the number of samples $N$, which must be greater than a threshold $N_H(1/\epsilon,1/\delta)$, which determines the sample complexity of learning $H$. This threshold depends on the accuracy parameters $\epsilon,\delta$. Since $N_H$ is polynomial, optimal learning, corresponding to \textbf{small} values of $\epsilon$ and \textbf{small} values of $\delta$, imply a \textbf{greater} value of $N$ to guarantee learnability.
 
 \begin{proposition}
 The excess risk can be bounded as
@@ -315,6 +315,16 @@ where
 \item $R_{app} := R(h^*_\theta)-R^*$ is named \textbf{approximation error}
 \end{itemize}
 \end{proposition}
+
+The generalization error is very important because it is related to the \textbf{generalization bound}, which is defined as follows:
+
+\begin{definition}
+Let $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y}\right\}$ be a hypothesis space and $L:\mathcal{Y}^2 \to \mathbb{R}$ a loss function. Let $b : (0,1) \times \mathbb{N} \to (0,\infty)$ be such that for all $\delta \in (0,1)$ holds $b(\delta, N) \to 0$ for $N \to \infty$. We call b \textbf{generalization bound} for $H$ if for all \textbf{distributions} $f_{X,Y}$ on $\mathcal{X} \times \mathcal{Y}$, all $N \in \mathbb{N}$, and all $\delta \in (0,1)$, the following holds:
+\begin{equation}
+  P\left(\sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|\right) \leq b(\delta, N).
+\end{equation}
+
+\end{definition}
 
 \chapter{Supervised classification}
 In this chapter, we apply the general statistical concepts described in the previous chapter to discuss the problem of \textbf{classification} (also called \textbf{pattern recognition}). The classification problem aims to model the quantitative relationship between an $\mathbb{R}^n$-valued random variable $X$, called \textbf{feature} or \textbf{pattern}, and a random variable $Y$ that takes values in a finite set $C$, called the set of \textbf{classes}. The values of $Y$ are also called \textbf{labels} or \textbf{ground truth}.
@@ -491,7 +501,7 @@ the \textbf{covariance} matrix of the Gaussian associated with class $y$, respec
 The following proposition illustrates the properties of the decision boundaries in GDA.
 
 \begin{proposition}
-For any pair of labels $y$ and $y'\neq y$, the decision boundary of a GDA is given by the following Cartesian equation:
+For any pair of labels $y$ and $y'\neq y$, the \textbf{decision boundary} of a GDA is given by the following Cartesian equation:
 \begin{equation}
 \frac{1}{2}x^T[\Sigma^{-1}(y)-\Sigma^{-1}(y')]x+[\mu(y')\Sigma^{-1}(y') - \mu(y)\Sigma^{-1}(y)]x + const = 0,
 \end{equation}
@@ -510,17 +520,13 @@ f_\theta(y|x) := A\Pi_\theta(y)f_\theta(x|y) = A \Pi_\theta(y)\prod_{k=1}^nf_\th
 where A is the normalization factor, $\Pi_\theta(y)$ is the \textbf{prior} distribution of $y$, and it is assumed that the components of the pattern vector $x = (x^{(1)},\dots,x^{(n)})$ are \textbf{conditionally independent} given the class $y$. This simplifying assumption is known as the \textbf{naive Bayes hypothesis}, and permits the product decomposition on the right-hand side in (2.28).
 \end{definition}
 
-\section{Learning theory}
-This section is dedicated to the \textbf{learning theory} perspective of binary classification. This perspective is realized through the interaction of two theories: \textbf{probably approximately correct} (PAC) learning and \textbf{Vapnik–Chervonenkis} (VC) theory. Our aim is to illustrate the principles of these theories and, more importantly, to compare the inferential approach with the learning theory approach to understand how the two theories are complementary.
+\section{Learning theory perspective}
+The section is devoted to the \textbf{learning theory} perspective on binary classification, which is developed through the integration of two central theories: \textbf{probably approximately correct (PAC)} learning and \textbf{Vapnik–Chervonenkis (VC)} theory. The goal is to explicate the perspectives given by these theories and, crucially, to compare the inferential approach with the learning theory framework in order to highlight how these two perspectives complement each other. This approach aims to deepen the understanding of binary classification by showing the synergy between the PAC learning framework—focusing on guarantees of generalization under \textbf{sample complexity} constraints—and the VC theory—providing key tools such as \textbf{VC dimension} that characterize learnability and sample requirements.
 
-Learning theory is a complementary paradigm that aims to answer questions beyond those addressed by statistical inference, doing so in a way that is \textbf{independent of specific statistical models and data distributions}. For example, it investigates how many samples in the data set $D$ are necessary to achieve effective learning, independently of the distribution that generates the data set $D$. This question is closely related to how the \textbf{complexity} of the model—often measured by the number of parameters in parametric models—affects the efficiency of learning and the model’s ability to \textbf{generalize} to data unseen during the learning phase. In the case of classification, this corresponds to the model’s ability to assign the correct class to an unseen pattern $x$.
-
-These questions are addressed within a probabilistic framework that differs from the inferential one we used, because it essentially leaves unspecified the statistical inference applied to the data set.
-
-Let us formalize the classification problem in this framework:
+Let us formalize the classification problem within this framework. The definition is a specialization of Definition 1.14:
 
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of classes. The \textbf{classification problem} aims to learn the parameters $\theta$ that determine the \textbf{hypothesis} $h_\theta : \mathbb{R}^n \to C$ from a \textbf{hypothesis} space $H = \left\{h : \mathbb{R}^n \to C\right\}$ such that $h_\theta$ can correctly predict the class of unseen patterns $x$.
+Let $\mathcal{X} \subseteq \mathbb{R}^n$ and $\mathcal{Y} := C$ be the set of classes. Let $D = ((x_1,y_1), \dots, (x_N,y_N)) \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{(supervised) classification problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} (or \textbf{classifier}) $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{ h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta \}$, such that $h_\theta$ predicts the corresponding label $y \in \mathcal{Y}$ from pattern $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
 
 %For the general problem of classification, the standard maximum likelihood method can be employed to derive estimators for the model parameters:
