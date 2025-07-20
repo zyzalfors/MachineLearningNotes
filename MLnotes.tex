@@ -38,19 +38,19 @@ In what follows, we focus primarily on \textbf{parametric} problems and assume t
 The general problem outlined in Definition 1.1 can be formulated in a principled manner by employing concepts from \textbf{statistical decision theory}:
 
 \begin{definition}
-Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{risk} (or \textbf{error}) of the estimator distribution $f_\theta$ with respect to the real distribution $f$ is defined as
+Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{risk} (or \textbf{error}) of the estimator distribution $f_\theta$ with respect to the true distribution $f$ is defined as
 \begin{equation}
-R_L(f,f_\theta) := E_X[L(f(X),f_\theta(X))] = \int_{X(\Omega)} L(f(x),f_\theta(x))f(x)dx,
+R(f,f_\theta) := E_X[L(f(X),f_\theta(X))] = \int_{X(\Omega)} L(f(x),f_\theta(x))f(x)dx,
 \end{equation}
 where $L : [0,1]^2 \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(f(X), f_\theta(X))$ is a random variable.
 \end{definition}
 
-The risk (1.2) quantifies the error incurred when approximating the true distribution $f$ with the model distribution $f_\theta$. The optimal value of $f_\theta$ can then be determined by minimizing this risk.
+The risk (1.2) quantifies the error incurred when approximating the true distribution $f$ with the model distribution $f_\theta$. The optimal value of $f_\theta$ can then be determined by \textbf{minimizing} this risk.
 
 By selecting a loss function with a logarithmic form, one can define the so-called Kullback-Leibler divergence:
 
 \begin{definition}
-Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{Kullback–Leibler (KL) divergence} of the estimator distribution $f_\theta$ with respect to the real distribution $f$ is defined as the risk with a logarithmic loss function:
+Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{Kullback–Leibler (KL) divergence} of the estimator distribution $f_\theta$ with respect to the true distribution $f$ is defined as the risk with a logarithmic loss function:
 \begin{equation}
 D_{KL}(f||f_\theta) := E_X\left [\ln \frac{f(X)}{f_\theta(X)} \right] = \int_{X(\Omega)} \ln \left ( \frac{f(x)}{f_\theta(x)} \right )f(x)dx.
 \end{equation}
@@ -68,25 +68,25 @@ Unfortunately, the risk (1.2) cannot be calculated if $f$ is unknown. An alterna
 \begin{definition}
 Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D = (x_1\dots,x_N)$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The \textbf{empirical risk (ER)} (also called \textbf{empirical error} or \textbf{training error}) of the estimator distribution $f_\theta$ with respect to the true distribution $f$ is defined as
 \begin{equation}
-\hat{R}_L(f,f_\theta)_N(D) := \frac{1}{N}\sum_{k=1}^{N}L(f(x_k),f_\theta(x_k)),
+\hat{R}_N(f,f_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}L(f(x_k),f_\theta(x_k)),
 \end{equation}
 where $L$ is the \textbf{loss} function.
 \end{definition}
 
-The empirical risk (1.5) encodes information about the observed data set and is clearly a function solely of the parameters $\theta$ because the data set is fixed. Moreover, it serves as a "good" approximation for (1.2) and, given a suitable loss function, can be minimized with respect to the parameters $\theta$ to find the best estimator distribution $f_\theta$. This procedure, known as \textbf{empirical risk minimization}, is a principled and general method for obtaining what are called \textbf{estimators} in statistical inference. Let us now define this concept:
+The empirical risk (1.5) encodes information about the observed data set and is clearly a function solely of the parameters $\theta$ because the data set is fixed. Moreover, it serves as a "good" approximation for (1.2) and, given a suitable loss function, can be minimized with respect to the parameters $\theta$ to find the best estimator distribution $f_\theta$. This procedure, known as \textbf{empirical risk minimization (ERM)}, is a principled and general method for obtaining what are called \textbf{estimators} in statistical inference. Let us now define this concept:
 
 \begin{definition}
 Let $X_1,\dots,X_N$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right \}$. A \textbf{statistic} is a random variable $H_N = h(X_1,\dots,X_N)$ such that $h : (\mathbb{R}^n)^N \to \mathbb{R}^d$ is a measurable function. If the image of $h$ is (a subset of) $\Theta$, then $H_N$ is named point \textbf{estimator} for $\theta \in \Theta$. In this latter case $H_N$ is indicated as $\hat{\theta}_N$.
 \end{definition}
 
-We have introduced a fundamental concept in machine learning: estimators. Estimators are random quantities that depend on the data used to train the model. Specifically, when the data are realized as a set of values $x_1,\dots,x_N$, the estimator $\hat{\theta}_N$ takes the value $\hat{\theta}_N(x_1,\dots,x_N) \in \Theta$. These estimators are the central quantities that are estimated (or learned) from data through the statistical machine learning algorithms that drive the inference (learning) process, as mentioned in Definition 1.1. Therefore, statistical machine learning algorithms perform statistical estimation to accomplish their tasks. It is important to emphasize that an estimator $\hat{\theta}_N$ is a random variable depending on data. Therefore, for
+We have introduced a fundamental concept in machine learning: \textbf{estimators}. Estimators are random quantities that depend on the data used to train the model. Specifically, when the data are realized as a set of values $x_1,\dots,x_N$, the estimator $\hat{\theta}_N$ takes the value $\hat{\theta}_N(x_1,\dots,x_N) \in \Theta$. These estimators are the central quantities that are \textbf{estimated} (or \textbf{learned}) from data through the statistical machine learning algorithms that drive the inference (learning) process, as mentioned in Definition 1.1. Therefore, statistical machine learning algorithms perform statistical estimation to accomplish their tasks. It is important to emphasize that an estimator $\hat{\theta}_N$ is a random variable depending on data. Therefore, for
 every realization of the sample $X_1,\dots,X_N$, the estimator may take a different value.
 
 As we mentioned before, empirical risk minimization provides a fundamental method to find estimators, once a suitable loss function has been chosen:
 \begin{definition}
 Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D =(x_1\dots,x_N)$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The \textbf{empirical risk minimization (ERM)} method gives the \textbf{ERM estimator} as follows:
 \begin{equation}
-\hat{\theta}^{ERM}_N(D) := \arg\min_{\theta \in \Theta}\hat{R}_L(f,f_\theta)_N(D).
+\hat{\theta}^{ERM}_N(D) \in \arg\min_{\theta \in \Theta}\hat{R}_N(f,f_\theta)(D).
 \end{equation}
 \end{definition}
 
@@ -95,7 +95,7 @@ The ERM method is the first optimization problem introduced in these notes, high
 \begin{definition}
 Let $X_1,\dots,X_N \sim f$ be an i.i.d sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D=(x_1\dots,x_N)$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The ERM method (1.6), along with the \textbf{empirical KL divergence}
 \begin{equation}
-\hat{R}_L(f,f_\theta)_N(D) := \frac{1}{N}\sum_{k=1}^{N}\ln\frac{f(x_k)}{f_\theta(x_k)} = -\frac{1}{N}\sum_{k=1}^{N}\ln f_\theta(x_k) + \textup{const},
+\hat{R}_N(f,f_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}\ln\frac{f(x_k)}{f_\theta(x_k)} = -\frac{1}{N}\sum_{k=1}^{N}\ln f_\theta(x_k) + \textup{const},
 \end{equation}
 is named the \textbf{maximum likelihood (ML)} method.
 \end{definition}
@@ -103,13 +103,13 @@ is named the \textbf{maximum likelihood (ML)} method.
 Combining equations (1.7) and (1.6) yields the following optimization problem, which determines the so-called \textbf{maximum likelihood (ML)} estimator:
 
 \begin{equation}
-\hat{\theta}^{ML}_N(D) := \arg\min_{\theta \in \Theta}\left(\sum_{k=1}^N\ln f_\theta(x_k)  \right) = \arg\min_{\theta \in \Theta}\left(\prod_{k=1}^N f_\theta(x_k) \right).
+\hat{\theta}^{ML}_N(D) \in \arg\min_{\theta \in \Theta}\left(\sum_{k=1}^N\ln f_\theta(x_k)  \right) = \arg\min_{\theta \in \Theta}\left(\prod_{k=1}^N f_\theta(x_k) \right).
 \end{equation}
 
 The two objective functions in (1.8) are referred to as the \textbf{log-likelihood function (LLF)} and the \textbf{likelihood function (LF)}, respectively.
 The second equality in (1.8) follows from the monotonicity of the logarithm function, which ensures that the LF and the LLF attain their maximum values at the same point.
 
-The likelihood can be interpreted as the probability of observing the data $D$ given the parameters $\theta$. When $\theta$ is unknown, a natural approach is to estimate it by selecting the values that \textbf{maximize the probability of the observed data}. In the case of i.i.d. data, this probability is given by the likelihood function. This idea underlies the problem stated in (1.8).
+The likelihood can be interpreted as the probability of observing the data $D$ given the parameters $\theta$. When $\theta$ is unknown, a natural approach is to estimate it by selecting the values that \textbf{maximize the probability of the observed data}. In the case of i.i.d. data, this probability is given by the likelihood function. These ideas underly the problem stated in (1.8).
 
 Let’s introduce some key concepts related to estimators.
 \begin{definition}
@@ -184,9 +184,9 @@ Consistency is a fundamental property that describes the \textbf{asymptotic} beh
 We conclude this section by examining the properties of the empirical risk (1.5) and exploring in which sense it serves as a good approximation of the true risk (1.2). Some general concepts of random variables and estimators will be useful. Let us begin by defining the empirical risk as an estimator of the true risk:
 
 \begin{definition}
-Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The empirical risk is an estimator of true risk (1.2) and is defined as the \textbf{empirical mean} of the loss function $L(f(X), f_\theta(X))$, considered as a random variable:
+Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\left\{f_\theta : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$. The \textbf{empirical risk} is an \textbf{estimator} of true risk (1.2) and is defined as the \textbf{empirical mean} of the loss function $L(f(X), f_\theta(X))$, considered as a random variable:
 \begin{equation}
-\hat{R}_L(f,f_\theta)_N := \overline{L(f(X),f_\theta(X))}_N = \frac{1}{N}\sum_{k=1}^{N}L(f(X_k),f_\theta(X_k)).
+\hat{R}_N(f,f_\theta) := \overline{L(f(X),f_\theta(X))}_N = \frac{1}{N}\sum_{k=1}^{N}L(f(X_k),f_\theta(X_k)).
 \end{equation}
 \end{definition}
 
@@ -197,10 +197,10 @@ The empirical risk is useful for efficiently approximating the true risk because
 \begin{proposition}
 Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space. The empirical risk (1.16) is an \textbf{unbiased} and \textbf{consistent} estimator of true risk (1.2):
 \begin{equation}
- E_{X_1,...,X_N}[\hat{R}_L(f,f_\theta)_N] = R_L(f,f_\theta),
+ E_{X_1,...,X_N}[\hat{R}_N(f,f_\theta)] = R(f,f_\theta),
 \end{equation}
 \begin{equation}
- \lim_{N\to \infty}P(|\hat{R}_L(f,f_\theta)_N-R_L(f,f_\theta)| > \epsilon) = 0.
+ \lim_{N\to \infty}P(|\hat{R}_N(f,f_\theta)-R(f,f_\theta)| > \epsilon) = 0.
  \end{equation}
 \end{proposition}
 
@@ -210,63 +210,112 @@ Let $X_1,\dots,X_N \sim f$ be an i.i.d. sample of $\mathbb{R}^n$-valued random v
 \end{proposition}
 
 \section{Statistical learning theory foundations} 
-This section is dedicated to the \textbf{statistical learning theory} perspective of machine learning. This perspective is explored through the framework of \textbf{probably approximately correct (PAC)} learning. Our aim is to illustrate the principles of this theory and to draw comparisons between the inferential approach and the learning theory approach, highlighting how these two frameworks complement each other.
+This section is dedicated to the \textbf{statistical learning} theory perspective of machine learning. It is explored through the framework of \textbf{probably approximately correct (PAC)} learning. Our goal is to illustrate the fundamental principles of this theory and to compare the inferential approach with the learning theory approach, highlighting how these two frameworks complement each other.
 
-Learning theory is a complementary paradigm that aims to resolve \textbf{predictive} tasks rather than inferential ones. Roughly speaking, its main goal is not to infer (learn) the distribution that generated the data in $D$ but to use them to learn relations between random variables $X$ and $Y$ (defined on $\Omega$). These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$.
+Learning theory is a complementary paradigm that aims to solve \textbf{predictive} tasks rather than inferential ones. Roughly speaking, its main goal is not to infer (or learn) the distribution that generated the data in 
+$D$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$ (defined on $\Omega$). These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. The hypotheses are assumed to belong to the set $H$ that is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
 
-The learning theory paradigm answers questions beyond those addressed by statistical inference, doing so in a manner that is \textbf{independent of specific statistical models and data distributions}. For example, it investigates how many samples in the data set $D$ are necessary to achieve effective learning, independently of the distribution that generates the data set $D$. The theory states that this sample complexity is closely related to the \textbf{complexity} of the hypothesis—often measured by the number of \textbf{parameters} characterizing the hypothesis—and how it influences both the efficiency of learning and the model’s ability to \textbf{generalize} to unseen data during the learning phase.
+The learning theory paradigm addresses questions beyond those tackled by statistical inference, doing so in a way that does not depend on specific statistical models or data distributions. For instance, it studies the number of samples in a data set $D$—known as the \textbf{sample complexity}—that are necessary to achieve effective learning, irrespective of the underlying distribution generating $D$. According to the theory, this sample complexity is closely connected to the \textbf{complexity} of the hypothesis—often measured by the number of parameters describing it—and this relationship affects both the efficiency of the learning process and the model's ability to \textbf{generalize} to unseen data during training.
 
-These questions are addressed within a probabilistic framework that differs from the inferential one we used, as it essentially leaves \textbf{unspecified} the statistical inference applied to the data set.
+These questions are addressed within a probabilistic framework that differs from the inferential one we used, as it essentially leaves \textbf{unspecified} the particular statistical inference applied to the data set.
 
 Let us formalize the learning problem in this framework:
+
 \begin{definition}
-Let $D = ((x_1,y_1),\dots,(x_N,y_N)) \subset \mathcal{X}\times \mathcal{Y}$ be an i.i.d. data set. The \textbf{learning problem} aims to learn the parameters $\theta$ that determine the \textbf{hypothesis} $h_\theta : \mathcal{X}\to \mathcal{Y}$ from a \textbf{hypothesis} space $H = \left\{h_\theta : \mathcal{X}\to \mathcal{Y} : \theta \in \Theta \subseteq \mathbb{R}^d\right\}$ such that $h_\theta(x)$ can correctly predict the correct value $y \in \mathcal{Y}$.
+Let $D = ((x_1,y_1), \dots, (x_N,y_N)) \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{(supervised) learning problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{ h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta \}$, such that $h_\theta$ predicts the corresponding output $y \in \mathcal{Y}$ from input $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
 
-As we mentioned before, the emphasis in learning theory is mainly on prediction through the hypothesis $h_\theta$. Moreover, it is important to stress that the data set $D$ is still generated by a distribution $f(x,y)$.
+The term \textbf{supervised} means that learning the parameters requires using the complete set of data $(x,y)$ to guide the learning process. As mentioned before, the emphasis in learning theory is primarily on prediction through the hypothesis $h_\theta$. Moreover, it is important to emphasize that the data set $D$ is still generated by a distribution $f(x,y)$.
 
-The Definition 1.14 is quite vague on how it is possible to determine the best hypothesis $h_\theta$ from data set $D$. To formulate a principled method, we use an approach similar to one we used with the formulation of inference in the previous section. Then, we define the \textbf{risk} for learning theory:
+A fundamental concept in learning theory is the \textbf{learning algorithm}, which represents the procedure for obtaining the best hypothesis from a data set $D$. The notion of a learning algorithm can be formalized as follows:
 
- \begin{definition}
-Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y} :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{risk} (or \textbf{error}) of the hypothesis $h_\theta$ is defined as
+\begin{definition}
+Consider the hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. A \textbf{learning algorithm} is a function
+\[ A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
+Given the  i.i.d. data set $D = ((x_1,y_1), \dots, (x_N,y_N)) \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm selects the hypothesis $A_H(D) := h_{\hat{\theta}(D)} \in H$.
+\end{definition}
+
+Definitions 1.14 and 1.15 are somewhat vague on how to determine the best hypothesis $h_\theta$ from the data set $D$. To formulate a principled method, we use an approach similar to the one employed for the formulation of inference in the previous section. Next, we define the \textbf{risk} in the context of learning theory:
+
+\begin{definition}
+Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{risk} (or \textbf{error}) of the hypothesis $h_\theta$ is defined as
 \begin{equation}
-R_L(h_\theta) := E_{X,Y}[L(h_\theta(X),Y)] = \int_{\mathcal{X} \times \mathcal{Y}} L(h_\theta(x),y)f(x,y)dxdy,
+R(h_\theta) := E_{X,Y}[L(h_\theta(X),Y)] = \int_{\mathcal{X} \times \mathcal{Y}} L(h_\theta(x),y)f_{X,Y}(x,y)dxdy,
 \end{equation}
 where $L :\mathcal{Y}^2 \to \mathbb{R}$ is the \textbf{loss} function, and its expression $L(h_\theta(X), Y)$ is a random variable.  
 \end{definition}
 
-To obtain the best hypothesis, we need to minimize the risk, to obtain the \textbf{Bayes optimal hypothesis}: 
+The optimal value of $h_\theta$ can then be determined by \textbf{minimizing} this risk:
 \begin{equation}
-h^* := \arg \min_{h_\theta \in H} R_L(h_\theta). 
+h_\theta^* := h_{\theta^*} \in \arg \min_{h_\theta \in H} R(h_\theta).
+\end{equation}
+\begin{equation}
+\theta^* \in \arg \min_{\theta \in \Theta} R(h_\theta).
 \end{equation}
 
-Since the real distribution $f(x,y)$ is generally unknown, one introduces the \textbf{empirical risk} as a proxy for the real risk:
+More generally, if $H = M(\mathcal{X}, \mathcal{Y})$, we can define the \textbf{Bayes optimal hypothesis} and \textbf{Bayes error}:
+
 \begin{definition}
-Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $\left\{h_\theta : \mathcal{X} \to \mathcal{Y} :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{empirical risk} is an estimator of true risk (1.19) and is defined as the \textbf{empirical mean} of the loss function $L(h_\theta(X), Y)$, considered as a random variable:
+Let $f_{X,Y}$ be a PDF on $\mathcal{X} \times \mathcal{Y}$ and $L$ a loss function. The \textbf{Bayes optimal hypothesis} is defined as:
 \begin{equation}
-\hat{R}_L(h_\theta)_N := \overline{L(h_\theta(X),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h_\theta(X_k),Y_k).
+h^*\in \arg \min_{h \in M(\mathcal{X}, \mathcal{Y})} R(h).
+\end{equation}
+The value of risk calculated with $h^*$ is called \textbf{Bayes error}:
+\begin{equation}
+R^* := \min_{h \in M(\mathcal{X}, \mathcal{Y})} R(h) = R(h^*).
 \end{equation}
 \end{definition}
 
-It is easy to understand that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator for the real risk, similar to what we have established in the inference framework.
+Since the true distribution $f_{X,Y}$ is generally unknown, the \textbf{empirical risk} is introduced as a proxy for the true risk:
 
-The empirical risk minimization provides the ERM estimator of learning theory:
 \begin{definition}
-Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D =((x_1, y_1)\dots,(x_N,y_N))$. Consider the hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y} :\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{empirical risk minimization (ERM)} method gives the \textbf{ERM estimator} as follows:
+Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $H=\left\{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{empirical risk} is an \textbf{estimator} of true risk (1.19) and is defined as the \textbf{empirical mean} of the loss function $L(h_\theta(X), Y)$, considered as a random variable:
 \begin{equation}
-\hat{\theta}^{ERM}_N(D) := \arg\min_{\theta \in \Theta}\hat{R}_L(h_\theta)_N(D).
+\hat{R}_N(h_\theta) := \overline{L(h_\theta(X),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h_\theta(X_k),Y_k).
 \end{equation}
 \end{definition}
 
-The previous definition illustrates how the value of the parameters corresponding to the minimizer hypothesis can be considered an \textbf{estimator}, because its value varies randomly with the data set $D$. However, in this case, the estimated value does not correspond to any obvious parameter of a probability density function (PDF). In some cases, it is possible to introduce an inferential interpretation for the estimator (1.22) by selecting a suitable loss function $L$, such that the learning theory empirical risk (1.21) coincides with the inferential empirical risk (1.16).
+It is easy to see that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk, similar to what we established in the inference framework.
+
+The \textbf{empirical risk minimization (ERM)} method is an important type of learning algorithm within the framework of learning theory. This algorithm leads to the definition of the ERM estimator and the corresponding minimizing hypothesis:
 
 \begin{definition}
-The hypothesis space $H = \left\{h : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic PAC learnable} with respect to the loss $L$ if there exists a learning algorithm $A$ and a sample complexity function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon,\delta \in (0,1)$, for all distributions $f_{X,Y}$ over $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. data set $D$ that realizes the sequence of random variables $(X_1, Y_1),\dots,(X_N, Y_N)$ drawn from $f_{X,Y}$ with size $N\geq N_H(\epsilon,\delta)$, the following holds:
+Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$, realized by the data set $D =((x_1, y_1)\dots,(x_N,y_N))$. Consider the hypothesis space $H = \left\{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\right\}$. The \textbf{empirical risk minimization (ERM)} algorithm $ERM_H$ selects the minimizing hypothesis (named \textbf{empirical risk hypothesis (ERH)}) as follows:
 \begin{equation}
-P\left(R_L(A(X_1, Y_1,\dots\,X_N, Y_N)) - \min_{h\in H}R_L(h) > \epsilon\right) < \delta,
+ERM_H(D) := \hat{h}_N^{ERM}(D) := h_{\hat{\theta}^{ERM}_N(D)} \in \arg \min_{h_\theta \in H} \hat{R}_N(h_\theta)(D),
 \end{equation}
-where $A(D)$ is the hypothesis output by algorithm $A$ on data set $D$.
+where the \textbf{ERM estimator} is defined as follows:
+\begin{equation}
+\hat{\theta}^{ERM}_N(D) \in \arg\min_{\theta \in \Theta}\hat{R}_N(h_\theta)(D).
+\end{equation}
 \end{definition}
+
+The previous definition illustrates how the parameter values corresponding to the minimizing hypothesis can be considered an \textbf{estimator}, since their values vary randomly with the data set $D$. However, in this case, the estimated value does not correspond to any obvious parameter of a probability density function (PDF). In some cases, it is possible to provide an inferential interpretation of the estimator (1.26) by selecting a suitable loss function $L$, such that the empirical risk in learning theory (1.24) coincides with the inferential empirical risk (1.16).
+
+The main concept of learning theory is the \textbf{agnostic PAC learnability} of a hypothesis set, which is defined as follows:
+
+\begin{definition}
+The hypothesis space $H = \left\{h : \mathcal{X} \to \mathcal{Y}\right\}$ is \textbf{agnostic probably approximately correct (PAC) learnable} with respect to the \textbf{loss function} $L$ if there exists a \textbf{learning algorithm} $A_H$ and a \textbf{polynomial} function $N_H : (0,1) ^2 \to \mathbb{R}$ such that for any $\epsilon > 0,\delta \in (0,1)$, for all \textbf{distributions} $f_{X,Y}$ over $\mathcal{X} \times \mathcal{Y}$, and for any i.i.d. \textbf{data set} $D$ that realizes the sequence of i.i.d. random variables $(X_1, Y_1),\dots,(X_N, Y_N)$ drawn from $f_{X,Y}$ with \textbf{sample complexity} $N\geq N_H(1/\epsilon,1/\delta)$, the following holds:
+\begin{equation}
+P\left(R(\hat{h}_N) - R^* \leq \epsilon\right) \geq 1- \delta,
+\end{equation}
+where $\hat{h}_N := h_{\hat{\theta}_N} := A_H(X_1, Y_1,\dots\,X_N, Y_N)$ is the (random) hypothesis selected by $A_H$. The quantity $R(\hat{h}_N) - R^*$ is named \textbf{excess risk}.
+\end{definition}
+
+Definition 1.19 has the following intuitive meaning: the hypothesis space is \textbf{learnable} if, given a fixed loss function $L$, there exists an algorithm that produces random hypotheses $h_N$ and their corresponding risks $R(h_N)$ such that, with high probability, these risks are close to the minimal possible values. This learnability property does not depend on distribution $f_{X,Y}$, but depends on the number of samples $N$, which must be greater than a threshold $N_H(1/\epsilon,1/\delta)$ that depends on the accuracy parameters $\epsilon,\delta$. Since $N_H$ is polynomial, \textbf{smaller} values of $\epsilon$ and \textbf{smaller} values of $\delta$ imply a \textbf{greater} value of $N$ to guarantee learnability.
+
+\begin{proposition}
+The excess risk can be bounded as
+\begin{equation}
+ R(\hat{h}_N)-R^* \leq R_{opt} + 2R_{gen} + R_{app},
+\end{equation}
+where 
+\begin{itemize}
+\item $R_{opt} := \hat{R}_N(\hat{h}_N)-\hat{R}_N(\hat{h}^{ERM}_N)$ is named \textbf{optimization error}
+\item $R_{gen} := \sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|$ is named \textbf{generalization error}
+\item $R_{app} := R(h^*_\theta)-R^*$ is named \textbf{approximation error}
+\end{itemize}
+\end{proposition}
 
 \chapter{Supervised classification}
 In this chapter, we apply the general statistical concepts described in the previous chapter to discuss the problem of \textbf{classification} (also called \textbf{pattern recognition}). The classification problem aims to model the quantitative relationship between an $\mathbb{R}^n$-valued random variable $X$, called \textbf{feature} or \textbf{pattern}, and a random variable $Y$ that takes values in a finite set $C$, called the set of \textbf{classes}. The values of $Y$ are also called \textbf{labels} or \textbf{ground truth}.
@@ -619,7 +668,7 @@ VAR(\hat{\theta}_N) = \hat{\sigma}^2_N\textup{tr}((\bar{x}^T\bar{x})^{-1}) \sim 
 
 What we have illustrated in Proposition 2.1 is the first machine learning procedure of these notes. The outputs of the procedure are the estimators in (2.13) and (2.14). But more important for applications is the estimator (2.13) that contributes to the definition of the regression function through (2.6).
 
-We now focus on some properties of the regression function $r_\theta(x)$ and illustrate an important relation which is very similar to the decomposition that we illustrated in Proposition 1.1. The main idea is noting that for any fixed value $x$ the quantity $r_{\hat{\theta}_N}(x)$ is a random variable that \textbf{estimates} the real value of the regression function, that we denote as $r(x)$. So, we can expect that there exists a similar relation to (1.8) that is applied to the regression function.
+We now focus on some properties of the regression function $r_\theta(x)$ and illustrate an important relation which is very similar to the decomposition that we illustrated in Proposition 1.1. The main idea is noting that for any fixed value $x$ the quantity $r_{\hat{\theta}_N}(x)$ is a random variable that \textbf{estimates} the true value of the regression function, that we denote as $r(x)$. So, we can expect that there exists a similar relation to (1.8) that is applied to the regression function.
 
 \begin{proposition}
 Let $D = ((x^{(1)},y^{(1)}),\dots,(x^{(N)},y^{(N)}))$ be an i.i.d. data set and consider the regression problem of Definition 2.2. For any fixed value $x$ the quantity $r_{\hat{\theta}_N}(x)$ is an estimator of the true value of the regression function $r(x) = E(Y|X = x)$, corresponding to the estimator $\hat{\theta}_N$. The MSE of the estimator $r_{\hat{\theta}_N}(x)$ is given by:
