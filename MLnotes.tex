@@ -791,8 +791,7 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$
 \begin{equation}
 f_{\theta,\sigma}(y|x) := \mathcal{N}(y;r_\theta(x),\sigma^2) = \frac{1}{\sqrt{(2\pi\sigma^2)^m}}\exp\left(-\frac{||y-r_\theta(x)||^2}{2\sigma^2}\right).
 \end{equation}
-Equivalently, the \textbf{ordinary 
-regression problem} is a regression problem of Definition 3.2 such that $\varepsilon \sim \mathcal{N}(0,I_{m\times m}\sigma^2)$, where the matrix $I_{m\times m}$ is the identity matrix.
+Equivalently, the \textbf{ordinary regression problem} is a regression problem of Definition 3.2 such that $\varepsilon \sim \mathcal{N}(0,I_{m\times m}\sigma^2)$, where the matrix $I_{m\times m}$ is the identity matrix.
 \end{definition}
 
 The regression is named \textbf{linear} if the regression function is linear:
@@ -920,7 +919,7 @@ where $E_D = E_{X_1,Y_1,\dots,X_N,Y_N}$.
 
 In the case of ordinary \textbf{linear} regression, it is easy to see that the variance in (3.25) is \textbf{proportional} to the variance of the estimator $\hat{\theta}_N$. Therefore, if the variance of the estimator $\hat{\theta}_N$ is high, we expect a higher variance of $r_{\hat{\theta}_N}(x)$ and consequently lower performance of the regression function $r_{\hat{\theta}_N}(x)$ when predicting on unseen data $(x, y)$, that is, data not belonging to the training set. Recall that the estimators are random variables, and when the variance is high, they are likely to exhibit significant variability across different data sets.
 
-Let us explain briefly this concept in more depth, as it is crucial for the practical application of (linear) regression. Consider two data sets $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, and $D' = \{(x_1',y_1'),\dots,(x_N',y_N')\}$. The first data set $D$ is used to solve the regression problem and obtain the estimator $\hat{\theta}_N$ using formula (3.11). We might assess the quality of the estimator by comparing the prediction of the regression function $r_{\hat{\theta}_N}(x_k')$ with the actual value $y_k'$, ($k = 1\dots,N$); this procedure is referred to as \textbf{model validation} in the literature and is a popular method for verifying the performance of fitted models. If the variance of the regression function $r_{\hat{\theta}_N}$ is large, we expect that the validation will reveal significant discrepancies between the predictions and the actual values of $D'$. This discrepancy occurs because it is unlikely that the optimal parameter $\hat{\theta}_N$, estimated based on data $D$, remains the correct parameter value for the new data set $D'$. In other words, one can have situations where 
+Let us explain briefly this concept in more depth, as it is crucial for the practical application of (linear) regression. Consider two data sets $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, and $D' = \{(x_1',y_1'),\dots,(x_N',y_N')\}$. The first data set $D$ is used to solve the regression problem and obtain the estimator $\hat{\theta}_N$ using formula (3.11). We might assess the quality of the estimator by comparing the prediction of the regression function $r_{\hat{\theta}_N}(x_k')$ with the actual value $y_k'$, ($k = 1\dots,N$); this procedure is referred to as \textbf{model validation} in the literature and is a popular method for verifying the performance of fitted models. If the variance of the regression function $r_{\hat{\theta}_N}$ is large, we expect that the validation will reveal significant discrepancies between the predictions and the actual values of $D'$. This discrepancy occurs because it is unlikely that the optimal parameter $\hat{\theta}_N$, estimated based on data $D$, remains the correct parameter value for the new data set $D'$. In other words, one can have situations where
 $\hat{\theta}_N$ does not \textbf{generalize} well, and hence the predictions are not optimal outside of the training set.
 
 When a trained model fits the training data very well but performs poorly on unseen data, the model is said to be \textbf{overfitted}. This situation corresponds to \textbf{low bias} and \textbf{large variance} of the estimator, and the model predictions are highly sensitive to the particular training data, causing erratic performance on new data.
@@ -1033,7 +1032,7 @@ f_{\theta,\sigma}(y|x) := \alpha\mathcal{N}(y;r_\theta(x),\sigma^2)g(\theta),
 \end{equation}
 where $\alpha$ is an unimportant normalization constant and $g$ has the \textbf{Laplace} form
 \begin{equation}
-g(\theta) := \textup{La}(\theta;0,b) = \frac{\lambda}{2}\exp\left(-\lambda||\theta||_1\right),
+g(\theta) := \textup{La}(\theta;0,\lambda^{-1}) = \frac{\lambda}{2}\exp\left(-\lambda||\theta||_1\right),
 \end{equation}
 where $||\theta||_1 := \sum_{k=1}^d |\theta^{(k)}|$ is the $L_1$ norm. In (3.41) $\lambda > 0$ is a constant termed \textbf{$L_1$-regularization hyperparameter}.
 \end{definition}
