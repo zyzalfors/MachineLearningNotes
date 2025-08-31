@@ -139,12 +139,12 @@ Combining equations (1.6) and (1.5) yields the following optimization problem, w
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f_\theta(x_k)\right) = \arg \max_{\theta \in \Theta} \left(\prod_{k=1}^N f_\theta(x_k) \right).
 \end{equation}
 
-The two objective functions in (1.7) are referred to as the \textbf{log-likelihood function (LLF)} and the \textbf{likelihood function (LF)}, respectively.
-The second equality in (1.7) follows from the monotonicity of the logarithm function, which ensures that the LF and the LLF attain their maximum values at the same points.
+The two objective functions in (1.7) are referred to as the \textbf{log-likelihood function (LLF)} and the \textbf{likelihood function (LF)}, respectively. The second equality in (1.7) follows from the monotonicity of the logarithm function, which ensures that the LF and the LLF attain their maximum values at the same points.
 
 The LF can be interpreted as the probability of observing the data $D$ given the parameters $\theta$. When $\theta$ is unknown, a natural and widely used approach for estimation is to find the parameter values that \textbf{maximize} this probability, thus making the observed data most probable under the model. In the case of i.i.d. data, this probability is given by the likelihood function. These ideas described here underlie the estimation problem formulated in equation (1.7).
 
 Let’s introduce some key concepts related to estimators.
+
 \begin{definition}
 The \textbf{mean} (or \textbf{expected value}) of the point estimator $\hat{\theta}_N$ is defined as
 
@@ -287,8 +287,7 @@ The term \textbf{supervised} means that learning the parameters requires using t
 A fundamental concept in learning theory is the \textbf{learning algorithm}, which represents the procedure for obtaining the best hypothesis from a data set $D$. The notion of a learning algorithm can be formalized as follows.
 
 \begin{definition}
-Consider the hypothesis space $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function
-\[ A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
+Consider the hypothesis space $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function \[ A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
 Given the  i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm learns the hypothesis $A_H(D) := h_{\hat{\theta}(D)} \in H$.
 \end{definition}
 
@@ -369,8 +368,7 @@ The hypothesis space $H = \{h_\theta : \mathcal{X} \to \mathcal{Y}\}$ is \textbf
 P(R(\hat{h}_N) - R^* \leq \epsilon) \geq 1- \delta,
 \end{equation}
 
-where $\hat{h}_N := h_{\hat{\theta}_N} := A_H(X_1, Y_1,\dots\,X_N, Y_N)$ is the (random) hypothesis learned by $A_H$ from $H$. If $A_H$ returns $h_{\hat{\theta}_N}$ in a time proportional to $q_H(1/\epsilon,1/\delta)$, then $H$ is said to be \textbf{efficiently agnostic PAC
-learnable}. The (random) quantity $\Delta(\hat{h}_N) := R(\hat{h}_N) - R^* \geq 0$ is named \textbf{excess risk}.
+where $\hat{h}_N := h_{\hat{\theta}_N} := A_H(X_1, Y_1,\dots\,X_N, Y_N)$ is the (random) hypothesis learned by $A_H$ from $H$. If $A_H$ returns $h_{\hat{\theta}_N}$ in a time proportional to $q_H(1/\epsilon,1/\delta)$, then $H$ is said to be \textbf{efficiently agnostic PAC learnable}. The (random) quantity $\Delta(\hat{h}_N) := R(\hat{h}_N) - R^* \geq 0$ is named \textbf{excess risk}.
 \end{definition}
 
 Relation (1.27) is central to learning theory because it defines what constitutes effective learning and \textbf{generalization} with a \textbf{finite} data set $D$. The most important peculiarity is that it involves two accuracy parameters. The accuracy parameter $\epsilon$ specifies how close the output hypothesis must be to the optimal hypothesis (this corresponds to the “approximately correct” part), while the confidence parameter $\delta$ specifies the probability that the hypothesis meets this accuracy and generalization requirements (this corresponds to the “probably” part). The learnability and generalization properties do not depend on distribution $f_{X,Y}$, but depend on the number of samples $N$, which must be greater than a threshold $q_H(1/\epsilon,1/\delta)$, which determines the sample complexity of learning $H$. This threshold depends on the accuracy parameters $\epsilon,\delta$. Since $q_H$ is polynomial, optimal learning and generalization, corresponding to \textbf{small} values of $\epsilon$ and \textbf{small} values of $\delta$, imply a \textbf{greater} value of $N$. In other words, the PAC learnability of a hypothesis space $H$ guarantees that the optimal learned hypothesis $\hat{h}_N \in H$ generalizes with error at most $\epsilon$ (that is $\Delta(\hat{h}_N) \leq \epsilon$) and probability at least $1-\delta$ if it is obtained from a data set $D$ whose size $N \geq q_H(1/\epsilon,1/\delta)$.
@@ -608,7 +606,7 @@ The corresponding \textbf{decision rules} are the \textbf{half-spaces}:
 \mathcal{R}_{y^{(2)}}(\theta) = \{x \in \mathbb{R}^n \mid b_\theta(x) < 0 \}.
 \end{equation}
 
-The \textbf{decision boundary} is the hyperplane defined by the Cartesian equation:
+The \textbf{decision boundary} is the hyperplane defined by the following Cartesian equation:
 
 \begin{equation}
 b_\theta(x) = 0.
@@ -635,7 +633,7 @@ The geometric interpretation of (2.23) and (2.24) is straightforward: a pattern 
 The linear binary logistic classification described earlier can be generalized to handle \textbf{nonlinear} decision boundaries by incorporating nonlinear functions $b_\theta(x)$. For example, using \textbf{quadratic} functions in $x$, one can describe decision boundaries represented by \textbf{hyperconics} such as hyperspheres, hyperellipsoids, hyperparaboloids, and so on:
 
 \begin{equation}
- b_\theta(x) := \sum_{k=1}^{n}\sum_{j=1}^{n}q_{kj}(\theta)(x^{(k)}-a^{(k)})(x^{(j)} - a^{(j)}),
+b_\theta(x) := \sum_{k=1}^{n}\sum_{j=1}^{n}q_{kj}(\theta)(x^{(k)}-a^{(k)})(x^{(j)} - a^{(j)}),
 \end{equation}
 
 where the coefficients $q_{kj}$ depend on the parameters $\theta$, and $(a^{(1)},\dots,a^{(n)}) \in \mathbb{R}^n$ represent the center of the quadratic form.
@@ -677,8 +675,7 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n\times C$ be an i.i.d
 f_\theta(y|x) := \alpha \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{\alpha\Pi(y)}{\sqrt{(2\pi)^n\det \Sigma(y)}}\exp \left[-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
 \end{equation}
 
-where $\alpha$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and
-the \textbf{covariance} matrix of the Gaussian distribution associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
+where $\alpha$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and the \textbf{covariance} matrix of the Gaussian distribution associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
 \end{definition}
 
 Comparing (2.30) with (2.10), it is easy to make the following identifications for the GDA:
@@ -796,7 +793,7 @@ For general hypothesis spaces, not only does the VC dimension characterize PAC l
 Let $H$ be a hypothesis space of functions $h : \mathcal{X} \to \{0, 1\}$, and consider the \textbf{0-1 loss} function. Assume that $VC\dim H = d < \infty$. Then, there exists a constant $C> 0$ such that $H$ is \textbf{agnostic PAC learnable} with \textbf{sample complexity}
 
 \begin{equation}
- N \geq C\frac{d + \ln (1/\delta)}{\epsilon^2}.
+N \geq C\frac{d + \ln (1/\delta)}{\epsilon^2}.
 \end{equation}
 \end{proposition}
 
@@ -832,6 +829,7 @@ Using (1.34) with $f_\theta(y|x)$ defined in (2.17) and (2.18) as estimator dist
 
 \begin{definition}
 Consider a binary classification problem with classes $y=\pm 1$ and a hypothesis space consisting of decision rules represented by curves in $\mathbb{R}^n$ defined by equations $h_\theta(x) = 0$. The \textbf{logistic loss} is defined as
+
 \begin{equation}
 L(h_\theta(x), y) := \ln(1+\exp(-yh_\theta(x)).
 \end{equation}
@@ -848,8 +846,7 @@ which is equivalent to \textbf{ML estimator} (2.35).
 \chapter{Supervised regression}
 In this chapter, we discuss the problem of \textbf{regression}. The regression problem aims to model the quantitative relationship between a $\mathbb{R}^n$-valued random variable $X$, which is named \textbf{covariate}, \textbf{predictor}, or \textbf{feature}, and a $\mathbb{R}^m$-valued random variable $Y$, named the \textbf{response}, or \textbf{label}.
 
-Using the i.i.d. data set $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, the objective is to obtain a \textbf{regression function} (also called a \textbf{hypothesis}) $r : \mathbb{R}^n \to \mathbb{R}^m$ that allows us to predict the value $y \approx r(x)$ for new feature $x$. If $r$ is a linear function, the problem is called \textbf{linear regression}; otherwise, it is called \textbf{nonlinear regression}. The inference (learning) process is called \textbf{supervised} since it is guided by
-utilizing the data set $D$, which is formed by complete pairs of features and labels.
+Using the i.i.d. data set $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, the objective is to obtain a \textbf{regression function} (also called a \textbf{hypothesis}) $r : \mathbb{R}^n \to \mathbb{R}^m$ that allows us to predict the value $y \approx r(x)$ for new feature $x$. If $r$ is a linear function, the problem is called \textbf{linear regression}; otherwise, it is called \textbf{nonlinear regression}. The inference (learning) process is called \textbf{supervised} since it is guided by utilizing the data set $D$, which is formed by complete pairs of features and labels.
 
 \section{Statistical foundation}
 Similarly to classification, the problem of regression is formulated according to the guiding principle illustrated in Definition 1.1, with the objective of providing an inferential definition of regression.
@@ -941,8 +938,7 @@ y_N
 \end{pmatrix} \in \mathbb{R}^{N \times d}.
 \end{equation}
 
-Suppose that $\bar{x}^T\bar{x} \in \mathbb{R}^{d \times d}$ is invertible, that is $\bar{x}$ has full rank $n + 1 = d \leq N$.
-Then, the maximum likelihood method gives the following estimators:
+Suppose that $\bar{x}^T\bar{x} \in \mathbb{R}^{d \times d}$ is invertible, that is $\bar{x}$ has full rank $n + 1 = d \leq N$. Then, the maximum likelihood method gives the following estimators:
 
 \begin{equation}
 \hat{\theta}_N = (\bar{x}^T\bar{x})^{-1}\bar{x}^T\bar{y},
@@ -962,11 +958,11 @@ Then, the maximum likelihood method gives the following estimators:
 We reversed the sign in order to transform the maximization problem into a minimization problem. Then, the original inference problem was converted into the following optimization problems:
 
 \begin{equation}
- \theta(D) = \arg\min_{\theta \in \Theta} R_{D}(\theta),
+\theta(D) = \arg\min_{\theta \in \Theta} R_{D}(\theta),
 \end{equation}
 
 \begin{equation}
- \sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta, \sigma^2),
+\sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta, \sigma^2),
 \end{equation}
 
 where the target functions are defined as follows:
@@ -1119,11 +1115,11 @@ while the estimator $\hat{\sigma}_N^{(\lambda)2}$ is the same as (3.12).
 We changed signs as usual. Then, the original inference problem was converted into the following optimization problems:
 
 \begin{equation}
- \theta(D) = \arg\min_{\theta \in \Theta} R_{D}(\theta),
+\theta(D) = \arg\min_{\theta \in \Theta} R_{D}(\theta),
 \end{equation}
 
 \begin{equation}
- \sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta,\sigma^2),
+\sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta,\sigma^2),
 \end{equation}
 
 where the target functions are defined as follows:
