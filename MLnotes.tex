@@ -78,7 +78,7 @@ D^{(KL)}(f_X||f_\theta) := E_X \left[\ln\left(\frac{f_X(X)}{f_\theta(X)}\right)\
 The KL divergence defined in (1.2) is one of the most important concepts in statistical inference and machine learning because it provides a fundamental way to measure how one probability distribution diverges from another. This measure quantifies the expected \textbf{information} lost when using an approximate distribution instead of the true distribution and is widely used to assess differences between probability distributions. The KL divergence behaves like a distance in some respects, as it satisfies the following properties:
 
 \begin{equation}
- D^{(KL)}(f||g) \geq 0, \quad D^{(KL)}(f||g) = 0 \iff f = g.
+D^{(KL)}(f||g) \geq 0, \quad D^{(KL)}(f||g) = 0 \iff f = g.
 \end{equation}
 
 However, in general, the triangle inequality and symmetry are not satisfied, so the KL divergence is not a metric in the formal sense of metric spaces.
@@ -247,7 +247,7 @@ The empirical risk is useful for efficiently approximating the true risk because
 Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space. The empirical risk (1.15) is an \textbf{unbiased} and \textbf{consistent} estimator of true risk (1.1):
 
 \begin{equation}
- E_{X_1,...,X_N}[\hat{R}_N(f_X,f_\theta)] = R(f_X,f_\theta),
+E_{X_1,...,X_N}[\hat{R}_N(f_X,f_\theta)] = R(f_X,f_\theta),
 \end{equation}
 
 \begin{equation}
@@ -765,7 +765,7 @@ The relation (2.38) expresses the fact that, in order to reduce the risk, one ha
 The \textbf{Bayes optimal hypothesis} of the \textbf{0-1 risk} given in (2.38) is given by
 
 \begin{equation}
- h^*(x) = \left\{\begin{matrix}
+h^*(x) = \left\{\begin{matrix}
 y^{(1)} & f(y^{(1)}|x) > 1/2\\
 y^{(2)} & otherwise
 \end{matrix}\right..
@@ -804,10 +804,10 @@ It is worth reflecting on the dependence of the right-hand side of (2.40) on $d$
 We now consider the empirical 0-1 risk, which is given by
 
 \begin{equation}
-\hat{R}^{(0-1)}_N(h_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}1(h_\theta(x_k) \neq y_k) = \frac{N_{misc}(D)}{N}.
+\hat{R}^{(0-1)}_N(h_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}1(h_\theta(x_k) \neq y_k) = \frac{N_{mis}(h_\theta,D)}{N}.
 \end{equation}
 
-The quantity $N_{misc}(D)/N$ denotes the rate of \textbf{misclassified} data points in $D$ by the hypothesis $h_\theta$. Then, the ERM method suggests that the best hypothesis is obtained by minimizing the quantity (2.41). In some special cases, one can find a particular hypothesis for which the number of misclassifications is exactly \textbf{zero}. This is the case of an \textbf{separable data set}, which was mentioned previously for linear classification.
+The quantity $N_{mis}(h_\theta,D)/N$ denotes the rate of \textbf{misclassified} data points in $D$ by the hypothesis $h_\theta$. Then, the ERM method suggests that the best hypothesis is obtained by minimizing the quantity (2.41). In some special cases, one can find a particular hypothesis for which the number of misclassifications is exactly \textbf{zero}. This is the case of an \textbf{separable data set}, which was mentioned previously for linear classification.
 
 \begin{definition}
 Consider the classification problem on the hypothesis space $H$. The i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ is \textbf{separable} if there exists a hypothesis $h_\theta \in H$ such that $\hat{R}^{(0-1)}_N(h_\theta)(D) = 0$.
@@ -865,7 +865,7 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$
 from the data in $D$. After the learning process, the \textbf{regression function} $r : \mathbb{R}^n \to \mathbb{R}^m$ is calculated as
 
 \begin{equation}
- r_\theta(x) := E_{Y|X = x}[Y] = \int yf_\theta(y|x)dy.
+r_\theta(x) := E_{Y|X = x}[Y] = \int yf_\theta(y|x)dy.
 \end{equation}
 \end{definition}
 
