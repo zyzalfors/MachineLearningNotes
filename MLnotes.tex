@@ -37,9 +37,7 @@ Let $X_1,\dots,X_N$ be a sample of random variables whose values represent obser
 \begin{equation*}
 X_1,\dots,X_N \sim f.
 \end{equation*}
-
 \end{definition}
-
 The last definition highlights that statistical inference and machine learning can be viewed as two sides of the same coin because, fundamentally, they share the goal of extracting knowledge from data, but they approach this goal with different emphases and methods.  Statistical inference primarily focuses on understanding and quantifying relationships in the data to draw conclusions about a larger population. In contrast, machine learning emphasizes building flexible \textbf{algorithms} that can make accurate predictions on new, unseen data, often prioritizing predictive performance and \textbf{generalization}. In this chapter, we will illustrate how these two (apparently) divergent approaches can be reconciled.
 
 The Definition 1.1 is fully general and flexible, allowing the distribution $f$ to represent any probability distribution relevant to the problem under investigation. This distribution could correspond to the probability distribution of a single random variable $X$, $f_X$, or it could be a \textbf{joint} distribution encompassing multiple variables, or a \textbf{conditional} distribution specifying the dependencies between variables. Throughout these notes, we will examine which type of distribution is most appropriate and useful depending on the specific machine learning problem or application being addressed.
@@ -59,10 +57,8 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \begin{equation}
 R(f_X,f_\theta) := E_X[L(f_X(X),f_\theta(X))] = \int_{X(\Omega)} L(f_X(x),f_\theta(x))f_X(x)dx,
 \end{equation}
-
 where $L : [0,1]^2 \to \mathbb{R}$ is named the \textbf{loss} function.
 \end{definition}
-
 The risk function defined in (1.1) quantifies the expected error or loss incurred when approximating the true data distribution $f_X$ by a model distribution $f_\theta$. Specifically, it represents the average discrepancy between the model $f_\theta$ and the true distribution $f_X$ under a given loss function, measuring how well the model $f_\theta$ performs in representing the underlying data generating process. Determining the optimal model distribution $f_\theta$ then entails \textbf{minimizing} this risk function, thereby selecting the parameter $\theta$ that yields the smallest value.
 
 By selecting a loss function with a logarithmic form, one can define the so-called \textbf{Kullback-Leibler (KL) divergence}, which is a fundamental measure of the difference between two probability distributions.
@@ -74,13 +70,11 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 D^{(KL)}(f_X||f_\theta) := E_X \left[\ln\left(\frac{f_X(X)}{f_\theta(X)}\right)\right] = \int_{X(\Omega)} \ln \left( \frac{f_X(x)}{f_\theta(x)}  \right)f_X(x)dx.
 \end{equation}
 \end{definition}
-
 The KL divergence defined in (1.2) is one of the most important concepts in statistical inference and machine learning because it provides a fundamental way to measure how one probability distribution diverges from another. This measure quantifies the expected \textbf{information} lost when using an approximate distribution instead of the true distribution and is widely used to assess differences between probability distributions. The KL divergence behaves like a distance in some respects, as it satisfies the following properties:
 
 \begin{equation}
 D^{(KL)}(f||g) \geq 0, \quad D^{(KL)}(f||g) = 0 \iff f = g.
 \end{equation}
-
 However, in general, the triangle inequality and symmetry are not satisfied, so the KL divergence is not a metric in the formal sense of metric spaces.
 
 The evident drawback of the risk defined in (1.1) is that it cannot be calculated when the true distribution $f_X$ is unknown. An alternative measure of risk that leverages the available data is the \textbf{empirical risk}, which is defined as the average loss computed over the observed sample.
@@ -91,10 +85,8 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \begin{equation}
 \hat{R}_N(f_X,f_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}L(f_X(x_k),f_\theta(x_k)),
 \end{equation}
-
 where $L : [0,1]^2 \to \mathbb{R}$ is the \textbf{loss} function.
 \end{definition}
-
 The empirical risk defined in (1.4) encapsulates information derived from the observed data set $D$ and, importantly, is a function solely of the model parameters $\theta$ since the data set itself is considered fixed. This empirical risk acts as a practical surrogate for the true risk defined in equation (1.1), which generally involves the unknown underlying data distribution and is, therefore, intractable. Under the assumption of a suitably chosen loss function $L$, minimizing the empirical risk (1.4) with respect to $\theta$ yields an approximating $f_\theta$ that represents the best possible model.
 
 This optimization strategy is known as \textbf{empirical risk minimization (ERM)} and forms a foundational principle in machine learning. ERM provides a coherent and general framework for constructing \textbf{estimators}, which are mappings from observed data to estimated model parameters.
@@ -104,7 +96,6 @@ Before proceeding, let us formally define the notion of an estimator and further
 \begin{definition}
 Let $X_1,\dots,X_N$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the sample space $\Omega$. Consider the model $\{f_\theta \mid \theta \in \Theta \subseteq \mathbb{R}^d \}$. A \textbf{statistic} is a random variable $V_N(X_1,\dots,X_N)$ such that $V_N : (\mathbb{R}^n)^N \to \mathbb{R}^d$ is a measurable function. If the image of $V_N$ is (a subset of) $\Theta$, then $V_N$ is named point \textbf{estimator} for $\theta \in \Theta$. In this latter case, $V_N$ is indicated as $\hat{\theta}_N$.
 \end{definition}
-
 We have introduced a fundamental concept in machine learning: estimators. Estimators are random variables that depend on the data used to train the model. More precisely, from a data set consisting of observed values $x_1,\dots,x_N$, the estimator $\hat{\theta}_N$ gives the estimation $\hat{\theta}_N(x_1,\dots,x_N) \in \Theta$. Because the data themselves are random, the estimator can take on different values for different realizations of the data.
 
 Estimators play a central role in statistical machine learning, as they are the quantities we seek to infer or learn based on observed data. Through statistical machine learning algorithms, the learning process is essentially a form of \textbf{statistical inference}. These algorithms use observed data to construct estimators that approximate unknown parameters or functions characterizing the underlying data-generating process.
@@ -118,7 +109,6 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \hat{\theta}^{ERM}_N(D) \in \arg\min_{\theta \in \Theta}\hat{R}_N(f_X,f_\theta)(D).
 \end{equation}
 \end{definition}
-
 The ERM method, introduced as the first \textbf{optimization} problem in these notes, establishes a fundamental link between machine learning and \textbf{optimization theory}. ERM formalizes the learning task as an optimization problem in which the goal is to find an estimator that minimizes the empirical risk, computed over the training data. By minimizing the empirical risk, we effectively find parameters that perform well on the observed data, with the goal—under appropriate conditions of regularity and sufficient sample size—of generalizing well to new, unseen data.
 
 If one uses the empirical risk minimization method together with the empirical KL divergence, one obtains the so-called \textbf{maximum likelihood} method.
@@ -129,16 +119,13 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \begin{equation}
 \hat{D}^{(KL)}_N(f_X||f_\theta)(D) := \frac{1}{N} \sum_{k=1}^{N} \ln \left(\frac{f_X(x_k)}{f_\theta(x_k)}\right) = -\frac{1}{N} \sum_{k=1}^{N} \ln  f_\theta(x_k) + \textup{const},
 \end{equation}
-
 is named the \textbf{maximum likelihood (ML)} method.
 \end{definition}
-
 Combining equations (1.6) and (1.5) yields the following optimization problem, which determines the so-called \textbf{maximum likelihood (ML)} estimator:
 
 \begin{equation}
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f_\theta(x_k)\right) = \arg \max_{\theta \in \Theta} \left(\prod_{k=1}^N f_\theta(x_k) \right).
 \end{equation}
-
 The two objective functions in (1.7) are referred to as the \textbf{log-likelihood function (LLF)} and the \textbf{likelihood function (LF)}, respectively. The second equality in (1.7) follows from the monotonicity of the logarithm function, which ensures that the LF and the LLF attain their maximum values at the same points.
 
 The LF can be interpreted as the probability of observing the data $D$ given the parameters $\theta$. When $\theta$ is unknown, a natural and widely used approach for estimation is to find the parameter values that \textbf{maximize} this probability, thus making the observed data most probable under the model. In the case of i.i.d. data, this probability is given by the likelihood function. These ideas described here underlie the estimation problem formulated in equation (1.7).
@@ -152,7 +139,6 @@ The \textbf{mean} (or \textbf{expected value}) of the point estimator $\hat{\the
 E_{X_1,\dots,X_N}[\hat{\theta}_N] := \int_{X_1(\Omega)\times \cdots \times X_N(\Omega)} \hat{\theta}_N(x_1,\dots,x_N)f_X(x_1)\cdots f_X(x_N) dx_1\cdots dx_N.
 \end{equation}
 \end{definition}
-
 The joint probability distribution function (PDF) in (1.8) is the product of marginal probability distribution functions $f_X$ because $X_1,\dots,X_N$ are i.i.d..
 
 \begin{definition}
@@ -161,10 +147,8 @@ The \textbf{bias} of the point estimator $\hat{\theta}_N$ is defined as
 \begin{equation}
 BIAS(\hat{\theta}_N,\theta_*) := E_{X_1,\dots,X_N}[\hat{\theta}_N] - \theta_*,
 \end{equation}
-
 where $\theta_* \in \Theta$ is the true value of the parameters. A point estimator is said to be \textbf{unbiased} if its bias is zero.
 \end{definition}
-
 The bias measures how far off, on average, the estimator's predictions are from the true parameter value it is trying to estimate. An unbiased estimator over many repeated samples hits the true parameter value on average. Conversely, an estimator with nonzero bias can overestimate or underestimate the parameter $\theta$.
 
 Heuristically, unbiased estimators are generally more desirable because they do not systematically deviate from the true parameter, making them more accurate on average. However, unbiasedness alone does not guarantee that an estimator is overall better. Other properties like \textbf{variance} and \textbf{mean squared error (MSE)} also matter. Sometimes, a slightly biased estimator with much lower variance can lead to more reliable estimates in practice.
@@ -179,7 +163,6 @@ VAR(\hat{\theta}_N) & := E_{X_1,\dots,X_N}[||\hat{\theta}_N-E_{X_1,\dots,X_N}[\h
 & = \sum_{k=1}^{d}VAR(\hat{\theta}_{k}) = \mathrm{tr}\,COV(\hat{\theta}_N),
 \end{split}
 \end{equation}
-
 where $\mathrm{tr}\,COV(\hat{\theta}_N)$ denotes the trace of the \textbf{covariance} matrix of $\hat{\theta}_N$.
 \end{definition}
 
@@ -190,7 +173,6 @@ The \textbf{mean squared error (MSE)} of the point estimator $\hat{\theta}_N$ is
 MSE(\hat{\theta}_N,\theta_*) := E_{X_1,\dots,X_N}[||\hat{\theta}_N - \theta_*||^2].
 \end{equation}
 \end{definition}
-
 The MSE is a widely used and reasonable criterion for measuring the performance of an estimator because it quantifies the average squared difference between the estimated value and the true parameter being estimated. If the MSE is small, it indicates that, on average, the estimator produces values close to the true value, reflecting good estimation accuracy.
 
 One key and interesting property of the MSE is its decomposition into a bias and variance component, as illustrated by the following proposition.
@@ -202,7 +184,6 @@ The MSE of an estimator $\hat{\theta}_N$ can be decomposed as a sum of its bias 
 MSE(\hat{\theta}_N,\theta_*) = ||BIAS(\hat{\theta}_N,\theta_*)||^2 + VAR(\hat{\theta}_N).
 \end{equation}
 \end{proposition}
-
 As we mentioned before, this result highlights why unbiased estimators are often considered good candidates in statistical estimation. However, it is crucial to emphasize that zero (or small) bias alone does not guarantee that an estimator is of high quality. Even if an estimator is unbiased, it can still have high variance. High variance implies that the estimator’s predictions can vary widely depending on the particular data set used, leading to imprecise and unstable estimates. Such fluctuations make the estimator less reliable in practice, especially when working with finite or small sample sizes.
 
 Therefore, a good estimator is one that not only has \textbf{low bias} (accuracy on average) but also exhibits \textbf{low variance} (consistency and stability). This combination ensures that the estimator reliably produces values close to the true parameter across different samples, minimizing both systematic error and random fluctuations. In the machine learning literature, an estimator with these properties is said to have good \textbf{generalization} properties. Informally, an estimator is said to \textbf{generalize} well in describing new, unseen data if it has a small mean squared error (MSE).
@@ -216,7 +197,6 @@ Let $\hat{\theta}_N$ be an estimator with finite variance, $VAR(\hat{\theta}_N) 
 P(||\hat{\theta}_N -\theta_*|| > \epsilon) \leq \frac{MSE(\hat{\theta}_N,\theta_*)}{\epsilon ^ 2}.
 \end{equation}
 \end{proposition}
-
 The meaning of this result is clear: if an estimator has a low MSE, then the probability that it produces an estimate far from the true parameter value is low. Moreover, if we assume that the MSE approaches zero as $N \to \infty$, it follows that the estimator is \textbf{consistent}.
 
 \begin{definition}
@@ -226,7 +206,6 @@ The point estimator $\hat{\theta}_N$ is called \textbf{consistent} if its MSE va
 \lim_{N \to \infty} P(||\hat{\theta}_N -\theta_*|| > \epsilon) = 0.
 \end{equation}
 \end{definition}
-
 Consistency is a fundamental property that describes the \textbf{asymptotic} behavior of an estimator. It ensures that, as the sample size increases, the estimator produces values that get arbitrarily close to the true parameter $\theta_*$ with high probability. However, it is important to note that the converse is not true in general: consistency (convergence in probability) does not necessarily imply that the MSE converges to zero.
 
 We conclude this section by examining the properties of the empirical risk (1.4) and exploring in which sense it serves as a good approximation of the true risk (1.1). Let us begin by defining the empirical risk as an estimator of the true risk.
@@ -238,7 +217,6 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \hat{R}_N(f_X,f_\theta) := \overline{L(f_X(X),f_\theta(X))}_N = \frac{1}{N}\sum_{k=1}^{N}L(f_X(X_k),f_\theta(X_k)).
 \end{equation}
 \end{definition}
-
 It is evident that the empirical risk in (1.4) is a realization of the empirical risk estimator in (1.15), and the latter quantity is a random variable depending on the data set $D$.
 
 The empirical risk is useful for efficiently approximating the true risk because it is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk. These properties rely heavily on the assumption that the data set is i.i.d.. Let us now formalize these concepts.
@@ -254,7 +232,6 @@ E_{X_1,...,X_N}[\hat{R}_N(f_X,f_\theta)] = R(f_X,f_\theta),
 \lim_{N\to \infty}P(|\hat{R}_N(f_X,f_\theta)-R(f_X,f_\theta)| > \epsilon) = 0.
 \end{equation}
 \end{proposition}
-
 It is interesting to note that the consistency of the empirical risk is related to the \textbf{law of large numbers}, as stated in the following proposition.
 
 \begin{proposition}
@@ -263,7 +240,6 @@ Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random
 \begin{equation}
 \lim_{N\to \infty}P\left(\left|\frac{1}{N}\sum_{k=1}^NL(f_X(X_k),f_\theta(X_k)) - E_{X}[L(f_X(X),f_\theta(X))]\right| > \epsilon\right) = 0.
 \end{equation}
-
 Consequently, the empirical risk estimator defined in (1.15) is \textbf{consistent}.
 \end{proposition}
 
@@ -281,7 +257,6 @@ Our goal is to illustrate the fundamental principles of this theory and to compa
 \begin{definition}
 Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{(supervised) learning problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{ h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta \}$, such that $h_\theta$ predicts the corresponding output $y \in \mathcal{Y}$ from input $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
-
 The term \textbf{supervised} means that learning the parameters requires using the complete set of data $(x,y)$ to guide the learning process.
 
 A fundamental concept in learning theory is the \textbf{learning algorithm}, which represents the procedure for obtaining the best hypothesis from a data set $D$. The notion of a learning algorithm can be formalized as follows.
@@ -290,7 +265,6 @@ A fundamental concept in learning theory is the \textbf{learning algorithm}, whi
 Consider the hypothesis space $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function \[ A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
 Given the  i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm learns the hypothesis $A_H(D) := h_{\hat{\theta}(D)} \in H$.
 \end{definition}
-
 Definitions 1.14 and 1.15 are somewhat vague on how to determine the best hypothesis $h_\theta$ from the data set $D$. To formulate a principled method, we use an approach similar to the one employed for the formulation of inference in the previous section. Then, we define the \textbf{risk} in the context of learning theory.
 
 \begin{definition}
@@ -299,10 +273,8 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal
 \begin{equation}
 R(h_\theta) := E_{X,Y}[L(h_\theta(X),Y)] = \int_{\mathcal{X} \times \mathcal{Y}} L(h_\theta(x),y)f_{X,Y}(x,y)dxdy,
 \end{equation}
-
 where $L :\mathcal{Y}^2 \to \mathbb{R}$ is the \textbf{loss} function.
 \end{definition}
-
 The optimal value of $h_\theta$ can then be determined by \textbf{minimizing} this risk:
 
 \begin{equation}
@@ -312,7 +284,6 @@ h_\theta^* := h_{\theta^*} \in \arg \min_{h_\theta \in H} R(h_\theta).
 \begin{equation}
 \theta^* \in \arg \min_{\theta \in \Theta} R(h_\theta).
 \end{equation}
-
 More generally, if $H = M(\mathcal{X}, \mathcal{Y})$, we can define the \textbf{Bayes optimal hypothesis} and \textbf{Bayes error}.
 
 \begin{definition}
@@ -321,14 +292,12 @@ The \textbf{Bayes optimal hypothesis} is defined as
 \begin{equation}
 h^*\in \arg \min_{h \in M(\mathcal{X}, \mathcal{Y})} R(h).
 \end{equation}
-
 The value of risk calculated with $h^*$ is called \textbf{Bayes test error}:
 
 \begin{equation}
 R^* := \min_{h \in M(\mathcal{X}, \mathcal{Y})} R(h) = R(h^*).
 \end{equation}
 \end{definition}
-
 Since the true distribution $f_{X,Y}$ is generally unknown, the \textbf{empirical risk} is introduced as a surrogate for the true risk.
 
 \begin{definition}
@@ -338,7 +307,6 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal
 \hat{R}_N(h_\theta) := \overline{L(h_\theta(X),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h_\theta(X_k),Y_k).
 \end{equation}
 \end{definition}
-
 It is easy to see that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk, similar to what we established in the inference framework. This implies that $E_{X_1,Y_1,\dots,X_N,Y_N}[\hat{R}_N(h_\theta)] =  R(h_\theta)$.
 
 The \textbf{empirical risk minimization (ERM)} method is an important type of learning algorithm within the framework of learning theory. This algorithm leads to the definition of the \textbf{ERM estimator} and the corresponding minimizing hypothesis.
@@ -349,14 +317,12 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal
 \begin{equation}
 ERM_H(D) := \hat{h}_N^{ERM}(D) := h_{\hat{\theta}^{ERM}_N(D)} \in \arg \min_{h_\theta \in H} \hat{R}_N(h_\theta)(D),
 \end{equation}
-
 where the \textbf{ERM estimator} is defined as
 
 \begin{equation}
 \hat{\theta}^{ERM}_N(D) \in \arg\min_{\theta \in \Theta}\hat{R}_N(h_\theta)(D).
 \end{equation}
 \end{definition}
-
 The previous definition illustrates how the parameter values corresponding to the minimizing hypothesis can be interpreted as an \textbf{estimator}, because these values depend on the specific data set $D$ and thus vary randomly with the data. However, the key subtlety here is that the estimators obtained in this way do not necessarily correspond in a straightforward way to parameters of a well-defined PDF.
 
 The main concept of learning theory is the \textbf{agnostic PAC learnability} of a hypothesis space, which is defined as follows.
@@ -367,11 +333,12 @@ The hypothesis space $H = \{h_\theta : \mathcal{X} \to \mathcal{Y}\}$ is \textbf
 \begin{equation}
 P(R(\hat{h}_N) - R^* \leq \epsilon) \geq 1- \delta,
 \end{equation}
-
 where $\hat{h}_N := h_{\hat{\theta}_N} := A_H(X_1, Y_1,\dots\,X_N, Y_N)$ is the (random) hypothesis learned by $A_H$ from $H$. If $A_H$ returns $h_{\hat{\theta}_N}$ in a time proportional to $q_H(1/\epsilon,1/\delta)$, then $H$ is said to be \textbf{efficiently agnostic PAC learnable}. The (random) quantity $\Delta(\hat{h}_N) := R(\hat{h}_N) - R^* \geq 0$ is named \textbf{excess risk}.
 \end{definition}
 
-Relation (1.27) is central to learning theory because it defines what constitutes effective learning and \textbf{generalization} with a \textbf{finite} data set $D$. The most important peculiarity is that it involves two accuracy parameters. The accuracy parameter $\epsilon$ specifies how close the output hypothesis must be to the optimal hypothesis (this corresponds to the “approximately correct” part), while the confidence parameter $\delta$ specifies the probability that the hypothesis meets this accuracy and generalization requirements (this corresponds to the “probably” part). The learnability and generalization properties do not depend on distribution $f_{X,Y}$, but depend on the number of samples $N$, which must be greater than a threshold $q_H(1/\epsilon,1/\delta)$, which determines the sample complexity of learning $H$. This threshold depends on the accuracy parameters $\epsilon,\delta$. Since $q_H$ is polynomial, optimal learning and generalization, corresponding to \textbf{small} values of $\epsilon$ and \textbf{small} values of $\delta$, imply a \textbf{greater} value of $N$. In other words, the PAC learnability of a hypothesis space $H$ guarantees that the optimal learned hypothesis $\hat{h}_N \in H$ generalizes with error at most $\epsilon$ (that is $\Delta(\hat{h}_N) \leq \epsilon$) and probability at least $1-\delta$ if it is obtained from a data set $D$ whose size $N \geq q_H(1/\epsilon,1/\delta)$.
+Relation (1.27) is central to learning theory because it defines what constitutes effective learning and \textbf{generalization} with a \textbf{finite} data set $D$. The most important peculiarity is that it involves two accuracy parameters. The accuracy parameter $\epsilon$ specifies how close the output hypothesis must be to the optimal hypothesis (this corresponds to the “approximately correct” part), while the confidence parameter $\delta$ specifies the probability that the hypothesis meets this accuracy and generalization requirements (this corresponds to the “probably” part).
+
+The learnability and generalization properties do not depend on distribution $f_{X,Y}$, but depend on the number of samples $N$, which must be greater than a threshold $q_H(1/\epsilon,1/\delta)$, which determines the sample complexity of learning $H$. This threshold depends on the accuracy parameters $\epsilon,\delta$. Since $q_H$ is polynomial, optimal learning and generalization, corresponding to \textbf{small} values of $\epsilon$ and \textbf{small} values of $\delta$, imply a \textbf{greater} value of $N$. In other words, the PAC learnability of a hypothesis space $H$ guarantees that the optimal learned hypothesis $\hat{h}_N \in H$ generalizes with error at most $\epsilon$ (that is $\Delta(\hat{h}_N) \leq \epsilon$) and probability at least $1-\delta$ if it is obtained from a data set $D$ whose size $N \geq q_H(1/\epsilon,1/\delta)$.
 
 \begin{proposition}
 The excess risk can be bounded as
@@ -382,7 +349,6 @@ The excess risk can be bounded as
 &\leq R_{opt} + 2R'_{gen} + R_{app}
 \end{split}
 \end{equation}
-
 where
 
 \begin{itemize}
@@ -391,7 +357,6 @@ where
 \item $R_{app} := R(h^*_\theta)-R^*$ is named \textbf{approximation error}
 \end{itemize}
 \end{proposition}
-
 The generalization error is very important because it is related to the \textbf{generalization bound}, which is defined as follows.
 
 \begin{definition}
@@ -405,7 +370,6 @@ P\left(\sup_{h_{\theta} \in H}|R(h_\theta)-\hat{R}_N(h_\theta)|\leq \kappa(\delt
 P\left(|R(\hat{h}_N)-\hat{R}_N(\hat{h}_N)|\leq \kappa(\delta, N)\right) \geq 1-\delta.
 \end{equation}
 \end{definition}
-
 The generalization error and the generalization bound are essential tools for bounding the excess risk, which is key to analyzing the P\textbf{AC learnability} of a hypothesis space and \textbf{generalization} properties of learned hypothesis $\hat{h}_N$. Indeed, from inequality (1.30), one can reduce the optimization error and approximation error by choosing the empirical risk minimizer $\hat{h}_N = \hat{h}^{ERM}_N$ and by enlarging the hypothesis space $H$ within $M(\mathcal{X}, \mathcal{Y})$. Consequently, the generalization error (in whichever form) becomes the dominant contribution to the excess risk bound. This implies that any generalization analysis can be conducted on this quantity.
 
 From (1.30), we can estimate the sample complexity threshold $q_H(1/\epsilon, 1/\delta)$ by solving for $N$ in the following inequality:
@@ -413,7 +377,6 @@ From (1.30), we can estimate the sample complexity threshold $q_H(1/\epsilon, 1/
 \begin{equation}
 \kappa(\delta,N) \leq \epsilon.
 \end{equation}
-
 In some cases, it is possible to provide an inferential interpretation of the risk minimization parameter (1.21) and its empirical counterpart (1.26) as follows.
 
 \begin{proposition}
@@ -422,16 +385,13 @@ The learning theory parameters $\theta \in \Theta$ can be interpreted as the par
 \begin{equation}
 L(h_\theta(x), y) = L_{inf}(f_{X,Y}(x,y),f_\theta(x,y)),
 \end{equation}
-
 where the model distribution $f_\theta(x,y) := F(x,y,h_\theta)$ depends on $\theta$ through the dependence on $h_\theta$, and $L_{inf}$ is the inferential loss function introduced in (1.1).
 \end{proposition}
-
 Then, the \textbf{risk minimization principle} applied to (1.19) with loss (1.32) connects the learning theory to the inference theory. For example, the \textbf{KL divergence} (1.2) can be obtained if we can construct a loss function as
 
 \begin{equation}
 L(h_\theta(x), y) = \ln f_{X,Y}(x,y) -\ln f_\theta(x,y).
 \end{equation}
-
 From (1.33), we conclude that the \textbf{ML estimator} (1.7) coincides with the learning theory \textbf{ERM estimator} (1.26) if we can define empirical risk as
 
 \begin{equation}
@@ -454,10 +414,8 @@ Two random variables $X$ and $Y$, defined on the same sample space $\Omega$, are
 \begin{equation}
 f_{X,Y}(x,y) \neq f_X(x)f_Y(y),
 \end{equation}
-
 where $f_{X,Y}$ is the \textbf{joint} PDF, and $f_X,f_Y$ are the \textbf{marginal} PDFs of $X$ and $Y$, respectively.
 \end{definition}
-
 Using the definition of conditional probability, one can show that (2.1) is equivalent to the following relations:
 
 \begin{equation}
@@ -467,7 +425,6 @@ f(y|x) \neq f_Y(y),
 \begin{equation}
 f(x|y) \neq f_X(x).
 \end{equation}
-
 To perform classification, it is reasonable to assume that the variables $X$ and $Y$ are dependent; otherwise, there would be no correlation between them, rendering the classification problem meaningless. Therefore, we assume dependence between $X$ and $Y$, and consider the conditional probability density function $f(y|x)$, which captures the dependence of $Y$ on $X$, as a suitable model candidate. The following definition formalizes the classification problem based on the previous reasoning:
 
 \begin{definition}
@@ -476,14 +433,12 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.
 \begin{equation}
 \{f_\theta(y|x) \mid \theta \in \Theta \subseteq \mathbb{R}^d\}
 \end{equation}
-
 from the data in $D$. After the learning process, the \textbf{classification function} $c : \mathbb{R}^n \to C$ is calculated as
 
 \begin{equation}
 c_\theta(x) := \arg \max_{y \in C} f_\theta(y|x) = \arg \max_{y \in C} \ln f_\theta(y|x).
 \end{equation}
 \end{definition}
-
 The classification function has an intuitive interpretation: the class of a pattern $x$ is the most probable value of $y$ conditioned on $x$. Thus, the classification problem, when viewed as a decision problem, is inherently probabilistic in nature. The probabilistic rule in (2.5) is named \textbf{Bayesian classification rule} or \textbf{Bayes classifier}.
 
 We provide a complementary geometric definition of classification:
@@ -494,51 +449,44 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.
 \begin{equation}
 \mathcal{R}_C(\theta) := \{\mathcal{R}_y(\theta) \subset \mathbb{R}^n \mid y \in C\},
 \end{equation}
-
 where the region
 
 \begin{equation}
 \mathcal{R}_y(\theta) := \{x \in \mathbb{R}^n \mid f_\theta(y|x) > f_\theta(y'|x), \forall y' \neq y\} \subset \mathbb{R}^n
 \end{equation}
-
 is named the \textbf{decision rule} for the class $y \in C$. The \textbf{decision boundary} between classes $y$ and $y' \neq y$ is defined as
 
 \begin{equation}
 \mathcal{D}_{yy'}(\theta) := \{x \in \mathbb{R}^n \mid f_\theta(y|x) = f_\theta(y'|x)\}.
 \end{equation}
-
 Decision rules and decision boundaries satisfy the following relations:
 
 \begin{equation}
 \bigcup_{y \in C} \mathcal{R}_y \cup \bigcup_{y' \neq y} \mathcal{D}_{yy'} = \mathbb{R}^n, \quad \mathcal{R}_y \cap \mathcal{R}_{y'} = \emptyset \quad \forall y \neq y'.
 \end{equation}
-
 After the learning process, the pattern $x$ is assigned to class $y$ if $x \in \mathcal{R}_y$.
 \end{definition}
-
 The previous definition allows us to observe that the classification problem is equivalent to the geometric problem of finding a family of regions $\mathcal{R}_y(\theta)$, where each region corresponds to the set of patterns $x \in \mathbb{R}^n$ belonging to class $y \in C$. Moreover, these regions, together with their decision boundaries, form a \textbf{partition} of the pattern space (see (2.9)), since any pattern $x$ can belong to only one class $y$.
 
 It is important to emphasize that the decision rules in (2.7) depend on parameters $\theta$, which are random variables learned from data, as discussed in the previous chapter. This implies that the decision rules can be viewed as a type of \textbf{random set}.
 
 \section{Further developments}
-The Definition 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
+The Definitions 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
 
 \begin{definition}
-A classification problem and its statistical model (2.4), as defined in Definition 2.2, are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_\theta(x,y)$ as follows:
+A classification problem and its statistical model (2.4), as defined in Definition 2.2, are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f_\theta(y|x) = g_\theta(x, y)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_\theta(x,y)$ as follows:
 
 \begin{equation}
 f_\theta(y|x) \propto f_\theta(x,y) = f_\theta(y)f_\theta(x|y),
 \end{equation}
-
 where the normalization constant in the denominator is ignored because it is independent of $y$.
 \end{definition}
-
 In other words, generative statistical models estimate the joint distribution $f_\theta(x,y)$ and then derive the conditional probability $f_\theta(y|x)$ via Bayes' rule, while discriminative models estimate the conditional probability $f_\theta(y|x)$ directly. Generative models are called so because, once the joint distribution $f_\theta(x,y)$ is learned, one can \textbf{generate} new data points $(x,y)$ by sampling from this distribution. This simple mathematical principle, implemented in more sophisticated mathematical forms, is the driving force behind the so-called \textbf{generative AI}, which generates new data, such as images, text, or audio, by sampling from learned probability distributions.
 
 If the set of classes contains only two elements, the classification is called \textbf{binary}, and we provide the following discriminative definition.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C = \{y^{(1)}, y^{(2)}\}$ is the finite set of \textbf{classes}. The \textbf{(discriminative) binary classification problem} consists of inferring (or learning) from data in $D$ the parameters $\theta$ of the statistical model in (2.4), where the distributions have the \textbf{Bernoulli} form
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C = \{y^{(1)}, y^{(2)}\}$ is the finite set of \textbf{classes}. The \textbf{(discriminative) binary classification} consists of inferring (learning) from data in $D$ the parameters $\theta$ of the \textbf{Bernoulli} statistical model
 
 \begin{equation}
 f_\theta(y|x) := \textup{Be}(y;f_\theta(x)) = \left\{\begin{matrix}
@@ -546,8 +494,7 @@ f_\theta(x) & y=y^{(1)}\\
 1 - f_\theta(x) & y = y^{(2)} \\
 \end{matrix}\right.,
 \end{equation}
-
-and $0 \leq f_\theta(x) \leq 1$ for all $x$ and $\theta$. The \textbf{binary classification function} $c : \mathbb{R}^n \to C$ is calculated as
+where $0 \leq f_\theta(x) \leq 1$ for all $x$ and $\theta$. The \textbf{binary classification function} $c : \mathbb{R}^n \to C$ is calculated as
 
 \begin{equation}
 c_\theta(x) := \left\{\begin{matrix}
@@ -555,7 +502,6 @@ y^{(1)} & f_\theta(x) > 1/2\\
 y^{(2)} & f_\theta(x) < 1/2\\
 \end{matrix}\right..
 \end{equation}
-
 The \textbf{decision rules} for the classes in $C$ are
 
 \begin{equation}
@@ -565,20 +511,17 @@ The \textbf{decision rules} for the classes in $C$ are
 \begin{equation}
 \mathcal{R}_{y^{(2)}}(\theta) := \{x \in \mathbb{R}^n \mid f_\theta(y^{(2)}|x) > f_\theta(y^{(1)}|x)\} = \{x \in \mathbb{R}^n \mid f_\theta(x) < 1/2\}.
 \end{equation}
-
 The \textbf{decision boundary} is
 
 \begin{equation}
 \mathcal{D}_{y^{(1)}y^{(2)}}(\theta) := \{x \in \mathbb{R}^n \mid f_\theta(y^{(1)}|x) = f_\theta(y^{(2)}|x) = f_\theta(x) = 1/2\}.
 \end{equation}
 \end{definition}
-
 For the discriminative binary classification problems, a typical choice for the conditional probability is the \textbf{logistic (sigmoid)} function:
 
 \begin{equation}
 f_\theta(y^{(1)}|x) = f_\theta(x) := \frac{\exp (b_\theta(x))}{1+\exp (b_\theta(x))}.
 \end{equation}
-
 The logistic function is a natural choice for probability modeling because its output is constrained to the interval $(0, 1) \subset \mathbb{R}$ for every argument $b_\theta(x)$. This approach to binary classification is known as \textbf{binary logistic classification} (or \textbf{binary logistic regression} in some references). In the special case where $b_\theta(x)$ has a linear form, the model corresponds to \textbf{half-space} decision rules separated by a \textbf{linear} decision boundary, that is described by a linear function (a \textbf{hyperplane}). Data separated by linear decision boundaries are called \textbf{linearly separable}, and the decision rules and decision boundaries are called \textbf{linear discriminant functions}. Let us formalize these results.
 
 \begin{proposition}
@@ -595,7 +538,6 @@ f_\theta(y^{(2)}|x) = 1- f_\theta(x) := \frac{1}{1+\exp(b_\theta(x))},
 \begin{equation}
 b_\theta(x) := \theta_0 + \sum_{k=1}^{n}\theta_kx_k.
 \end{equation}
-
 The corresponding \textbf{decision rules} are the \textbf{half-spaces}:
 
 \begin{equation}
@@ -605,13 +547,11 @@ The corresponding \textbf{decision rules} are the \textbf{half-spaces}:
 \begin{equation}
 \mathcal{R}_{y^{(2)}}(\theta) = \{x \in \mathbb{R}^n \mid b_\theta(x) < 0 \}.
 \end{equation}
-
 The \textbf{decision boundary} is the hyperplane defined by the following Cartesian equation:
 
 \begin{equation}
 b_\theta(x) = 0.
 \end{equation}
-
 Finally, the \textbf{classification function} is given by
 
 \begin{equation}
@@ -621,13 +561,11 @@ y^{(2)} & b_\theta(x) < 0\\
 \end{matrix}\right..
 \end{equation}
 \end{proposition}
-
 If $y^{(1)} = -y^{(2)} = 1$, the classification function can be compactly represented as
 
 \begin{equation}
 c_\theta(x) = \frac{|b_\theta(x)|}{b_\theta(x)}.
 \end{equation}
-
 The geometric interpretation of (2.23) and (2.24) is straightforward: a pattern $x$ belongs to class $y^{(1)} (=1)$ if it lies in the "upper" half-space, or to class $y^{(2)}(=-1)$ if it lies in the "lower" half-space, relative to the direction of the vector $(\theta^{(1)},\dots,\theta^{(n)}) \in \mathbb{R}^n$, which is orthogonal to the separating hyperplane.
 
 The linear binary logistic classification described earlier can be generalized to handle \textbf{nonlinear} decision boundaries by incorporating nonlinear functions $b_\theta(x)$. For example, using \textbf{quadratic} functions in $x$, one can describe decision boundaries represented by \textbf{hyperconics} such as hyperspheres, hyperellipsoids, hyperparaboloids, and so on:
@@ -635,7 +573,6 @@ The linear binary logistic classification described earlier can be generalized t
 \begin{equation}
 b_\theta(x) := \sum_{k=1}^{n}\sum_{j=1}^{n}q_{kj}(\theta)(x^{(k)}-a^{(k)})(x^{(j)} - a^{(j)}),
 \end{equation}
-
 where the coefficients $q_{kj}$ depend on the parameters $\theta$, and $(a^{(1)},\dots,a^{(n)}) \in \mathbb{R}^n$ represent the center of the quadratic form.
 
 For completeness, it is worth giving the properties of the general logistic classification for more than two classes.
@@ -646,26 +583,22 @@ Consider the \textbf{multiclass classification problem} with the following \text
 \begin{equation}
 f_\theta(y|x) := \frac{\exp(b_\theta^{(y)}(x))}{\sum_{y' \in C}\exp(b_\theta^{(y')}(x))}, \quad y \in C.
 \end{equation}
-
 The corresponding \textbf{decision rule} for the class $y \in C$ is
 
 \begin{equation}
 \mathcal{R}_y(\theta) = \{x \in \mathbb{R}^n \mid b_\theta^{(y)}(x) > b_\theta^{(y')}(x), \forall y' \neq y\}.
 \end{equation}
-
 The \textbf{decision boundary} between classes $y$ and $y' \neq y$ is
 
 \begin{equation}
 \mathcal{D}_{yy'}(\theta) = \{x \in \mathbb{R}^n \mid b_\theta^{(y)}(x) = b_\theta^{(y')}(x)\}.
 \end{equation}
-
 Finally, the \textbf{classification function} is given by
 
 \begin{equation}
 c_\theta(x) = \arg \max_{y \in C} b_\theta^{(y)}(x).
 \end{equation}
 \end{proposition}
-
 Let us now consider an important example of the generative classification problem that is based on the Gaussian distribution, which is called \textbf{Gaussian discriminant analysis}, and explore its properties.
 
 \begin{definition}
@@ -674,16 +607,13 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n\times C$ be an i.i.d
 \begin{equation}
 f_\theta(y|x) := \alpha \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{\alpha\Pi(y)}{\sqrt{(2\pi)^n\det \Sigma(y)}}\exp \left[-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
 \end{equation}
-
 where $\alpha$ is the normalization factor, $\Pi(y)$ is the \textbf{prior} distribution of $y$, and $\mu(y)$ and $\Sigma(y)$ are the \textbf{mean} vector and the \textbf{covariance} matrix of the Gaussian distribution associated with class $y$, respectively. Therefore, the parameters of the model are $\theta = (\Pi(y), \mu(y), \Sigma(y))$, for $y \in C$.
 \end{definition}
-
 Comparing (2.30) with (2.10), it is easy to make the following identifications for the GDA:
 
 \begin{equation}
 f_\theta(y) := \Pi(y), \quad f_\theta(x|y) := \mathcal{N}(x;\mu(y),\Sigma(y)).
 \end{equation}
-
 The following proposition illustrates the properties of the decision boundaries for the GDA.
 
 \begin{proposition}
@@ -692,10 +622,8 @@ For any pair of labels $y$ and $y'\neq y$, the \textbf{decision boundary} of the
 \begin{equation}
 \frac{1}{2}x^T[\Sigma^{-1}(y)-\Sigma^{-1}(y')]x+[\mu(y')\Sigma^{-1}(y') - \mu(y)\Sigma^{-1}(y)]x + const = 0,
 \end{equation}
-
 where $const$ denotes the remaining terms that do not depend on the pattern $x$.
 \end{proposition}
-
 The relation (2.32) illustrates that decision boundaries are \textbf{quadratic}, and for this reason, the GDA is called \textbf{quadratic discriminant analysis}. In the case where covariance matrices do not depend on class $y$, the decision boundary is \textbf{linear} and the GDA is called \textbf{linear discriminant analysis}. The term "discriminant" can be quite confusing because the model is generative, not discriminative.
 
 Another example of a generative classification problem is the so-called \textbf{naive Bayes} problem defined as follows.
@@ -706,22 +634,18 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.
 \begin{equation}
 f_\theta(y|x) := \alpha \Pi_\theta(y) f_\theta(x|y) = \alpha \Pi_\theta(y) \prod_{k=1}^n f_\theta(x^{(k)}|y),
 \end{equation}
-
 where $\alpha$ is the normalization factor, $\Pi_\theta(y)$ is the \textbf{prior} distribution of $y$, and it is assumed that the components of the pattern vector $x = (x^{(1)},\dots,x^{(n)}) \in \mathbb{R}^n$ are \textbf{conditionally independent} given the class $y$. This simplifying assumption is known as the \textbf{naive Bayes hypothesis}, and permits the product decomposition on the right-hand side in (2.33).
 \end{definition}
-
 For the general problem of classification, the standard maximum likelihood method can be used to derive estimators for the model parameters:
 
 \begin{equation}
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f_\theta(y_k|x_k)\right).
 \end{equation}
-
 The expression of the \textbf{log-likelihood function} in (2.34) depends on the adopted model. In the case of a \textbf{binary logistic classification problem}, expression (2.34) can be rewritten using (2.17), (2.18), and the definition $\eta(y^{(1)}) = -\eta(y^{(2)}) = 1$ as
 
 \begin{equation}
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(-\sum_{k=1}^N \ln(1+\exp(-\eta(y_k)b_\theta(x_k))\right).
 \end{equation}
-
 In the case of \textbf{multiclass logistic classification}, (2.35) is generalized as
 
 \begin{equation}
@@ -737,7 +661,6 @@ Let us formalize the (binary) classification problem within this framework; the 
 \begin{definition}
 Let $\mathcal{X} \subseteq \mathbb{R}^n$ and $\mathcal{Y} := \{y^{(1)}, y^{(2)}\}$ be the set of \textbf{classes}. Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{supervised binary classification problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} (or \textbf{classifier}) $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta\}$, such that $h_\theta$ predicts the corresponding label $y \in \mathcal{Y}$ from pattern $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
-
 The hypothesis space in the previous definition is described as a space of functions. More broadly, inspired by Definition 2.3, we can define the hypothesis space for a classification problem as the space of decision rules or decision boundaries.
 
 Following the principles of learning theory, one can define the risk using a suitable loss function. In binary classification, a popular choice of loss is the \textbf{0-1 loss}, which is defined as follows.
@@ -752,13 +675,11 @@ L(h_\theta(x), y) := 1(h_\theta(x) \neq y) = \left\{\begin{matrix}
 \end{matrix}\right..
 \end{equation}
 \end{definition}
-
 Combining (2.37) with the definition of risk (1.19), one obtains the \textbf{0-1 risk}:
 
 \begin{equation}
 R^{(0-1)}(h_\theta) := E_{X,Y}[1(h_\theta(X) \neq Y)] = P(h_\theta(X) \neq Y).
 \end{equation}
-
 The relation (2.38) expresses the fact that, in order to reduce the risk, one has to find the hypothesis that minimizes the probability of \textbf{misclassification}. This criterion has a remarkable theoretical importance because its \textbf{Bayes optimal hypothesis} has a known form given by the following proposition.
 
 \begin{proposition}
@@ -771,7 +692,6 @@ y^{(2)} & otherwise
 \end{matrix}\right..
 \end{equation}
 \end{proposition}
-
 The importance of result (2.39) lies in the fact that it provides a theoretical justification for the classification function (2.12), specialized for binary classification, establishing a connection between the learning theory approach and the inferential one.
 
 The main idea of learning theory applied to binary classification is that learning performance and generalization depend on a quantity that describes the \textbf{complexity} of the hypothesis space.
@@ -780,13 +700,11 @@ For binary classification, it can be quantified by introducing the \textbf{Vapni
 \begin{definition}
 The \textbf{Vapnik–Chervonenkis dimension (VC dimension)} of a hypothesis space $H$ of binary classifiers, denoted by $VC\dim H$, is the cardinality of the largest set of points that can be \textbf{shattered} by $H$. By shattering a set of points, we mean that for every possible way of classifying those points as positive or negative, there exists a hypothesis in $H$ that can perfectly classify them.
 \end{definition}
-
 The VC dimension is a purely \textbf{combinatorial} notion, which is independent of any probabilistic models of data. For binary linear classification problems, one can quantify the VC dimension of the hyperplane hypothesis space using the following proposition.
 
 \begin{proposition}
 Let $H$ be the hypothesis space of hyperplanes in $\mathbb{R}^n$. Then, $VC\dim H = n + 1$.
 \end{proposition}
-
 For general hypothesis spaces, not only does the VC dimension characterize PAC learnability; it even determines the sample complexity.
 
 \begin{proposition}
@@ -796,8 +714,7 @@ Let $H$ be a hypothesis space of functions $h : \mathcal{X} \to \{0, 1\}$, and c
 N \geq C\frac{d + \ln (1/\delta)}{\epsilon^2}.
 \end{equation}
 \end{proposition}
-
-The previous theorem is a key result in learning theory for binary classification, addressing a type of practical question that is often neglected in inference theory — namely, how many data samples (sample complexity) are required to guarantee effective learning and generalization given the accuracy parameters $\epsilon, \delta$, and hypothesis complexity $d$. Furthermore, unlike inference theories that provide asymptotic guarantees on estimators, the result (2.40) is clearly non-asymptotic, making it applicable to practical scenarios involving \textbf{finite} data sets. However, the major drawback of bounds like (2.40) is that they can be extremely \textbf{loose} for most problems due to their distribution-independence.
+The previous result is a key result in learning theory for binary classification, addressing a type of practical question that is often neglected in inference theory — namely, how many data samples (sample complexity) are required to guarantee effective learning and generalization given the accuracy parameters $\epsilon, \delta$, and hypothesis complexity $d$. Furthermore, unlike inference theories that provide asymptotic guarantees on estimators, the result (2.40) is clearly non-asymptotic, making it applicable to practical scenarios involving \textbf{finite} data sets. However, the major drawback of bounds like (2.40) is that they can be extremely \textbf{loose} for most problems due to their distribution-independence.
 
 It is worth reflecting on the dependence of the right-hand side of (2.40) on $d$. This linear dependence explains that the greater the complexity of the hypothesis space, the greater the sample complexity should be to guarantee effective learning. In the case of linear classification with a hypothesis space of hyperplanes, the sample complexity is related to the \textbf{number of parameters} of the model, which is $n + 1$ (Proposition 2.5). Therefore, the more features the pattern vectors have, the larger the number of training samples required.
 
@@ -806,13 +723,11 @@ We now consider the empirical 0-1 risk, which is given by
 \begin{equation}
 \hat{R}^{(0-1)}_N(h_\theta)(D) := \frac{1}{N}\sum_{k=1}^{N}1(h_\theta(x_k) \neq y_k) = \frac{N_{mis}(h_\theta,D)}{N}.
 \end{equation}
-
 The quantity $N_{mis}(h_\theta,D)/N$ denotes the rate of \textbf{misclassified} data points in $D$ by the hypothesis $h_\theta$. Then, the ERM method suggests that the best hypothesis is obtained by minimizing the quantity (2.41). In some special cases, one can find a particular hypothesis for which the number of misclassifications is exactly \textbf{zero}. This is the case of an \textbf{separable data set}, which was mentioned previously for linear classification.
 
 \begin{definition}
 Consider the classification problem on the hypothesis space $H$. The i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ is \textbf{separable} if there exists a hypothesis $h_\theta \in H$ such that $\hat{R}^{(0-1)}_N(h_\theta)(D) = 0$.
 \end{definition}
-
 Now we establish an important excess risk bound that describes generalization.
 
 \begin{proposition}
@@ -822,7 +737,6 @@ Let $H$ be a hypothesis space of binary classifiers taking values in $\{1, -1\}$
 P\left(R(h) - \hat{R}_N(h) \leq O\left(\sqrt{\frac{\ln(N/d)}{N/d}}\right)\right) \geq 1-\delta.
 \end{equation}
 \end{proposition}
-
 The generalization bound (2.42) is very expressive because it states that, in order to have effective generalization, the number of data points $N$ should be greater than the VC dimension of $H$. This result is consistent with (2.40).
 
 Using (1.34) with $f_\theta(y|x)$ defined in (2.17) and (2.18) as estimator distribution, we obtain an alternative loss function used in the binary classification problem, the \textbf{logistic loss}.
@@ -834,13 +748,11 @@ Consider a binary classification problem with classes $y=\pm 1$ and a hypothesis
 L(h_\theta(x), y) := \ln(1+\exp(-yh_\theta(x)).
 \end{equation}
 \end{definition}
-
 Equation (2.43) suggests that binary logistic classification with classes $y=\pm 1$ can be formulated as a learning theory problem, which is solved by determining the \textbf{ERM estimator}
 
 \begin{equation}
 \hat{\theta}_N^{ERM}(D) \in \arg \min_{\theta \in \Theta}\left(\frac{1}{N}\sum_{k=1}^N \ln(1+\exp(-y_kh_\theta(x_k))\right),
 \end{equation}
-
 which is equivalent to \textbf{ML estimator} (2.35).
 
 \chapter{Supervised regression}
@@ -861,14 +773,12 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$
 \begin{equation}
 \{f_\theta(y|x) \mid \theta \in \Theta \subseteq \mathbb{R}^d\}
 \end{equation}
-
 from the data in $D$. After the learning process, the \textbf{regression function} $r : \mathbb{R}^n \to \mathbb{R}^m$ is calculated as
 
 \begin{equation}
 r_\theta(x) := E_{Y|X = x}[Y] = \int yf_\theta(y|x)dy.
 \end{equation}
 \end{definition}
-
 In applications, the final objective is to infer the regression function from data. To explain this related problem, we illustrate a complementary definition of regression.
 
 \begin{definition}
@@ -877,7 +787,6 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$
 \begin{equation}
 Y = r_\theta(X) + \varepsilon,
 \end{equation}
-
 where $r_\theta : \mathbb{R}^n \to \mathbb{R}^m$ is named \textbf{regression function}, and $\varepsilon$, called \textbf{noise}, is a $\mathbb{R}^m$-valued random variable with the following properties $(i = 1,\dots,m)$:
 
 \begin{equation}
@@ -888,27 +797,23 @@ E_{\varepsilon_i|X = x}[\varepsilon_i] = 0,
 VAR(\varepsilon_i|X = x) = \sigma^2.
 \end{equation}
 \end{definition}
-
 The random variable $\varepsilon$ represents the fluctuations that cannot be captured by the model, and it is independent of $X$ and $\theta$. These fluctuations correspond to the intrinsic "error" committed when assuming relation (3.3). Relation (3.5) implies that all components $\varepsilon_i$ have the same variance; this property is named \textbf{homoscedasticity}.
 
 An important example of regression is the \textbf{ordinary regression problem}, which can be defined as follows.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{ordinary regression problem} consists of inferring (or learning) from data in $D$ the parameters $\theta$ of the statistical model (3.1), where the distributions have the \textbf{Gauss} form
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{ordinary regression problem} consists of inferring (learning) from data in $D$ the parameters $\theta$ of the \textbf{Gauss} statistical model
 
 \begin{equation}
 f_{\theta,\sigma}(y|x) := \mathcal{N}(y;r_\theta(x),\sigma^2) = \frac{1}{\sqrt{(2\pi\sigma^2)^m}}\exp\left(-\frac{||y-r_\theta(x)||^2}{2\sigma^2}\right).
 \end{equation}
-
 Equivalently, the \textbf{ordinary regression problem} is a regression problem of Definition 3.2 such that $\varepsilon \sim \mathcal{N}(0,I_{m\times m}\sigma^2)$, where the matrix $I_{m\times m}$ is the identity matrix in $\mathbb{R}^m$.
 \end{definition}
-
 The regression is named \textbf{linear} if the regression function is linear:
 
 \begin{equation}
 r_\theta(x) :=  \vartheta_0 + \vartheta x,
 \end{equation}
-
 where $\vartheta_0 := (\theta_0^{(i)}) \in \mathbb{R}^m$, and $\vartheta := (\theta_j^{(i)}) \in \mathbb{R}^{m \times n}$. The parameter space $\Theta \ni \theta$ has dimension $d = m(n+1)$.
 
 The following proposition illustrates how the ordinary linear regression problem has a closed solution under certain hypotheses.
@@ -937,7 +842,6 @@ y_N
 1 & x^{(1)}_N  &\cdots & x^{(d-1)}_N
 \end{pmatrix} \in \mathbb{R}^{N \times d}.
 \end{equation}
-
 Suppose that $\bar{x}^T\bar{x} \in \mathbb{R}^{d \times d}$ is invertible, that is $\bar{x}$ has full rank $n + 1 = d \leq N$. Then, the maximum likelihood method gives the following estimators:
 
 \begin{equation}
@@ -948,13 +852,11 @@ Suppose that $\bar{x}^T\bar{x} \in \mathbb{R}^{d \times d}$ is invertible, that 
 \hat{\sigma}_N^2 = \frac{1}{N}\sum_{k=1}^{N}(y_k-r_{\hat{\theta}_N}(x_k))^2 = \frac{1}{N}||\bar{y} -\bar{x}\hat{\theta}_N||^2.
 \end{equation}
 \end{proposition}
-
 \textbf{Proof}. To estimate the parameters of the regression function, we use the ML method and (3.6) to obtain the LLF:
 
 \begin{equation}
 -LLF_{D}(\theta,\sigma^2)=-\sum_{k=1}^N\ln\mathcal{N}(y_k;r_\theta(x_k),\sigma^2)=\frac{N}{2}\ln(2\pi\sigma^2)+\frac{1}{2\sigma^2}\sum_{k=1}^N(y_k-r_\theta(x_k))^2.
 \end{equation}
-
 We reversed the sign in order to transform the maximization problem into a minimization problem. Then, the original inference problem was converted into the following optimization problems:
 
 \begin{equation}
@@ -964,7 +866,6 @@ We reversed the sign in order to transform the maximization problem into a minim
 \begin{equation}
 \sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta, \sigma^2),
 \end{equation}
-
 where the target functions are defined as follows:
 
 \begin{equation}
@@ -974,22 +875,17 @@ R_{D}(\theta) := \sum_{k=1}^N(y_k-r_\theta(x_k))^2,
 \begin{equation}
 S_{D}(\theta,\sigma^2) := \frac{N}{2}\ln(2\pi\sigma^2)+\frac{1}{2\sigma^2}R_{D}(\theta).
 \end{equation}
-
 Using definitions in (3.8-10), the function in (3.16) can be rewritten using the Euclidean norm as
 
 \begin{equation}
 R_{D}(\bar{\theta}) = ||\bar{y} -\bar{x}\bar{\theta}||^2.
 \end{equation}
-
 Calculating the matrix gradient of (3.16) with respect to $\bar{\theta}$ and equating it to zero yields the following matrix equation:
 
 \begin{equation}
 \bar{x}^T\bar{x}\bar{\theta} = \bar{x}^T\bar{y}.
 \end{equation}
-
-The invertibility of $\bar{x}^T\bar{x}$ yields (3.11), while the optimization problem (3.15) has the solution given in (3.12).\\
-$\square$\\
-
+The invertibility of $\bar{x}^T\bar{x}$ yields (3.11), while the optimization problem (3.15) has the solution given in (3.12).\\$\square$\\\\
 The target function (3.16) is defined as the sum of squared differences between the empirical observations $y_k$ and the theoretical predictions $r_\theta(x_k)$. This is called the \textbf{squared error} because it quantifies the squared deviations incurred when using the theoretical predictions instead of the empirical ones. Additionally, the problem defined in (3.14) with (3.16) is known as the \textbf{least squares problem}, and the estimator given in (3.11) is referred to as the \textbf{ordinary least squares (OLS) estimator}. This value defines the unique minimizer because the target function in (3.18) is strictly \textbf{convex}. Indeed, the Hessian is equal to $2\bar{x}^T\bar{x}$, which is full-rank, symmetric, and positive definite under the assumptions of Proposition 3.1.
 
 Multiplying (3.11) by $\bar{x}$, one obtains
@@ -997,16 +893,12 @@ Multiplying (3.11) by $\bar{x}$, one obtains
 \begin{equation}
 \bar{x}\bar{\theta} = \bar{x}(\bar{x}^T\bar{x})^{-1}\bar{x}^T\bar{y}.
 \end{equation}
-
 The geometric interpretation is significant, as the vector $\bar{x}\bar{\theta}$ is the \textbf{orthogonal projection} of $N$-dimensional vector $\bar{y}$ in the $d$-dimensional column space of $\bar{x}$. The reader can prove that the matrix
 
 \begin{equation}
 P = \bar{x}(\bar{x}^T\bar{x})^{-1}\bar{x}^T
 \end{equation}
-
-is a projection, that is $P^2 = P$.
-
-The following proposition illustrates some properties of the OLS estimator.
+is a projection, that is $P^2 = P$. The following proposition illustrates some properties of the OLS estimator.
 
 \begin{proposition}
 The \textbf{OLS estimator} in (3.11) has the following properties:
@@ -1022,7 +914,6 @@ VAR(\hat{\theta}_N) = \sigma^2 E_{X_1,\dots,X_N}[\mathrm{tr}\{(\bar{x}^T\bar{x})
 \end{equation}
 \end{itemize}
 \end{proposition}
-
 The variance in (3.23) can be calculated explicitly if additional assumptions are made about the distribution of the data $x$.
 
 \begin{proposition}
@@ -1032,7 +923,6 @@ Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$
 VAR(\hat{\theta}_N) = \sigma^2\frac{d - 1}{N - d} = \sigma^2\frac{n}{N - n - 1}, \quad  N \geq d = n + 1.
 \end{equation}
 \end{proposition}
-
 What we illustrated in Proposition 3.1 is the first machine learning procedure presented in these notes. The outputs of this procedure are the estimators given in (3.11) and (3.12). More importantly for applications is the estimator in (3.11), which contributes to defining the regression function.
 
 We now focus on some properties of the regression function $r_\theta(x)$ and illustrate an important relation, which is very similar to the decomposition presented in Proposition 1.1. The main idea is to note that, for any fixed value $x$, the quantity $r_{\hat{\theta}_N}(x)$ is an \textbf{estimator} that estimates the true value of the regression function $r(x)$. Thus, we can expect a bias-variance decomposition to hold for the regression function.
@@ -1047,13 +937,11 @@ MSE(r_{\hat{\theta}_N}(x),r(x)) &= E_D[||r_{\hat{\theta}_N}(x) - r(x)||^2] \\
 &=||BIAS(r_{\hat{\theta}_N}(x), r(x))||^2 + VAR(r_{\hat{\theta}_N}(x)),
 \end{split}
 \end{equation}
-
 where $E_D = E_{X_1,Y_1,\dots,X_N,Y_N}$.
 \end{proposition}
-
 In the case of \textbf{ordinary linear regression}, it is easy to see that the variance in (3.25) is \textbf{proportional} to the variance of the estimator $\hat{\theta}_N$. Therefore, if the variance of the estimator $\hat{\theta}_N$ is high, we expect a higher variance of $r_{\hat{\theta}_N}(x)$ and consequently lower performance of the regression function $r_{\hat{\theta}_N}(x)$ when predicting on unseen data $(x, y)$, that is, data not belonging to the training set. Recall that the estimators are random variables, and when the variance is high, they are likely to exhibit significant variability across different data sets.
 
-Let us explain briefly this concept in more depth, as it is crucial for the practical application of (linear) regression. Consider two data sets $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, and $D' = \{(x_1',y_1'),\dots,(x_N',y_N')\}$. The first data set $D$ is used to solve the regression problem and obtain the estimator $\hat{\theta}_N$ using formula (3.11). We might assess the quality of the estimator by comparing the prediction of the regression function $r_{\hat{\theta}_N}(x_k')$ with the actual value $y_k'$, ($k = 1\dots,N$); this procedure is referred to as \textbf{model validation} in the literature and is a popular method for verifying the performance of fitted models. If the variance of the regression function $r_{\hat{\theta}_N}$ is large, we expect that the validation will reveal significant discrepancies between the predictions and the actual values of $D'$. This discrepancy occurs because it is unlikely that the optimal parameter $\hat{\theta}_N$, estimated based on data $D$, remains the correct parameter value for the new data set $D'$. In other words, one can have situations where $\hat{\theta}_N$ does not \textbf{generalize} well, and hence the predictions are not optimal outside of the training set.
+Let us explain briefly this concept in more depth, as it is crucial for the practical application of (linear) regression. Consider two data sets $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, and $D' = \{(x_1',y_1'),\dots,(x_N',y_N')\}$. The first data set $D$ is used to solve the regression problem and obtain the estimator $\hat{\theta}_N$ using formula (3.11). We might assess the quality of the estimator by comparing the prediction of the regression function $r_{\hat{\theta}_N}(x_k')$ with the actual value $y_k'$, ($k = 1\dots,N$); this procedure is referred to as \textbf{model validation} in the literature and is a popular method for verifying the performance of fitted models. If the variance of the regression function $r_{\hat{\theta}_N}$ is large, we expect that the validation will reveal significant discrepancies between the predictions and the actual values of $D'$. This discrepancy occurs because it is unlikely that the optimal parameter $\hat{\theta}_N$, estimated from data in $D$, remains the correct parameter value for the new data set $D'$. In other words, one can have situations where $\hat{\theta}_N$ does not \textbf{generalize} well, and hence the predictions are not optimal outside of the training set.
 
 When a trained model fits the training data very well but performs poorly on unseen data, the model is said to be \textbf{overfitted}. This situation corresponds to \textbf{low bias} and \textbf{large variance} of the estimator, and the model predictions are highly sensitive to the particular training data, causing erratic performance on new data.
 
@@ -1065,7 +953,7 @@ For example, in the context of \textbf{ordinary linear regression}, underfitting
 
 Proposition 3.3 in the context of linear regression with Gaussian features highlights how overfitting is closely related to the parameter space dimension $d$. Specifically, it shows that the variance of the estimator $\hat{\theta}_N$ (3.24) increases with the ratio $d/N$.
 
-When $d = N$, the variance \textbf{diverges}. At this boundary case, the optimization problem (3.20) reduces to solving a standard linear system $\bar{x}\bar{\theta} = \bar{y}$. Assuming the matrix $\bar{x}$ invertible yields the exact solution $\hat{\theta}_N = \bar{x}^{-1}\bar{y}$, and a perfect fit to the training targets with $R_D(\hat{\theta}_N) = 0$. This means the model \textbf{memorizes} the training data exactly, leading to severe overfitting and poor generalization on unseen data.
+When $d = N$, the variance \textbf{diverges}. At this boundary case, the optimization problem (3.20) reduces to solving a standard linear system $\bar{x}\bar{\theta} = \bar{y}$. The invertibility of matrix $\bar{x}$ (recall its maximum rank) yields the exact solution $\hat{\theta}_N = \bar{x}^{-1}\bar{y}$, and a perfect fit to the training targets with $R_D(\hat{\theta}_N) = 0$. This means the model \textbf{memorizes} the training data exactly, leading to severe overfitting and poor generalization on unseen data.
 
 The intuitive practical guideline derived is that to maintain effective linear regression performance, the number of data points $N$ should exceed the number of parameters $d$, to keep the ratio $d/N$ low. More data reduces estimator variance and increases the likelihood of capturing the true data-generating process, improving generalization beyond the training set.
 
@@ -1076,33 +964,28 @@ The intuitive practical guideline derived is that to maintain effective linear r
 To reduce the phenomenon of overfitting in regression, modified versions of regression models have been introduced in the literature that are \textbf{regularized}. Regularization techniques help control overfitting by adding a penalty term, which discourages large values of estimators. Let us define this more precisely.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$ be an i.i.d. data set. The \textbf{$L_2$-regularized (ridge) ordinary regression problem} consists of inferring (or learning) from data in $D$ the parameters $\theta$ of the statistical model (3.1), where the distributions have the form
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{$L_2$-regularized (ridge) ordinary regression} consists of inferring (learning) from data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the statistical model
 
 \begin{equation}
 f_{\theta,\sigma}(y|x) := \alpha\mathcal{N}(y;r_\theta(x),\sigma^2)g(\theta),
 \end{equation}
-
-where $\alpha$ is an unimportant normalization constant and $g$ is defined as
+where $\alpha$ is an unimportant normalization constant and
 
 \begin{equation}
 g(\theta) := \mathcal{N}(\theta;0,\lambda^{-1}I_{d\times d}) = \frac{1}{\sqrt{(2\pi\lambda^{-1})^d}}\exp\left(-\frac{\lambda}{2}||\theta||^2\right).
 \end{equation}
-
-In (3.27) $\lambda > 0$ is a constant termed \textbf{$L_2$-regularization hyperparameter}, and $I_{d\times d}$ is the $d\times d$ identity matrix in $\mathbb{R}^d$, where $d$ is the  dimension of parameter space $\Theta \ni \theta$.
+In (3.27) $\lambda > 0$ is a constant termed \textbf{regularization hyperparameter}.
 \end{definition}
-
-The interpretation of (3.27) may seem obscure within the \textbf{frequentist} approach to inference that we have adopted, but it becomes clear in the \textbf{Bayesian} approach, where $g(\theta)$ serves as the \textbf{prior} distribution for $\theta$ . The $L_2$-regularized linear regression problem, as defined, admits a closed-form solution, as illustrated by the following proposition.
+The interpretation of (3.27) may seem obscure within the \textbf{frequentist} approach to inference that we have adopted, but it becomes clear in the \textbf{Bayesian} approach, where $g(\theta)$ serves as the \textbf{prior} distribution for $\theta$. The $L_2$-regularized ordinary linear regression admits a closed-form solution, as illustrated by the following proposition.
 
 \begin{proposition}
-Consider the \textbf{$L_2$-regularized ordinary linear regression} problem with $m=1$, $\dim \Theta =: d = n + 1$. Define the matrix quantities as in (3.8-10). Then, the maximum likelihood method gives the following estimators:
+Consider the \textbf{$L_2$-regularized ordinary linear regression} with $m=1$, $\dim \Theta =: d = n + 1$. Define the matrix quantities as in (3.8-10). Then, the maximum likelihood method gives the following estimators:
 
 \begin{equation}
 \hat{\theta}_N^{(\lambda)} = (\bar{x}^T\bar{x} +N\lambda I_{d\times d})^{-1}\bar{x}^T\bar{y},
 \end{equation}
-
 while the estimator $\hat{\sigma}_N^{(\lambda)2}$ is the same as (3.12).
 \end{proposition}
-
 \textbf{Proof}. To estimate the parameters of the regression function, we use the ML method and (3.26) to obtain the LLF:
 
 \begin{equation}
@@ -1111,7 +994,6 @@ while the estimator $\hat{\sigma}_N^{(\lambda)2}$ is the same as (3.12).
 &=\frac{N}{2}\ln(2\pi\sigma^2)+\frac{1}{2\sigma^2}\sum_{k=1}^N(y_k-r_\theta(x_k))^2+\frac{N\lambda}{2}||\theta||^2 + const.
 \end{split}
 \end{equation}
-
 We changed signs as usual. Then, the original inference problem was converted into the following optimization problems:
 
 \begin{equation}
@@ -1121,7 +1003,6 @@ We changed signs as usual. Then, the original inference problem was converted in
 \begin{equation}
 \sigma^2(D) = \arg\min_{\theta \in \Theta} S_{D}(\theta,\sigma^2),
 \end{equation}
-
 where the target functions are defined as follows:
 
 \begin{equation}
@@ -1131,25 +1012,18 @@ R_{D}(\theta) :=\sum_{k=1}^N(y_k-r_\theta(x_k))^2 + \frac{N\lambda}{2}||\theta||
 \begin{equation}
 S_{D}(\theta,\sigma^2) := \frac{N}{2}\ln(2\pi\sigma^2)+\frac{1}{2\sigma^2}\left(R_{D}(\theta)-\frac{N\lambda}{2}||\theta||^2\right).
 \end{equation}
-
 Using definitions in (3.8-10), the function in (3.32) can be rewritten using the Euclidean norm as follows:
 
 \begin{equation}
 R_{D}(\bar{\theta}) = ||\bar{y} -\bar{x}\bar{\theta}||^2 +\frac{N\lambda}{2}||\bar{\theta}||^2.
 \end{equation}
-
 Calculating the matrix gradient of (3.34) with respect to $\bar{\theta}$ and equating it to zero yields the following matrix equation (we absorbed 1/2 in $\lambda$):
 
 \begin{equation}
 (\bar{x}^T\bar{x}+ N\lambda I_{d\times d})\bar{\theta} = \bar{x}^T\bar{y}.
 \end{equation}
-
-The non-zero value of the regularization hyperparameter makes the left-hand side matrix in (3.35) always invertible, so one obtains (3.28). The optimization problem (3.33) has the solution in (3.12).\\
-$\square$\\
-
-The resulting estimator in (3.28) is called the \textbf{$L_2$-regularized least squares (RLS) estimator} and it is the unique minimizer because the target function (3.32) is strictly \textbf{convex}.
-
-The following proposition illustrates some properties of the RLS estimator.
+The non-zero value of the regularization hyperparameter makes the left-hand side matrix in (3.35) always invertible, so one obtains (3.28). The optimization problem (3.33) has the solution in (3.12).\\$\square$\\\\
+The resulting estimator in (3.28) is called the \textbf{$L_2$-regularized least squares (RLS) estimator} and it is the unique minimizer because the target function (3.32) is strictly \textbf{convex}. The following proposition illustrates some properties of the RLS estimator.
 
 \begin{proposition}
 The \textbf{RLS estimator} in (3.28) has the following properties for all $\lambda \geq 0$:
@@ -1180,24 +1054,24 @@ MSE(\hat{\theta}_N^{(\lambda)}) = N^2\lambda^2\theta_*^TE_{X_1,\dots,X_N}[(\bar{
 \end{itemize}
 \end{proposition}
 
-The expression (3.38) indicates that the hyperparameter $\lambda$ acts as a \textbf{penalty} term that penalizes estimators with large Euclidean norm values. This effect is commonly referred to in the literature as \textbf{shrinkage}, where the penalty encourages coefficient estimates to be closer to zero. Moreover, \textbf{increasing} $\lambda$ implies \textbf{increasing} bias and \textbf{reducing} variance compared to the ordinary least squares (OLS) estimator. If $\lambda$ is too large, the bias becomes high while the variance becomes low, which leads to poor performance on both training data and unseen data. Conversely, if $\lambda$ is too small, the bias is low (resulting in good performance on training data), but the variance is high, causing overfitting and poor generalization to unseen data. Therefore, it is not possible to simultaneously reduce bias and variance. This characteristic behavior of bias and variance in relation to the estimator is known as the \textbf{bias-variance trade-off}. An effective choice of $\lambda$ must balance these opposing effects to minimize the MSE of the estimator.
+The expression (3.38) indicates that the hyperparameter $\lambda$ acts as a \textbf{penalty} term that penalizes estimators with large Euclidean norm values. This effect is commonly referred to in the literature as \textbf{shrinkage}, where the penalty encourages coefficient estimates to be closer to zero.
+
+The MSE decomposition (3.39) indicates that \textbf{increasing} $\lambda$ implies \textbf{increasing} bias and \textbf{reducing} variance. If $\lambda$ is too large, the bias becomes high while the variance becomes low, which leads to poor performance on both training data and unseen data. Conversely, if $\lambda$ is too small, the bias is low (resulting in good performance on training data), but the variance is high, causing overfitting and poor generalization to unseen data. Therefore, it is not possible to simultaneously reduce bias and variance. This characteristic behavior of bias and variance in relation to the estimator is known as the \textbf{bias-variance trade-off}. An effective choice of $\lambda$ must balance these opposing effects to minimize the MSE of the estimator.
 
 Another form of regularized linear regression is the \textbf{LASSO regression}.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$ be an i.i.d. data set. The \textbf{$L_1$-regularized (LASSO, Least Absolute Shrinkage and Selection Operator) ordinary regression problem} consists of inferring (or learning) from data in $D$ the parameters $\theta$ of the statistical model (3.1), where the distributions have the form
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{$L_1$-regularized (LASSO, Least Absolute Shrinkage and Selection Operator) ordinary regression} consists of inferring (learning) from data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the statistical model
 
 \begin{equation}
 f_{\theta,\sigma}(y|x) := \alpha\mathcal{N}(y;r_\theta(x),\sigma^2)g(\theta),
 \end{equation}
-
 where $\alpha$ is an unimportant normalization constant and $g$ has the \textbf{Laplace} form
 
 \begin{equation}
-g(\theta) := \textup{La}(\theta;0,\lambda^{-1}) = \frac{\lambda}{2}\exp\left(-\lambda||\theta||_1\right),
+g(\theta) := \textup{La}(\theta;0,\lambda^{-1}) = \frac{\lambda}{2}\exp\left(-\lambda||\theta||_1\right).
 \end{equation}
-
-where $||\theta||_1 := \sum_{k=1}^d |\theta^{(k)}|$ is the $L_1$ norm. In (3.41) $\lambda > 0$ is a constant termed \textbf{$L_1$-regularization hyperparameter}.
+In (3.41) $||\theta||_1 := \sum_{k=1}^d |\theta^{(k)}|$ is the $L_1$ norm, and $\lambda > 0$ is a constant termed \textbf{regularization hyperparameter}.
 \end{definition}
 
 \end{document}
