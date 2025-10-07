@@ -246,7 +246,7 @@ Consequently, the empirical risk estimator defined in (1.15) is \textbf{consiste
 \section{Statistical learning theory foundation}
 This section is dedicated to the perspective of \textbf{statistical learning theory} in machine learning, which is a complementary mathematical framework that analyzes how algorithms can learn predictive functions from data, instead of resolving inferential tasks. We explore this perspective specifically through the framework of \textbf{probably approximately correct (PAC)} theory.
 
-Roughly speaking, the goal of learning theory is not to infer (or learn) the distribution that generated the data in $D$, $f_{X,Y}$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$, defined on the sample space $\Omega$. These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. It is assumed that the space of hypotheses $H$ is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
+Roughly speaking, the goal of learning theory is not to infer (learn) the distribution that generated the data in $D$, $f_{X,Y}$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$, defined on the sample space $\Omega$. These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. It is assumed that the space of hypotheses $H$ is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
 
 PAC learning theory formalizes the conditions under which a learning algorithm can, with high probability, find a prediction function that approximates the true  function well within a specified error margin, balancing between accuracy and confidence.
 
@@ -399,12 +399,12 @@ From (1.33), we conclude that the \textbf{ML estimator} (1.7) coincides with the
 \end{equation}
 
 \chapter{Supervised classification}
-In this chapter, we apply the general statistical concepts described in the previous chapter to discuss the problem of \textbf{classification} (also called \textbf{pattern recognition}). The classification problem aims to model the quantitative relationship between an $\mathbb{R}^n$-valued random variable $X$, called \textbf{feature}, or \textbf{pattern}, and a random variable $Y$ that takes values in a finite set $C$, called the set of \textbf{classes}. The values of $Y$ are also called \textbf{labels}.
+In this chapter, we apply the general statistical concepts described in the previous chapter to discuss the problem of \textbf{classification} (also called \textbf{pattern recognition}). The classification aims to model the quantitative relationship between an $\mathbb{R}^n$-valued random variable $X$, called \textbf{feature}, or \textbf{pattern}, and a random variable $Y$ that takes values in a finite set $C$, called the set of \textbf{classes}. The values of $Y$ are also called \textbf{labels}.
 
 Using the i.i.d. data set $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, the objective is to obtain a \textbf{classification function} (also called a \textbf{classifier} or a \textbf{hypothesis}) $c : \mathbb{R}^n \to C$ that allows us to predict the class $y$ for a new pattern $x$. The inference (learning) process is called \textbf{supervised} since it is guided by utilizing the data set $D$, which is formed by complete pairs of patterns and labels.
 
 \section{Statistical inference foundation}
-At first glance, the classification problem appears simply as a \textbf{prediction} problem that does not seem directly related to any inference problem, as defined in Definition 1.1. In the machine learning literature, often only the predictive aspects are emphasized—that is, the determination of the classification function from data—while the inference principles are left in the background. In contrast, our mathematical discussion begins with the guiding principle illustrated in Definition 1.1, with the goal of providing an inferential definition of classification.
+At first glance, the classification appears simply as a \textbf{prediction} problem that does not seem directly related to any inference problem, as defined in Definition 1.1. In the machine learning literature, often only the predictive aspects are emphasized—that is, the determination of the classification function from data—while the inference principles are left in the background. In contrast, our mathematical discussion begins with the guiding principle illustrated in Definition 1.1, with the goal of providing an inferential definition of classification.
 
 Then, one must find a statistical model and a suitable set of random variables (assumed i.i.d.) for the chosen model. The random variables are clearly $(X_1,Y_1),\dots,(X_N,Y_N)$, while the choice of model is less obvious. To understand how to build a reasonable model, the concept of \textbf{statistical dependence} among random variables can be very helpful:
 
@@ -425,10 +425,10 @@ f(y|x) \neq f_Y(y),
 \begin{equation}
 f(x|y) \neq f_X(x).
 \end{equation}
-To perform classification, it is reasonable to assume that the variables $X$ and $Y$ are dependent; otherwise, there would be no correlation between them, rendering the classification problem meaningless. Therefore, we assume dependence between $X$ and $Y$, and consider the conditional probability density function $f(y|x)$, which captures the dependence of $Y$ on $X$, as a suitable model candidate. The following definition formalizes the classification problem based on the previous reasoning:
+To perform classification, it is reasonable to assume that the variables $X$ and $Y$ are dependent; otherwise, there would be no correlation between them, rendering the classification meaningless. Therefore, we assume dependence between $X$ and $Y$, and consider the conditional probability density function $f(y|x)$, which captures the dependence of $Y$ on $X$, as a suitable model candidate. The following definition formalizes the classification based on the previous reasoning:
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{classification problem} consists of inferring (or learning) the parameters $\theta$ of the statistical model
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{classification} consists of inferring (learning) the parameters $\theta$ of the statistical model
 
 \begin{equation}
 \{f_\theta(y|x) \mid \theta \in \Theta \subseteq \mathbb{R}^d\}
@@ -439,12 +439,12 @@ from the data in $D$. After the learning process, the \textbf{classification fun
 c_\theta(x) := \arg \max_{y \in C} f_\theta(y|x) = \arg \max_{y \in C} \ln f_\theta(y|x).
 \end{equation}
 \end{definition}
-The classification function has an intuitive interpretation: the class of a pattern $x$ is the most probable value of $y$ conditioned on $x$. Thus, the classification problem, when viewed as a decision problem, is inherently probabilistic in nature. The probabilistic rule in (2.5) is named \textbf{Bayesian classification rule} or \textbf{Bayes classifier}.
+The classification function has an intuitive interpretation: the class of a pattern $x$ is the most probable value of $y$ conditioned on $x$. Thus, the classification, when viewed as a decision problem, is inherently probabilistic in nature. The probabilistic rule in (2.5) is named \textbf{Bayesian classification rule} or \textbf{Bayes classifier}.
 
 We provide a complementary geometric definition of classification:
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{classification problem} consists of inferring (or learning) from the data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the family of regions of $\mathbb{R}^n$ defined as follows:
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{classification} consists of inferring (learning) from the data in $D$ the parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ of the family of regions of $\mathbb{R}^n$ defined as follows:
 
 \begin{equation}
 \mathcal{R}_C(\theta) := \{\mathcal{R}_y(\theta) \subset \mathbb{R}^n \mid y \in C\},
@@ -466,15 +466,15 @@ Decision rules and decision boundaries satisfy the following relations:
 \end{equation}
 After the learning process, the pattern $x$ is assigned to class $y$ if $x \in \mathcal{R}_y$.
 \end{definition}
-The previous definition allows us to observe that the classification problem is equivalent to the geometric problem of finding a family of regions $\mathcal{R}_y(\theta)$, where each region corresponds to the set of patterns $x \in \mathbb{R}^n$ belonging to class $y \in C$. Moreover, these regions, together with their decision boundaries, form a \textbf{partition} of the pattern space (see (2.9)), since any pattern $x$ can belong to only one class $y$.
+The previous definition allows us to observe that the classification is equivalent to the geometric problem of finding a family of regions $\mathcal{R}_y(\theta)$, where each region corresponds to the set of patterns $x \in \mathbb{R}^n$ belonging to class $y \in C$. Moreover, these regions, together with their decision boundaries, form a \textbf{partition} of the pattern space (see (2.9)), since any pattern $x$ can belong to only one class $y$.
 
 It is important to emphasize that the decision rules in (2.7) depend on parameters $\theta$, which are random variables learned from data, as discussed in the previous chapter. This implies that the decision rules can be viewed as a type of \textbf{random set}.
 
 \section{Further developments}
-The Definitions 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
+The definitions 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
 
 \begin{definition}
-A classification problem and its statistical model (2.4), as defined in Definition 2.2, are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f_\theta(y|x) = g_\theta(x, y)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_\theta(x,y)$ as follows:
+The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f_\theta(y|x) = g_\theta(x, y)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_\theta(x,y)$ as follows:
 
 \begin{equation}
 f_\theta(y|x) \propto f_\theta(x,y) = f_\theta(y)f_\theta(x|y),
@@ -517,7 +517,7 @@ The \textbf{decision boundary} is
 \mathcal{D}_{y^{(1)}y^{(2)}}(\theta) := \{x \in \mathbb{R}^n \mid f_\theta(y^{(1)}|x) = f_\theta(y^{(2)}|x) = f_\theta(x) = 1/2\}.
 \end{equation}
 \end{definition}
-For the discriminative binary classification problems, a typical choice for the conditional probability is the \textbf{logistic (sigmoid)} function:
+For the discriminative binary classification, a typical choice for the conditional probability is the \textbf{logistic (sigmoid)} function:
 
 \begin{equation}
 f_\theta(y^{(1)}|x) = f_\theta(x) := \frac{\exp (b_\theta(x))}{1+\exp (b_\theta(x))}.
@@ -525,7 +525,7 @@ f_\theta(y^{(1)}|x) = f_\theta(x) := \frac{\exp (b_\theta(x))}{1+\exp (b_\theta(
 The logistic function is a natural choice for probability modeling because its output is constrained to the interval $(0, 1) \subset \mathbb{R}$ for every argument $b_\theta(x)$. This approach to binary classification is known as \textbf{binary logistic classification} (or \textbf{binary logistic regression} in some references). In the special case where $b_\theta(x)$ has a linear form, the model corresponds to \textbf{half-space} decision rules separated by a \textbf{linear} decision boundary, that is described by a linear function (a \textbf{hyperplane}). Data separated by linear decision boundaries are called \textbf{linearly separable}, and the decision rules and decision boundaries are called \textbf{linear discriminant functions}. Let us formalize these results.
 
 \begin{proposition}
-Consider the \textbf{binary linear logistic classification problem} with a Bernoulli distribution defined in (2.11), where
+Consider the \textbf{binary linear logistic classification} with a Bernoulli distribution defined in (2.11), where
 
 \begin{equation}
 f_\theta(y^{(1)}|x) = f_\theta(x) := \frac{\exp(b_\theta(x))}{1+\exp(b_\theta(x))} = \frac{1}{1+\exp(-b_\theta(x))},
@@ -578,7 +578,7 @@ where the coefficients $q_{kj}$ depend on the parameters $\theta$, and $(a^{(1)}
 For completeness, it is worth giving the properties of the general logistic classification for more than two classes.
 
 \begin{proposition}
-Consider the \textbf{multiclass classification problem} with the following \textbf{logistic} statistical model:
+Consider the \textbf{multiclass classification} with the following \textbf{logistic} statistical model:
 
 \begin{equation}
 f_\theta(y|x) := \frac{\exp(b_\theta^{(y)}(x))}{\sum_{y' \in C}\exp(b_\theta^{(y')}(x))}, \quad y \in C.
@@ -599,10 +599,10 @@ Finally, the \textbf{classification function} is given by
 c_\theta(x) = \arg \max_{y \in C} b_\theta^{(y)}(x).
 \end{equation}
 \end{proposition}
-Let us now consider an important example of the generative classification problem that is based on the Gaussian distribution, which is called \textbf{Gaussian discriminant analysis}, and explore its properties.
+Let us now consider an important example of the generative classification that is based on the Gaussian distribution, which is called \textbf{Gaussian discriminant analysis}, and explore its properties.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{Gaussian discriminant analysis (GDA)} is the \textbf{generative} classification problem defined by the following statistical model:
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n\times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{Gaussian discriminant analysis (GDA)} is the \textbf{generative} classification defined by the following statistical model:
 
 \begin{equation}
 f_\theta(y|x) := \alpha \Pi(y)\mathcal{N}(x;\mu(y),\Sigma(y)) = \frac{\alpha\Pi(y)}{\sqrt{(2\pi)^n\det \Sigma(y)}}\exp \left[-\frac{1}{2}(x-\mu(y))^T\Sigma^{-1}(y)(x-\mu(y))\right],
@@ -626,10 +626,10 @@ where $const$ denotes the remaining terms that do not depend on the pattern $x$.
 \end{proposition}
 The relation (2.32) illustrates that decision boundaries are \textbf{quadratic}, and for this reason, the GDA is called \textbf{quadratic discriminant analysis}. In the case where covariance matrices do not depend on class $y$, the decision boundary is \textbf{linear} and the GDA is called \textbf{linear discriminant analysis}. The term "discriminant" can be quite confusing because the model is generative, not discriminative.
 
-Another example of a generative classification problem is the so-called \textbf{naive Bayes} problem defined as follows.
+Another example of generative classification is the so-called \textbf{naive Bayes} defined as follows.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{naive Bayes} problem is the \textbf{generative} classification problem defined by the following statistical model:
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times C$ be an i.i.d. data set, where $C$ is the finite set of \textbf{classes}. The \textbf{naive Bayes} problem is the \textbf{generative} classification defined by the following statistical model:
 
 \begin{equation}
 f_\theta(y|x) := \alpha \Pi_\theta(y) f_\theta(x|y) = \alpha \Pi_\theta(y) \prod_{k=1}^n f_\theta(x^{(k)}|y),
@@ -641,7 +641,7 @@ For the general problem of classification, the standard maximum likelihood metho
 \begin{equation}
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f_\theta(y_k|x_k)\right).
 \end{equation}
-The expression of the \textbf{log-likelihood function} in (2.34) depends on the adopted model. In the case of a \textbf{binary logistic classification problem}, expression (2.34) can be rewritten using (2.17), (2.18), and the definition $\eta(y^{(1)}) = -\eta(y^{(2)}) = 1$ as
+The expression of the \textbf{log-likelihood function} in (2.34) depends on the adopted model. In the case of the \textbf{binary logistic classification}, expression (2.34) can be rewritten using (2.17), (2.18), and the definition $\eta(y^{(1)}) = -\eta(y^{(2)}) = 1$ as
 
 \begin{equation}
 \hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(-\sum_{k=1}^N \ln(1+\exp(-\eta(y_k)b_\theta(x_k))\right).
@@ -656,12 +656,12 @@ In the case of \textbf{multiclass logistic classification}, (2.35) is generalize
 \section{Learning theory perspectives}
 The section is devoted to the \textbf{learning theory} perspective on \textbf{binary} classification, which is developed through the integration of two theories: \textbf{probably approximately correct (PAC)} learning and \textbf{Vapnik–Chervonenkis (VC)} theory. This approach aims to deepen the understanding of binary classification by showing the synergy between the PAC learning framework—focusing on guarantees of generalization under \textbf{sample complexity} constraints—and the VC theory—providing key tools such as \textbf{VC dimension} that characterize \textbf{hypothesis space complexity}.
 
-Let us formalize the (binary) classification problem within this framework; the definition is a specialization of Definition 1.14.
+Let us formalize the (binary) classification within this framework; the definition is a specialization of Definition 1.14.
 
 \begin{definition}
-Let $\mathcal{X} \subseteq \mathbb{R}^n$ and $\mathcal{Y} := \{y^{(1)}, y^{(2)}\}$ be the set of \textbf{classes}. Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{supervised binary classification problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} (or \textbf{classifier}) $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta\}$, such that $h_\theta$ predicts the corresponding label $y \in \mathcal{Y}$ from pattern $x \in \mathcal{X}$ with a desired level of accuracy.
+Let $\mathcal{X} \subseteq \mathbb{R}^n$ and $\mathcal{Y} := \{y^{(1)}, y^{(2)}\}$ be the set of \textbf{classes}. Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{supervised binary classification} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} (or \textbf{classifier}) $h_\theta : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{h_\theta : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta\}$, such that $h_\theta$ predicts the corresponding label $y \in \mathcal{Y}$ from pattern $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
-The hypothesis space in the previous definition is described as a space of functions. More broadly, inspired by Definition 2.3, we can define the hypothesis space for a classification problem as the space of decision rules or decision boundaries.
+The hypothesis space in the previous definition is described as a space of functions. More broadly, inspired by Definition 2.3, we can define the hypothesis space for the classification as the space of decision rules or decision boundaries.
 
 Following the principles of learning theory, one can define the risk using a suitable loss function. In binary classification, a popular choice of loss is the \textbf{0-1 loss}, which is defined as follows.
 
@@ -700,7 +700,7 @@ For binary classification, it can be quantified by introducing the \textbf{Vapni
 \begin{definition}
 The \textbf{Vapnik–Chervonenkis dimension (VC dimension)} of a hypothesis space $H$ of binary classifiers, denoted by $VC\dim H$, is the cardinality of the largest set of points that can be \textbf{shattered} by $H$. By shattering a set of points, we mean that for every possible way of classifying those points as positive or negative, there exists a hypothesis in $H$ that can perfectly classify them.
 \end{definition}
-The VC dimension is a purely \textbf{combinatorial} notion, which is independent of any probabilistic models of data. For binary linear classification problems, one can quantify the VC dimension of the hyperplane hypothesis space using the following proposition.
+The VC dimension is a purely \textbf{combinatorial} notion, which is independent of any probabilistic models of data. For binary linear classifications, one can quantify the VC dimension of the hyperplane hypothesis space using the following proposition.
 
 \begin{proposition}
 Let $H$ be the hypothesis space of hyperplanes in $\mathbb{R}^n$. Then, $VC\dim H = n + 1$.
@@ -726,7 +726,7 @@ We now consider the empirical 0-1 risk, which is given by
 The quantity $N_{mis}(h_\theta,D)/N$ denotes the rate of \textbf{misclassified} data points in $D$ by the hypothesis $h_\theta$. Then, the ERM method suggests that the best hypothesis is obtained by minimizing the quantity (2.41). In some special cases, one can find a particular hypothesis for which the number of misclassifications is exactly \textbf{zero}. This is the case of an \textbf{separable data set}, which was mentioned previously for linear classification.
 
 \begin{definition}
-Consider the classification problem on the hypothesis space $H$. The i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ is \textbf{separable} if there exists a hypothesis $h_\theta \in H$ such that $\hat{R}^{(0-1)}_N(h_\theta)(D) = 0$.
+Consider the classification on the hypothesis space $H$. The i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ is \textbf{separable} if there exists a hypothesis $h_\theta \in H$ such that $\hat{R}^{(0-1)}_N(h_\theta)(D) = 0$.
 \end{definition}
 Now we establish an important excess risk bound that describes generalization.
 
@@ -739,10 +739,10 @@ P\left(R(h) - \hat{R}_N(h) \leq O\left(\sqrt{\frac{\ln(N/d)}{N/d}}\right)\right)
 \end{proposition}
 The generalization bound (2.42) is very expressive because it states that, in order to have effective generalization, the number of data points $N$ should be greater than the VC dimension of $H$. This result is consistent with (2.40).
 
-Using (1.34) with $f_\theta(y|x)$ defined in (2.17) and (2.18) as estimator distribution, we obtain an alternative loss function used in the binary classification problem, the \textbf{logistic loss}.
+Using (1.34) with $f_\theta(y|x)$ defined in (2.17) and (2.18) as estimator distribution, we obtain an alternative loss function used in binary classification, the \textbf{logistic loss}.
 
 \begin{definition}
-Consider a binary classification problem with classes $y=\pm 1$ and a hypothesis space consisting of decision rules represented by curves in $\mathbb{R}^n$ defined by equations $h_\theta(x) = 0$. The \textbf{logistic loss} is defined as
+Consider the binary classification with classes $y=\pm 1$ and a hypothesis space consisting of decision rules represented by curves in $\mathbb{R}^n$ defined by equations $h_\theta(x) = 0$. The \textbf{logistic loss} is defined as
 
 \begin{equation}
 L(h_\theta(x), y) := \ln(1+\exp(-yh_\theta(x)).
@@ -756,19 +756,19 @@ Equation (2.43) suggests that binary logistic classification with classes $y=\pm
 which is equivalent to \textbf{ML estimator} (2.35).
 
 \chapter{Supervised regression}
-In this chapter, we discuss the problem of \textbf{regression}. The regression problem aims to model the quantitative relationship between a $\mathbb{R}^n$-valued random variable $X$, which is named \textbf{covariate}, \textbf{predictor}, or \textbf{feature}, and a $\mathbb{R}^m$-valued random variable $Y$, named the \textbf{response}, or \textbf{label}.
+In this chapter, we discuss the problem of \textbf{regression}. The regression aims to model the quantitative relationship between a $\mathbb{R}^n$-valued random variable $X$, which is named \textbf{covariate}, \textbf{predictor}, or \textbf{feature}, and a $\mathbb{R}^m$-valued random variable $Y$, named the \textbf{response}, or \textbf{label}.
 
 Using the i.i.d. data set $D = \{(x_1,y_1),\dots,(x_N,y_N)\}$, the objective is to obtain a \textbf{regression function} (also called a \textbf{hypothesis}) $r : \mathbb{R}^n \to \mathbb{R}^m$ that allows us to predict the value $y \approx r(x)$ for new feature $x$. If $r$ is a linear function, the problem is called \textbf{linear regression}; otherwise, it is called \textbf{nonlinear regression}. The inference (learning) process is called \textbf{supervised} since it is guided by utilizing the data set $D$, which is formed by complete pairs of features and labels.
 
 \section{Statistical foundation}
 Similarly to classification, the problem of regression is formulated according to the guiding principle illustrated in Definition 1.1, with the objective of providing an inferential definition of regression.
 
-Then, one must find a statistical model and a suitable set of random variables (assumed i.i.d.) for the chosen model. The random variables are clearly $(X_1,Y_1),\dots,(X_N,Y_N)$, while the choice of model can be borrowed from the classification problem. Then, we assume that the variable $X$ and $Y$ are dependent, and the conditional probability density function $f(y|x)$ is the suitable model.
+Then, one must find a statistical model and a suitable set of random variables (assumed i.i.d.) for the chosen model. The random variables are clearly $(X_1,Y_1),\dots,(X_N,Y_N)$, while the choice of model can be borrowed from the classification. Then, we assume that the variables $X$ and $Y$ are dependent, and the conditional probability density function $f(y|x)$ is the suitable model.
 
-The following definition formalizes the regression problem.
+The following definition formalizes the regression.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} consists of inferring (or learning) the parameters $\theta$ of the statistical model
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression} consists of inferring (learning) the parameters $\theta$ of the statistical model
 
 \begin{equation}
 \{f_\theta(y|x) \mid \theta \in \Theta \subseteq \mathbb{R}^d\}
@@ -782,7 +782,7 @@ r_\theta(x) := E_{Y|X = x}[Y] = \int yf_\theta(y|x)dy.
 In applications, the final objective is to infer the regression function from data. To explain this related problem, we illustrate a complementary definition of regression.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression problem} consists of inferring (or learning) the parameters $\theta$ data in $D$, such that one assumes the following relation between $X$ and $Y$:
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{regression} consists of inferring (learning) the parameters $\theta$ data in $D$, such that one assumes the following relation between $X$ and $Y$:
 
 \begin{equation}
 Y = r_\theta(X) + \varepsilon,
@@ -799,15 +799,15 @@ VAR(\varepsilon_i|X = x) = \sigma^2.
 \end{definition}
 The random variable $\varepsilon$ represents the fluctuations that cannot be captured by the model, and it is independent of $X$ and $\theta$. These fluctuations correspond to the intrinsic "error" committed when assuming relation (3.3). Relation (3.5) implies that all components $\varepsilon_i$ have the same variance; this property is named \textbf{homoscedasticity}.
 
-An important example of regression is the \textbf{ordinary regression problem}, which can be defined as follows.
+An important example of regression is the \textbf{ordinary regression}, which can be defined as follows.
 
 \begin{definition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{ordinary regression problem} consists of inferring (learning) from data in $D$ the parameters $\theta$ of the \textbf{Gauss} statistical model
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set. The \textbf{ordinary regression} consists of inferring (learning) from data in $D$ the parameters $\theta$ of the following \textbf{Gauss} statistical model:
 
 \begin{equation}
 f_{\theta,\sigma}(y|x) := \mathcal{N}(y;r_\theta(x),\sigma^2) = \frac{1}{\sqrt{(2\pi\sigma^2)^m}}\exp\left(-\frac{||y-r_\theta(x)||^2}{2\sigma^2}\right).
 \end{equation}
-Equivalently, the \textbf{ordinary regression problem} is a regression problem of Definition 3.2 such that $\varepsilon \sim \mathcal{N}(0,I_{m\times m}\sigma^2)$, where the matrix $I_{m\times m}$ is the identity matrix in $\mathbb{R}^m$.
+Equivalently, the \textbf{ordinary regression} is a regression problem of Definition 3.2 such that $\varepsilon \sim \mathcal{N}(0,I_{m\times m}\sigma^2)$, where the matrix $I_{m\times m}$ is the identity matrix in $\mathbb{R}^m$.
 \end{definition}
 The regression is named \textbf{linear} if the regression function is linear:
 
@@ -816,10 +816,10 @@ r_\theta(x) :=  \vartheta_0 + \vartheta x,
 \end{equation}
 where $\vartheta_0 := (\theta_0^{(i)}) \in \mathbb{R}^m$, and $\vartheta := (\theta_j^{(i)}) \in \mathbb{R}^{m \times n}$. The parameter space $\Theta \ni \theta$ has dimension $d = m(n+1)$.
 
-The following proposition illustrates how the ordinary linear regression problem has a closed solution under certain hypotheses.
+The following proposition illustrates how the ordinary linear regression has a closed solution under certain hypotheses.
 
 \begin{proposition}
-Consider the \textbf{ordinary linear regression problem} with $m=1$, and $\dim \Theta =: d = n + 1$. Define the following matrices:
+Consider the \textbf{ordinary linear regression} with $m=1$, and $\dim \Theta =: d = n + 1$. Define the following matrices:
 
 \begin{equation}
 \bar{y} := \begin{pmatrix}y_1\\
@@ -917,7 +917,7 @@ VAR(\hat{\theta}_N) = \sigma^2 E_{X_1,\dots,X_N}[\mathrm{tr}\{(\bar{x}^T\bar{x})
 The variance in (3.23) can be calculated explicitly if additional assumptions are made about the distribution of the data $x$.
 
 \begin{proposition}
-Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set, and consider the \textbf{ordinary regression problem}. If one assumes that data $x_k$, $k = 1, \dots, N$, are distributed according to $\mathcal{N}(0, I_{n\times n})$, then the random matrix $(\bar{x}^T\bar{x})^{-1}$ is distributed according to the \textbf{inverse-Wishart distribution}, and the variance (3.23) is given as
+Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set, and consider the \textbf{ordinary regression}. If one assumes that data $x_k$, $k = 1, \dots, N$, are distributed according to $\mathcal{N}(0, I_{n\times n})$, then the random matrix $(\bar{x}^T\bar{x})^{-1}$ is distributed according to the \textbf{inverse-Wishart distribution}, and the variance (3.23) is given as
 
 \begin{equation}
 VAR(\hat{\theta}_N) = \sigma^2\frac{d - 1}{N - d} = \sigma^2\frac{n}{N - n - 1}, \quad  N \geq d = n + 1.
@@ -928,7 +928,7 @@ What we illustrated in Proposition 3.1 is the first machine learning procedure p
 We now focus on some properties of the regression function $r_\theta(x)$ and illustrate an important relation, which is very similar to the decomposition presented in Proposition 1.1. The main idea is to note that, for any fixed value $x$, the quantity $r_{\hat{\theta}_N}(x)$ is an \textbf{estimator} that estimates the true value of the regression function $r(x)$. Thus, we can expect a bias-variance decomposition to hold for the regression function.
 
 \begin{proposition}
-Consider the regression problem defined in Definition 3.1. For any fixed value $x \in \mathbb{R}^n$ the quantity $r_{\hat{\theta}_N}(x)$ is an \textbf{estimator} of the true value of the regression function $r(x) = E_{Y|X = x}[Y]$, corresponding to the estimator $\hat{\theta}_N$. The MSE of the estimator $r_{\hat{\theta}_N}(x)$ is given by
+Consider the regression defined in Definition 3.1. For any fixed value $x \in \mathbb{R}^n$ the quantity $r_{\hat{\theta}_N}(x)$ is an \textbf{estimator} of the true value of the regression function $r(x) = E_{Y|X = x}[Y]$, corresponding to the estimator $\hat{\theta}_N$. The MSE of the estimator $r_{\hat{\theta}_N}(x)$ is given by
 
 \begin{equation}
 \begin{split}
