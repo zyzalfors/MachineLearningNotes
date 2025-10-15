@@ -124,7 +124,7 @@ is named the \textbf{maximum likelihood (ML)} method.
 Combining equations (1.6) and (1.5) yields the following optimization problem, which determines the so-called \textbf{maximum likelihood (ML)} estimator:
 
 \begin{equation}
-\hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f(x_k,\theta)\right) = \arg \max_{\theta \in \Theta} \left(\prod_{k=1}^N f(x_k,\theta) \right).
+\hat{\theta}^{ML}_N(D) \in \arg \max_{\theta \in \Theta} \left(\sum_{k=1}^N \ln f(x_k;\theta)\right) = \arg \max_{\theta \in \Theta} \left(\prod_{k=1}^N f(x_k;\theta) \right).
 \end{equation}
 The two objective functions in (1.7) are referred to as the \textbf{log-likelihood function (LLF)} and the \textbf{likelihood function (LF)}, respectively. The second equality in (1.7) follows from the monotonicity of the logarithm function, which ensures that the LF and the LLF attain their maximum values at the same points.
 
@@ -214,7 +214,7 @@ We conclude this section by examining the properties of the empirical risk (1.4)
 Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the statistical model $\{f(\theta) \mid \theta \in \Theta \subseteq \mathbb{R}^d\}$. The \textbf{empirical risk} is an \textbf{estimator} of true risk (1.1) and is defined as the \textbf{empirical mean} of the loss function $L(f_X(X), f(X;\theta))$, considered as a random variable:
 
 \begin{equation}
-\hat{R}_N(f_X,f(\theta)) := \overline{L(f_X(X),f(X;\theta))}_N = \frac{1}{N}\sum_{k=1}^{N}L(f_X(X_k),f(X_k,\theta)).
+\hat{R}_N(f_X,f(\theta)) := \overline{L(f_X(X),f(X;\theta))}_N = \frac{1}{N}\sum_{k=1}^{N}L(f_X(X_k),f(X_k;\theta)).
 \end{equation}
 \end{definition}
 It is evident that the empirical risk in (1.4) is a realization of the empirical risk estimator in (1.15), and the latter quantity is a random variable depending on the data set $D$.
@@ -238,7 +238,7 @@ It is interesting to note that the consistency of the empirical risk is related 
 Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the same sample space $\Omega$. Consider the loss function $L(f_X(X), f(X;\theta))$ as a random variable. Therefore, the sequence $L(f_X(X_1),f(X_1;\theta)),\dots,L(f_X(X_N),f(X_N;\theta))$ is also i.i.d. and satisfies the \textbf{law of large numbers}:
 
 \begin{equation}
-\lim_{N\to \infty}P\left(\left|\frac{1}{N}\sum_{k=1}^NL(f_X(X_k),f(X_k,\theta)) - E_{X}[L(f_X(X),f(X;\theta))]\right| > \epsilon\right) = 0.
+\lim_{N\to \infty}P\left(\left|\frac{1}{N}\sum_{k=1}^NL(f_X(X_k),f(X_k;\theta)) - E_{X}[L(f_X(X),f(X;\theta))]\right| > \epsilon\right) = 0.
 \end{equation}
 Consequently, the empirical risk estimator defined in (1.15) is \textbf{consistent}.
 \end{proposition}
@@ -255,14 +255,14 @@ In addition, the learning theory paradigm addresses questions beyond those tackl
 Our goal is to illustrate the fundamental principles of this theory and to compare the inferential approach with the learning theory approach, highlighting how these two frameworks are related. Let us formalize the learning problem in the learning theory.
 
 \begin{definition}
-Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{(supervised) learning problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} $h(\theta) : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{ h(\theta) : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta \}$, such that $h(\theta)$ predicts the corresponding output $y = h(x,\theta) \in \mathcal{Y}$ from input $x \in \mathcal{X}$ with a desired level of accuracy.
+Let $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \subset \mathcal{X} \times \mathcal{Y}$ be an i.i.d. data set. The \textbf{(supervised) learning problem} consists of finding parameters $\theta \in \Theta \subseteq \mathbb{R}^d$ that determine a \textbf{hypothesis} $h(\theta) : \mathcal{X} \to \mathcal{Y}$, where the hypothesis space is $H = \{h(\theta) : \mathcal{X} \to \mathcal{Y} \mid \theta \in \Theta\}$, such that $h(\theta)$ predicts the corresponding output $y = h(x;\theta) \in \mathcal{Y}$ from input $x \in \mathcal{X}$ with a desired level of accuracy.
 \end{definition}
 The term \textbf{supervised} means that learning the parameters requires using the complete set of data $(x,y)$ to guide the learning process.
 
 A fundamental concept in learning theory is the \textbf{learning algorithm}, which represents the procedure for obtaining the best hypothesis from a data set $D$. The notion of a learning algorithm can be formalized as follows.
 
 \begin{definition}
-Consider the hypothesis space $H = \{h(\theta) : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function \[ A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
+Consider the hypothesis space $H = \{h(\theta) : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function \[A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
 Given the  i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm learns the hypothesis $A_H(D) := h(\hat{\theta}_N(D)) \in H$.
 \end{definition}
 Definitions 1.14 and 1.15 are somewhat vague on how to determine the best hypothesis $h(\theta)$ from the data set $D$. To formulate a principled method, we use an approach similar to the one employed for the formulation of inference in the previous section. Then, we define the \textbf{risk} in the context of learning theory.
@@ -304,7 +304,7 @@ Since the true distribution $f_{X,Y}$ is generally unknown, the \textbf{empirica
 Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal{X} \times \mathcal{Y})$-valued random variables defined on the same sample space $\Omega$. Consider the hypothesis space $H=\{h(\theta) : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. The \textbf{empirical risk} (also called \textbf{empirical error} or \textbf{training error}) is an \textbf{estimator} of true risk (1.19) and is defined as the \textbf{empirical mean} of the loss function $L(h(X;\theta), Y)$, considered as a random variable:
 
 \begin{equation}
-\hat{R}_N(h(\theta)) := \overline{L(h(X;\theta),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h(X_k,\theta),Y_k).
+\hat{R}_N(h(\theta)) := \overline{L(h(X;\theta),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h(X_k;\theta),Y_k).
 \end{equation}
 \end{definition}
 It is easy to see that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk, similar to what we established in the inference framework. This implies that $E_{X_1,Y_1,\dots,X_N,Y_N}[\hat{R}_N(h(\theta))] =  R(h(\theta))$.
@@ -475,13 +475,13 @@ The definitions 2.2 and 2.3 are general because we have not specified the explic
 
 \begin{definition}
 
-The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f(y|x;\theta) := F(x, y;\theta)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_{X.Y}(x,y;\theta)$ as follows:
+The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f(y|x;\theta) := F(x, y;\theta)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_{X,Y}(x,y;\theta)$ as follows:
 \begin{equation}
-f(y|x;\theta) \propto f_{X.Y}(x,y;\theta) = f_Y(y;\theta)f(x|y;\theta),
+f(y|x;\theta) \propto f_{X,Y}(x,y;\theta) = f_Y(y;\theta)f(x|y;\theta),
 \end{equation}
 where the normalization constant in the denominator is ignored because it is independent of $y$.
 \end{definition}
-In other words, generative statistical models estimate the joint distribution $f_{X.Y}(x,y;\theta)$ and then derive the conditional probability $f(y|x;\theta)$ via Bayes' rule, while discriminative models estimate the conditional probability $f(y|x;\theta)$ directly through a function $F(x,y;\theta)$. Generative models are called so because, once the joint distribution $f_{X.Y}(x,y;\theta)$ is learned, one can \textbf{generate} new data points $(x,y)$ by sampling from this distribution. This simple mathematical principle, implemented in more sophisticated mathematical forms, is the driving force behind the so-called \textbf{generative AI}, which generates new data, such as images, text, or audio, by sampling from learned probability distributions.
+In other words, generative statistical models estimate the joint distribution $f_{X,Y}(x,y;\theta)$ and then derive the conditional probability $f(y|x;\theta)$ via Bayes' rule, while discriminative models estimate the conditional probability $f(y|x;\theta)$ directly through a function $F(x,y;\theta)$. Generative models are called so because, once the joint distribution $f_{X,Y}(x,y;\theta)$ is learned, one can \textbf{generate} new data points $(x,y)$ by sampling from this distribution. This simple mathematical principle, implemented in more sophisticated mathematical forms, is the driving force behind the so-called \textbf{generative AI}, which generates new data, such as images, text, or audio, by sampling from learned probability distributions.
 
 If the set of classes contains only two elements, the classification is called \textbf{binary}, and we provide the following discriminative definition.
 
@@ -886,7 +886,7 @@ Calculating the matrix gradient of (3.16) with respect to $\bar{\theta}$ and equ
 \bar{x}^T\bar{x}\bar{\theta} = \bar{x}^T\bar{y}.
 \end{equation}
 The invertibility of $\bar{x}^T\bar{x}$ yields (3.11), while the optimization problem (3.15) has the solution given in (3.12).\\$\square$\\\\
-The target function (3.16) is defined as the sum of squared differences between the empirical observations $y_k$ and the theoretical predictions $r(x_k,\theta)$. This is called the \textbf{squared error} because it quantifies the squared deviations incurred when using the theoretical predictions instead of the empirical ones. Additionally, the problem defined in (3.14) with (3.16) is known as the \textbf{least squares problem}, and the estimator given in (3.11) is referred to as the \textbf{ordinary least squares (OLS) estimator}. This value defines the unique minimizer because the target function in (3.18) is strictly \textbf{convex}. Indeed, the Hessian is equal to $2\bar{x}^T\bar{x}$, which is full-rank, symmetric, and positive definite under the assumptions of Proposition 3.1.
+The target function (3.16) is defined as the sum of squared differences between the empirical observations $y_k$ and the theoretical predictions $r(x_k;\theta)$. This is called the \textbf{squared error} because it quantifies the squared deviations incurred when using the theoretical predictions instead of the empirical ones. Additionally, the problem defined in (3.14) with (3.16) is known as the \textbf{least squares problem}, and the estimator given in (3.11) is referred to as the \textbf{ordinary least squares (OLS) estimator}. This value defines the unique minimizer because the target function in (3.18) is strictly \textbf{convex}. Indeed, the Hessian is equal to $2\bar{x}^T\bar{x}$, which is full-rank, symmetric, and positive definite under the assumptions of Proposition 3.1.
 
 Multiplying (3.11) by $\bar{x}$, one obtains
 
@@ -906,7 +906,7 @@ The \textbf{OLS estimator} in (3.11) has the following properties:
 \begin{itemize}
 \item The estimator is \textbf{unbiased}:
 \begin{equation}
-BIAS(\hat{\theta}_N, \theta_*) = 0.
+BIAS(\hat{\theta}_N,\theta_*) = 0.
 \end{equation}
 \item The variance is
 \begin{equation}
@@ -925,7 +925,7 @@ VAR(\hat{\theta}_N) = \sigma^2\frac{d - 1}{N - d} = \sigma^2\frac{n}{N - n - 1},
 \end{proposition}
 What we illustrated in Proposition 3.1 is the first machine learning procedure presented in these notes. The outputs of this procedure are the estimators given in (3.11) and (3.12). More importantly for applications is the estimator in (3.11), which contributes to defining the regression function.
 
-We now focus on some properties of the regression function $r(x,\theta)$ and illustrate an important relation, which is very similar to the decomposition presented in Proposition 1.1. The main idea is to note that, for any fixed value $x$, the quantity $r(x;\hat{\theta}_N)$ is an \textbf{estimator} that estimates the true value of the regression function $r(x)$. Thus, we can expect a bias-variance decomposition to hold for the regression function.
+We now focus on some properties of the regression function $r(x;\theta)$ and illustrate an important relation, which is very similar to the decomposition presented in Proposition 1.1. The main idea is to note that, for any fixed value $x$, the quantity $r(x;\hat{\theta}_N)$ is an \textbf{estimator} that estimates the true value of the regression function $r(x)$. Thus, we can expect a bias-variance decomposition to hold for the regression function.
 
 \begin{proposition}
 Consider the regression defined in Definition 3.1. For any fixed value $x \in \mathbb{R}^n$ the quantity $r(x;\hat{\theta}_N)$ is an \textbf{estimator} of the true value of the regression function $r(x) = E_{Y|X = x}[Y]$, corresponding to the estimator $\hat{\theta}_N$. The MSE of the estimator $r(x;\hat{\theta}_N)$ is given by
@@ -1031,7 +1031,7 @@ The \textbf{RLS estimator} in (3.28) has the following properties for all $\lamb
 \item The estimator is \textbf{biased} with
 
 \begin{equation}
-BIAS(\hat{\theta}_N^{(\lambda)}, \theta_*) = -N\lambda E_{X_1,\dots,X_N}[(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-1}]\theta_*.
+BIAS(\hat{\theta}_N^{(\lambda)},\theta_*) = -N\lambda E_{X_1,\dots,X_N}[(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-1}]\theta_*.
 \end{equation}
 
 \item The variance is
