@@ -474,7 +474,7 @@ It is important to emphasize that the decision rules in (2.7) depend on paramete
 The definitions 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
 
 \begin{definition}
-The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f(y|x;\theta) := F(x, y;\theta)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_{X,Y}(x,y;\theta)$ as follows:
+The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model the conditional probability directly using a suitable parametric function, $f(y|x;\theta) := F(x, y;\theta)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_{X,Y}(x,y;\theta)$ as follows:
 \begin{equation}
 f(y|x;\theta) \propto f_{X,Y}(x,y;\theta) = f_Y(y;\theta)f(x|y;\theta),
 \end{equation}
