@@ -38,7 +38,7 @@ Let $X_1,\dots,X_N$ be a sample of random variables whose values represent obser
 X_1,\dots,X_N \sim f.
 \end{equation*}
 \end{definition}
-The last definition highlights that statistical inference and machine learning can be viewed as two sides of the same coin because, fundamentally, they share the goal of extracting knowledge from data, but they approach this goal with different emphases and methods.  Statistical inference primarily focuses on understanding and quantifying relationships in the data to draw conclusions about a larger population. In contrast, machine learning emphasizes building flexible \textbf{algorithms} that can make accurate predictions on new, unseen data, often prioritizing predictive performance and \textbf{generalization}. In this chapter, we will illustrate how these two (apparently) divergent approaches can be reconciled.
+The last definition highlights that statistical inference and machine learning can be viewed as two sides of the same coin because, fundamentally, they share the goal of extracting knowledge from data, but they approach this goal with different emphases and methods. Statistical inference primarily focuses on understanding and quantifying relationships in the data to draw conclusions about a larger population. In contrast, machine learning emphasizes building flexible \textbf{algorithms} that can make accurate predictions on new, unseen data, often prioritizing predictive performance and \textbf{generalization}. In this chapter, we will illustrate how these two (apparently) divergent approaches can be reconciled.
 
 The Definition 1.1 is fully general and flexible, allowing the distribution $f$ to represent any probability distribution relevant to the problem under investigation. This distribution could correspond to the probability distribution of a single random variable $X$, $f_X$, or it could be a \textbf{joint} distribution encompassing multiple variables, or a \textbf{conditional} distribution specifying the dependencies between variables. Throughout these notes, we will examine which type of distribution is most appropriate and useful depending on the specific machine learning problem or application being addressed.
 
@@ -67,7 +67,7 @@ By selecting a loss function with a logarithmic form, one can define the so-call
 Let $X_1,\dots,X_N \sim f_X$ be an i.i.d. sample of $\mathbb{R}^n$-valued random variables defined on the sample space $\Omega$. Consider the statistical model $\{f(\theta) \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. The \textbf{Kullback–Leibler (KL) divergence} of the model distribution $f(\theta)$ with respect to the true distribution $f_X$ is defined as
 
 \begin{equation}
-D^{(KL)}(f_X||f(\theta)) := E_X \left[\ln\left(\frac{f_X(X)}{f(X;\theta)}\right)\right] = \int_{X(\Omega)} \ln \left( \frac{f_X(x)}{f(x;\theta)}  \right)f_X(x)dx.
+D^{(KL)}(f_X||f(\theta)) := E_X \left[\ln\left(\frac{f_X(X)}{f(X;\theta)}\right)\right] = \int_{X(\Omega)} \ln \left( \frac{f_X(x)}{f(x;\theta)} \right)f_X(x)dx.
 \end{equation}
 \end{definition}
 The KL divergence defined in (1.2) is one of the most important concepts in statistical inference and machine learning because it provides a fundamental way to measure how one probability distribution diverges from another. This measure quantifies the expected \textbf{information} lost when using an approximate distribution instead of the true distribution and is widely used to assess differences between probability distributions. The KL divergence behaves like a distance in some respects, as it satisfies the following properties:
@@ -248,7 +248,7 @@ This section is dedicated to the perspective of \textbf{statistical learning the
 
 Roughly speaking, the goal of learning theory is not to infer (learn) the distribution that generated the data in $D$, $f_{X,Y}$, but to use the data to learn quantitative relationships between the random variables $X$ and $Y$, defined on the sample space $\Omega$. These relations are expressed as functions (called \textbf{hypotheses}) $h : \mathcal{X} \to \mathcal{Y}$, where $\mathcal{X} \subseteq X(\Omega)$ and $\mathcal{Y} \subseteq Y(\Omega)$. It is assumed that the space of hypotheses $H$ is a subset of all \textbf{measurable} functions from $\mathcal{X}$ to $\mathcal{Y}$, denoted by $M(\mathcal{X}, \mathcal{Y})$.
 
-PAC learning theory formalizes the conditions under which a learning algorithm can, with high probability, find a prediction function that approximates the true  function well within a specified error margin, balancing between accuracy and confidence.
+PAC learning theory formalizes the conditions under which a learning algorithm can, with high probability, find a prediction function that approximates the true function well within a specified error margin, balancing between accuracy and confidence.
 
 In addition, the learning theory paradigm addresses questions beyond those tackled by statistical inference, doing so in a way that does not depend on specific statistical models or data distributions. For instance, it studies the number of samples in a data set $D$—known as the \textbf{sample complexity}—that are necessary to achieve effective learning, irrespective of the underlying distribution. These questions are addressed within a probabilistic framework that differs from the inferential one we used, as it essentially leaves \textbf{unspecified} the particular statistical inference applied to the data set.
 
@@ -263,7 +263,7 @@ A fundamental concept in learning theory is the \textbf{learning algorithm}, whi
 
 \begin{definition}
 Consider the hypothesis space $H = \{h(\theta) : \mathcal{X} \to \mathcal{Y} \mid\theta\in\Theta\subseteq\mathbb{R}^d\}$. A \textbf{learning algorithm} is a function \[A_H : \bigcup_{N \in \mathbb{N}} (\mathcal{X}\times \mathcal{Y}) ^N\to H.\]
-Given the  i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm learns the hypothesis $A_H(D) := h(\hat{\theta}_N(D)) \in H$.
+Given the i.i.d. data set $D = \{(x_1,y_1), \dots, (x_N,y_N)\} \in (\mathcal{X} \times \mathcal{Y})^N$, the algorithm learns the hypothesis $A_H(D) := h(\hat{\theta}_N(D)) \in H$.
 \end{definition}
 Definitions 1.14 and 1.15 are somewhat vague on how to determine the best hypothesis $h(\theta)$ from the data set $D$. To formulate a principled method, we use an approach similar to the one employed for the formulation of inference in the previous section. Then, we define the \textbf{risk} in the context of learning theory.
 
@@ -307,7 +307,7 @@ Let $(X_1, Y_1),\dots,(X_N, Y_N) \sim f_{X,Y}$ be an i.i.d. sample of $(\mathcal
 \hat{R}_N(h(\theta)) := \overline{L(h(X;\theta),Y)}_N = \frac{1}{N}\sum_{k=1}^{N}L(h(X_k;\theta),Y_k).
 \end{equation}
 \end{definition}
-It is easy to see that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk, similar to what we established in the inference framework. This implies that $E_{X_1,Y_1,\dots,X_N,Y_N}[\hat{R}_N(h(\theta))] =  R(h(\theta))$.
+It is easy to see that the empirical risk in learning theory is an \textbf{unbiased} and \textbf{consistent} estimator of the true risk, similar to what we established in the inference framework. This implies that $E_{X_1,Y_1,\dots,X_N,Y_N}[\hat{R}_N(h(\theta))] = R(h(\theta))$.
 
 The \textbf{empirical risk minimization (ERM)} method is an important type of learning algorithm within the framework of learning theory. This algorithm leads to the definition of the \textbf{ERM estimator} and the corresponding minimizing hypothesis.
 
@@ -669,7 +669,7 @@ Given a binary classifier $h(\theta) : \mathcal{X} \to \mathcal{Y}$, the \textbf
 
 \begin{equation}
 L(h(x;\theta), y) := 1(h(x;\theta) \neq y) = \left\{\begin{matrix}
-1 &  h(x;\theta) \neq y \\
+1 & h(x;\theta) \neq y \\
 0 & otherwise
 \end{matrix}\right..
 \end{equation}
@@ -811,7 +811,7 @@ Equivalently, the \textbf{ordinary regression} is a regression problem of Defini
 The regression is named \textbf{linear} if the regression function is linear:
 
 \begin{equation}
-r(x;\theta) :=  \vartheta_0 + \vartheta x,
+r(x;\theta) := \vartheta_0 + \vartheta x,
 \end{equation}
 where $\vartheta_0 := (\theta_0^{(i)}) \in \mathbb{R}^m$, and $\vartheta := (\theta_j^{(i)}) \in \mathbb{R}^{m \times n}$. The parameter space $\Theta \ni \theta$ has dimension $d = m(n+1)$.
 
@@ -837,8 +837,8 @@ y_N
 \begin{equation}
 \bar{x} := \begin{pmatrix}
 1 & x^{(1)}_1 & \cdots & x^{(d-1)}_1\\
-\vdots & \vdots  & \vdots & \vdots \\
-1 & x^{(1)}_N  &\cdots & x^{(d-1)}_N
+\vdots & \vdots & \vdots & \vdots \\
+1 & x^{(1)}_N &\cdots & x^{(d-1)}_N
 \end{pmatrix} \in \mathbb{R}^{N \times d}.
 \end{equation}
 Suppose that $\bar{x}^T\bar{x} \in \mathbb{R}^{d \times d}$ is invertible, that is $\bar{x}$ has full rank $n + 1 = d \leq N$. Then, the maximum likelihood method gives the following estimators:
@@ -919,7 +919,7 @@ The variance in (3.23) can be calculated explicitly if additional assumptions ar
 Let $D = \{(x_1,y_1),\dots,(x_N,y_N)\} \subset \mathbb{R}^n \times \mathbb{R}^m$ be an i.i.d. data set, and consider the \textbf{ordinary regression}. If one assumes that data $x_k$, $k = 1, \dots, N$, are distributed according to $\mathcal{N}(0, I_{n\times n})$, then the random matrix $(\bar{x}^T\bar{x})^{-1}$ is distributed according to the \textbf{inverse-Wishart distribution}, and the variance (3.23) is given as
 
 \begin{equation}
-VAR(\hat{\theta}_N) = \sigma^2\frac{d - 1}{N - d} = \sigma^2\frac{n}{N - n - 1}, \quad  N \geq d = n + 1.
+VAR(\hat{\theta}_N) = \sigma^2\frac{d - 1}{N - d} = \sigma^2\frac{n}{N - n - 1}, \quad N \geq d = n + 1.
 \end{equation}
 \end{proposition}
 What we illustrated in Proposition 3.1 is the first machine learning procedure presented in these notes. The outputs of this procedure are the estimators given in (3.11) and (3.12). More importantly for applications is the estimator in (3.11), which contributes to defining the regression function.
@@ -1048,7 +1048,7 @@ VAR(\hat{\theta}_N^{(\lambda)}) = \sigma^2E_{X_1,\dots,X_N}[\textup{tr}\{\bar{x}
 \item The MSE is
 
 \begin{equation}
-MSE(\hat{\theta}_N^{(\lambda)}) = N^2\lambda^2\theta_*^TE_{X_1,\dots,X_N}[(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-2}]\theta_* +  \sigma^2E_{X_1,\dots,X_N}[\textup{tr}\{\bar{x}^T\bar{x}(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-2}\}].
+MSE(\hat{\theta}_N^{(\lambda)}) = N^2\lambda^2\theta_*^TE_{X_1,\dots,X_N}[(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-2}]\theta_* + \sigma^2E_{X_1,\dots,X_N}[\textup{tr}\{\bar{x}^T\bar{x}(\bar{x}^T\bar{x}+N\lambda I_{d\times d})^{-2}\}].
 \end{equation}
 \end{itemize}
 \end{proposition}
