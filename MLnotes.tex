@@ -370,7 +370,7 @@ P\left(\sup_{h(\theta) \in H}|R(h(\theta))-\hat{R}_N(h(\theta))|\leq \kappa(\del
 P\left(|R(\hat{h}_N)-\hat{R}_N(\hat{h}_N)|\leq \kappa(\delta, N)\right) \geq 1-\delta.
 \end{equation}
 \end{definition}
-The generalization error and the generalization bound are essential tools for bounding the excess risk, which is key to analyzing the P\textbf{AC learnability} of a hypothesis space and \textbf{generalization} properties of learned hypothesis $\hat{h}_N$. Indeed, from inequality (1.28), one can reduce the optimization error $R_{opt}$ and approximation error $R_{app}$ by choosing the empirical risk minimizer $\hat{h}_N = \hat{h}^{ERM}_N$ and by enlarging the hypothesis space $H$ within $M(\mathcal{X}, \mathcal{Y})$. Consequently, the generalization error ($R_{gen}$ or $R'_{gen}$) becomes the dominant contribution to the excess risk bound. This implies that any generalization analysis can be conducted on this quantity.
+The generalization error and the generalization bound are essential tools for bounding the excess risk, which is key to analyzing the \textbf{PAC learnability} of a hypothesis space and \textbf{generalization} properties of learned hypothesis $\hat{h}_N$. Indeed, from inequality (1.28), one can reduce the optimization error $R_{opt}$ and approximation error $R_{app}$ by choosing the empirical risk minimizer $\hat{h}_N = \hat{h}^{ERM}_N$ and by enlarging the hypothesis space $H$ within $M(\mathcal{X}, \mathcal{Y})$. Consequently, the generalization error ($R_{gen}$ or $R'_{gen}$) becomes the dominant contribution to the excess risk bound. This implies that any generalization analysis can be conducted on this quantity.
 
 From (1.30), we can estimate the sample complexity threshold $q_H(1/\epsilon, 1/\delta)$ by solving for $N$ in the following inequality:
 
@@ -474,7 +474,6 @@ It is important to emphasize that the decision rules in (2.7) depend on paramete
 The definitions 2.2 and 2.3 are general because we have not specified the explicit form of the statistical model. To make further progress, we need to specify a suitable form of the statistical model (2.4) and perform inference (learning) on its parameters. This specification can be made in two ways, which are termed \textbf{discriminative} and \textbf{generative}. Let us formalize these concepts.
 
 \begin{definition}
-
 The classification and the statistical model (2.4) are called \textbf{discriminative} if the goal is to model directly the conditional probability using a suitable parametric function, $f(y|x;\theta) := F(x, y;\theta)$. They are called \textbf{generative} if the goal is to model the conditional probability by applying Bayes' rule to the joint distribution $f_{X,Y}(x,y;\theta)$ as follows:
 \begin{equation}
 f(y|x;\theta) \propto f_{X,Y}(x,y;\theta) = f_Y(y;\theta)f(x|y;\theta),
